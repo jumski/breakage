@@ -10,8 +10,7 @@
       sample-files)))
 
 (def samples
-  (let [paths (sort sample-paths)
-        samples (map overtone.live/sample
+  (map overtone.live/sample (sort sample-paths)))
 
 (defn hax-loop []
   (for [sample samples] (do
