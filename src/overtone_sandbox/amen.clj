@@ -17,15 +17,39 @@
                           (sample)
                           (Thread/sleep 85))))
 
-(hax-loop)
+(defn filename-to-samplename [filename]
+  (let [parts (re-seq #"(.*)\.wav" filename)]
+    (keyword (last (last parts)))))
+
+(defn sample-to-samplename [sample]
+  (let [filename (.name sample)]
+    (filename-to-samplename filename)))
+
+(defn sample-to-pair [sample]
+  (let [samplename (sample-to-samplename sample)]
+    [(keyword samplename) sample]))
+
+(def sample-map
+  (apply hash-map (flatten (map sample-to-pair samples))))
+
+(defn hit [samplename]
+  ((samplename sample-map)))
+
+(defn hitseq [samplenames])
+
+;; :kick1 :kick2 :csnare :kick3 :kick4 :stab :revchat :chat4 :chat3 :rsnare :chat2 :chat1 :ssnare1 :ssnare2 :ssnare3 :ssnare4 :rroll :snare4 :snare3 :snare2 :skick :snare1 :rkick :ohat :crash
+(def samplenames
+  (keys sample-map))
+
+
+
+
+;; (hax-loop)
 
 ;;
 ;; filtered (re-find #"\.wav$" (map .getPath samples))]
     ;; (map overtone.live/load-sample filtered)))
 
-
-;; (defn filename-to-samplename [filename]
-;;   (re-seq #"[a-z0-9]{5}_VEXST_([\w+_0-9]+)\.wav" filename)))
 
 ;; (defn samplename-to-samplekey [samplename] (keyword samplename))
 
