@@ -42,7 +42,18 @@
   (keys sample-map))
 
 
+;;;;;;;;;;;; stolen from overtone wiki
+(defn looper [nome sound]
+    (let [beat (nome)]
+        (at (nome beat) (sound))
+        (apply-at (nome (inc beat)) looper nome sound [])))
 
+(defn song [tempo]
+  (let [kick-nome (metronome tempo)
+        hat-nome (metronome (/ tempo 2))]
+    (do
+      (looper hat-nome (:chat1 sample-map))
+      (looper kick-nome (:kick1 sample-map)))))
 
 ;; (hax-loop)
 
