@@ -29,17 +29,17 @@
   (let [samplename (sample-to-samplename sample)]
     [(keyword samplename) sample]))
 
-(def sample-map
+(def kit
   (apply hash-map (flatten (map sample-to-pair samples))))
 
 (defn hit [samplename]
-  ((samplename sample-map)))
+  ((samplename kit)))
 
 (defn hitseq [samplenames])
 
 ;; :kick1 :kick2 :csnare :kick3 :kick4 :stab :revchat :chat4 :chat3 :rsnare :chat2 :chat1 :ssnare1 :ssnare2 :ssnare3 :ssnare4 :rroll :snare4 :snare3 :snare2 :skick :snare1 :rkick :ohat :crash
 (def samplenames
-  (keys sample-map))
+  (keys kit))
 
 
 ;;;;;;;;;;;; stolen from overtone wiki
@@ -52,8 +52,8 @@
   (let [kick-nome (metronome tempo)
         hat-nome (metronome (/ tempo 2))]
     (do
-      (looper hat-nome (:chat1 sample-map))
-      (looper kick-nome (:kick1 sample-map)))))
+      (looper hat-nome (:chat1 kit))
+      (looper kick-nome (:kick1 kit)))))
 
 ;; (hax-loop)
 
