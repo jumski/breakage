@@ -3,9 +3,9 @@
         [overtone.inst.synth]))
 
 (def kick   (sample "samples/amen-break/kick1.wav"))
-(def snare  (sample "samples/amen-break/snare2.wav"))
-(def hat    (sample "samples/amen-break/chat2.wav"))
-(def csnare (sample "samples/amen-break/csnare.wav"))
+(def snare  (sample "samples/amen-break/snare3.wav"))
+(def hat    (sample "samples/amen-break/chat3.wav"))
+(def csnare (sample "samples/amen-break/ssnare1.wav"))
 (def insts {:kick   kick
             :snare  snare
             :hat    hat
@@ -17,10 +17,16 @@
 (def h 1)
 (def c 1)
               ;;  [X . . . X . . . X . . . X . . .]
-(def pat {:kick   [k _ _ _ _ _ _ _ _ _ k _ _ _ _ _]
+(def pat {:kick   [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
           :snare  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
           :hat    [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
           :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
+
+              ;;  [X . . . X . . . X . . . X . . .]
+;; (def pat {:kick   [k _ _ k _ _ k _ _ k _ _ k _ _ _]
+;;           :snare  [_ _ _ _ _ _ _ _ _ _ _ _ _ _ s _]
+;;           :hat    [_ _ h _ _ h _ _ h _ _ h _ _ _ _]
+;;           :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
 (def metro (metronome 194))
 
