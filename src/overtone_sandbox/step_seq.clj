@@ -38,7 +38,7 @@
             dupa (println hit)
             volume (quarter-volume slice-to-play quarter-index)]
         (at (metro (+ (* 0.25 quarter-index) beat))
-            (mono-player hit 1 0 false volume))))))
+            (stereo-player hit 1 0 false volume))))))
 
 (defn player
   "Plays all tracks from given pattern"
@@ -54,17 +54,17 @@
 (def dnb-base2 {:kick1   [9 _ _ _ _ _ _ _ _ _ 9 _ _ _ _ _]
                 :snare2  [_ _ _ _ 9 _ _ _ _ _ _ _ 9 _ _ _]
                 :chat2   [_ _ 3 _ _ _ 3 _ 3 _ _ _ _ _ 3 _]
-                :csnare  [_ _ _ _ _ _ _ _ _ 3 _ _ _ _ _ _]})
+                :csnare  [_ _ _ _ _ _ _ _ _ 1 _ _ _ _ _ _]})
 
 (def dnb-final {:kick1   [9 _ 9 _ _ _ _ _ _ _ 9 _ _ _ _ _]
                 :snare2  [_ _ _ _ 9 _ _ _ _ _ _ _ 9 _ _ _]
                 :chat2   [_ _ 3 _ _ _ 3 _ 3 _ _ _ _ _ 3 _]
-                :csnare  [_ _ _ _ _ _ _ 3 _ _ _ _ _ _ _ _]})
+                :csnare  [_ _ _ _ _ _ _ 1 _ _ _ _ _ _ _ _]})
 
 (def dnb-final {:kick1   [9 _ 9 _ _ _ _ _ _ _ 9 _ _ _ _ _]
                 :snare2  [_ _ _ _ 9 _ _ _ _ _ _ _ 9 _ _ _]
                 :chat2   [_ _ 3 _ _ _ 3 _ 3 _ _ _ _ _ 3 _]
-                :csnare  [_ _ _ _ _ _ _ 3 _ _ _ _ _ _ _ _]})
+                :csnare  [_ _ _ _ _ _ _ 1 _ 1 _ _ _ _ _ _]})
 
 (def longdnb (merge-with concat dnb-base dnb-base2 dnb-base dnb-final))
 
