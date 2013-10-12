@@ -1,6 +1,6 @@
 (ns overtone-sandbox.amen
   (:import (java.io File))
-  (:use (overtone live)))
+  (:require [overtone.live :as live]))
 
 (def sample-paths
   (let [sample-files
@@ -10,7 +10,7 @@
       sample-files)))
 
 (def samples
-  (map overtone.live/sample (sort sample-paths)))
+  (map live/sample (sort sample-paths)))
 
 (defn hax-loop []
   (for [sample samples] (do

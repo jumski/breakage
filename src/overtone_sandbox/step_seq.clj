@@ -1,6 +1,7 @@
 (ns overtone-sandbox.step-seq
   (:use [overtone.live]
-        [overtone.inst.synth]))
+        [overtone.inst.synth])
+  (:require [overtone-sandbox.amen :as amen]))
 
 (def kick   (sample "samples/amen-break/kick1.wav"))
 (def snare  (sample "samples/amen-break/snare3.wav"))
@@ -30,22 +31,17 @@
 
 (def metro (metronome 194))
 
-(defn play-pat [beat i]
-  (let [t (mod beat 4)
-        p (vec (take 4 (drop (* 4 t) (pat i))))]
-    (if (= 1 (p 0)) (at (metro (+ 0.00 beat)) ((insts i))))
-    (if (= 1 (p 1)) (at (metro (+ 0.25 beat)) ((insts i))))
-    (if (= 1 (p 2)) (at (metro (+ 0.50 beat)) ((insts i))))
-    (if (= 1 (p 3)) (at (metro (+ 0.75 beat)) ((insts i))))))
-
-(defn player [beat]
-  (doseq [i (keys insts)] (play-pat beat i))
-  (apply-at (metro (inc beat)) #'player (inc beat) []))
-
-(stop)
-(player (metro))
-
-;; (metro :bpm 160)
-;; (metro :bpm 90)
-
-;; (defn player [beat] "stop")
+;; (defn play-pat [beat i]
+;;   (let [t (mod beat 4)
+;;         p (vec (take 4 (drop (* 4 t) (pat i))))]
+;;     (if (= 1 (p 0)) (at (metro (+ 0.00 beat)) ((amen/kit i))))
+;;     (if (= 1 (p 1)) (at (metro (+ 0.25 beat)) ((amen/kit i))))
+;;     (if (= 1 (p 2)) (at (metro (+ 0.50 beat)) ((amen/kit i))))
+;;     (if (= 1 (p 3)) (at (metro (+ 0.75 beat)) ((amen/kit i))))))
+;;
+;; (defn player [beat]
+;;   (doseq [i (keys amen/kit)] (play-pat beat i))
+;;   (apply-at (metro (inc beat)) #'player (inc beat) []))
+;;
+;; (stop)
+;; (player (metro))
