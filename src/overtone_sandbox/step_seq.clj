@@ -27,7 +27,6 @@
         beats-in-pattern (/ quarters-in-pattern 4)
         slice-to-play-index (mod beat beats-in-pattern)
         slice-to-play (vec (take 4 (drop (* 4 slice-to-play-index) (pattern hitname))))]
-    (println slice-to-play)
     (doseq [quarter-index (range 4) :when (quarter-active? slice-to-play quarter-index)]
       (let [hit (amen hitname)
             dupa (println hit)
