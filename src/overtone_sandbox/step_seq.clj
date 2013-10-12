@@ -20,17 +20,21 @@
 (def metro (metronome 194))
 
 (defn hit-present?
-  "Returns true if there is a hit to play in hits under given hit-index"
+  "Returns true if given hit-index in hits is marked as 1"
   [hits hit-index]
   (= 1 (hits hit-index)))
 
-(defn play-pattern [pattern hitname beat]
+(defn play-pattern
+  "For each track in a pattern it tries to play hits for given beat-slice"
+  [pattern hitname beat]
   (let [pattern-part-index (mod beat 4)
         pattern-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
     (doseq [hit-index (range 4) :when (hit-present? pattern-slice hit-index)]
       (at (metro (+ (* 0.25 hit-index) beat)) ((amen hitname))))))
 
-(defn player [pattern beat]
+(defn player
+  "Plays one beat-long all tracks in the pattern and reapplies itself at next beat"
+  [pattern beat]
   (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
