@@ -29,7 +29,6 @@
         slice-to-play (vec (take 4 (drop (* 4 slice-to-play-index) (pattern hitname))))]
     (doseq [quarter-index (range 4) :when (quarter-active? slice-to-play quarter-index)]
       (let [hit (amen hitname)
-            dupa (println hit)
             volume (quarter-volume slice-to-play quarter-index)
             pitch 1]
         (at (metro (+ (* 0.25 quarter-index) beat))
