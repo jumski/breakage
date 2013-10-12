@@ -20,7 +20,7 @@
   (= 1 (quarters quarter-index)))
 
 (defn play-pattern
-  "For each track in a pattern it tries to play hits for given beat-slice"
+  "For each track in a pattern it schedules active samples to play at proper time"
   [pattern hitname beat]
   (let [quarters-in-pattern (-> pattern vals first count)
         beats-in-pattern (/ quarters-in-pattern 4)
@@ -30,7 +30,7 @@
       (at (metro (+ (* 0.25 quarter-index) beat)) ((amen hitname))))))
 
 (defn player
-  "Plays one beat-long all tracks in the pattern and reapplies itself at next beat"
+  "Plays all tracks from given pattern"
   [pattern beat]
   (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
