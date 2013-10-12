@@ -5,19 +5,20 @@
 
 (def amen (kit/load-kit "samples/amen-break"))
 
-(def _ 0)
+(def empty-quarter)
+(def _ empty-quarter)
 
 (def metro (metronome 194))
 
 (defn quarter-active?
   "Returns true if given quarter is set"
   [quarters quarter-index]
-  (> (quarters quarter-index) 0))
+  (not= empty-quarter (quarters quarter-index)))
 
 (defn quarter-volume
   "Returns volume for given quarter"
   [quarters quarter-index]
-  (let [value (+ 1 (quarters quarter-index))] ; this is ugly because non-active has vol of 1
+  (let [value (+ 1 (quarters quarter-index))]
     (/ value 10.0)))
 
 (defn play-pattern
