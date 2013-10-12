@@ -36,17 +36,17 @@
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
 (def dnb-base {:kick1    [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
-               :snare1   [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+               :snare2   [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
                :chat2    [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
                :csnare   [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
 (def dnb-base2 {:kick1   [k _ _ _ _ _ _ _ _ _ k _ _ _ _ _]
-                :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+                :snare2  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
                 :chat2   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
                 :csnare  [_ _ _ _ _ _ _ _ _ c _ _ _ _ _ _]})
 
 (def dnb-final {:kick1   [k _ k _ _ _ _ _ _ _ k _ _ _ _ _]
-                :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+                :snare2  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
                 :chat2   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
                 :csnare  [_ _ _ _ _ _ _ c _ _ _ _ _ _ _ _]})
 
