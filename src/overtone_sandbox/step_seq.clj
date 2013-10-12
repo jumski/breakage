@@ -22,13 +22,14 @@
 (defn play-pat [beat i]
   (let [t (mod beat 4)
         p (vec (take 4 (drop (* 4 t) (pat i))))]
+    ;; (println (str t p))))
     (if (= 1 (p 0)) (at (metro (+ 0.00 beat)) ((amen i))))
     (if (= 1 (p 1)) (at (metro (+ 0.25 beat)) ((amen i))))
     (if (= 1 (p 2)) (at (metro (+ 0.50 beat)) ((amen i))))
     (if (= 1 (p 3)) (at (metro (+ 0.75 beat)) ((amen i))))))
 
 (defn player [beat]
-  (doseq [i (keys amen)] (play-pat beat i))
+  (doseq [i (keys pat)] (play-pat beat i))
   (apply-at (metro (inc beat)) #'player (inc beat) []))
 
 (stop)
