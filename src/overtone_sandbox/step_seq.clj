@@ -6,11 +6,6 @@
 (def amen (kit/load-kit "samples/amen-break"))
 
 (def _ 0)
-(def o 1)
-(def k 1)
-(def s 1)
-(def h 1)
-(def c 1)
 
 (def metro (metronome 194))
 
