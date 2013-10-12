@@ -12,8 +12,6 @@
 (def h 1)
 (def c 1)
 
-(def metro (metronome 194))
-
 (defn hit-present?
   "Returns true if given hit-index in hits is marked as 1"
   [hits hit-index]
@@ -22,8 +20,9 @@
 (defn play-pattern
   "For each track in a pattern it tries to play hits for given beat-slice"
   [pattern hitname beat]
-  (let [
-        pattern-part-index (mod beat 4)
+  (let [quarters-in-pattern (-> pattern vals first count)
+        beats-in-pattern (/ quarters-in-pattern 4)
+        pattern-part-index (mod beat beats-in-pattern)
         pattern-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
     (doseq [hit-index (range 4) :when (hit-present? pattern-slice hit-index)]
       (at (metro (+ (* 0.25 hit-index) beat)) ((amen hitname))))))
@@ -34,7 +33,7 @@
   (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
-(def dnb {:kick1   [k _ _ _ _ _ _ _ _ _ k _ _ _ _ _]
+(def dnb {:kick1   [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
           :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
           :chat1   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
           :csnare  [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
@@ -44,10 +43,10 @@
            :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
            :csnare [_ _ _ _ _ _ _ c _ _ _ _ _ _ _ _]})
 
-(def longdnb (merge-with concat dnb dnb2))
+(def longdnb (merge-with concat dnb dnb dnb dnb2))
 
+
+(def metro (metronome 194))
 (stop)
 (player longdnb (metro))
-
-
 
