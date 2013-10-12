@@ -22,17 +22,14 @@
 (defn play-pattern [beat hitname]
   (let [pattern-part-index (mod beat 4)
         beat-long-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
-    ;; (at (metro (+ 0.00 beat)) ((amen hitname)))))
-    (if (= 1 (beat-long-slice 0)) (at (metro (+ 0.00 beat)) ((amen hitname))))
-    (if (= 1 (beat-long-slice 1)) (at (metro (+ 0.25 beat)) ((amen hitname))))
-    (if (= 1 (beat-long-slice 2)) (at (metro (+ 0.50 beat)) ((amen hitname))))
-    (if (= 1 (beat-long-slice 3)) (at (metro (+ 0.75 beat)) ((amen hitname))))))
+    (doseq [slice-index (range 4) :when (= 1 (beat-long-slice slice-index))]
+      (at (metro (+ (* 0.25 slice-index) beat)) ((amen hitname))))))
 
 (defn player [beat]
   (doseq [hitname (keys pattern)] (play-pattern beat hitname))
   (apply-at (metro (inc beat)) #'player (inc beat) []))
 
-;; (play-pattern 23 :snare1)
+;; (println (play-pattern 24 :snare1))
 ;;     (play-pattern 77 :snare1)
 ;;     (play-pattern 35 :snare1)
 ;;     (play-pattern 3 :snare1)
