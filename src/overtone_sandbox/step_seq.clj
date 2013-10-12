@@ -12,20 +12,22 @@
 (def h 1)
 (def c 1)
 
-(defn hit-present?
-  "Returns true if given hit-index in hits is marked as 1"
-  [hits hit-index]
-  (= 1 (hits hit-index)))
+(def metro (metronome 194))
+
+(defn quarter-active?
+  "Returns true if given quarter is set"
+  [quarters quarter-index]
+  (= 1 (quarters quarter-index)))
 
 (defn play-pattern
   "For each track in a pattern it tries to play hits for given beat-slice"
   [pattern hitname beat]
   (let [quarters-in-pattern (-> pattern vals first count)
         beats-in-pattern (/ quarters-in-pattern 4)
-        pattern-part-index (mod beat beats-in-pattern)
-        pattern-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
-    (doseq [hit-index (range 4) :when (hit-present? pattern-slice hit-index)]
-      (at (metro (+ (* 0.25 hit-index) beat)) ((amen hitname))))))
+        slice-to-play-index (mod beat beats-in-pattern)
+        slice-to-play (vec (take 4 (drop (* 4 slice-to-play-index) (pattern hitname))))]
+    (doseq [quarter-index (range 4) :when (quarter-active? slice-to-play quarter-index)]
+      (at (metro (+ (* 0.25 quarter-index) beat)) ((amen hitname))))))
 
 (defn player
   "Plays one beat-long all tracks in the pattern and reapplies itself at next beat"
@@ -33,20 +35,24 @@
   (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
-(def dnb {:kick1   [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
-          :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
-          :chat1   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
-          :csnare  [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
+(def dnb-base {:kick1    [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
+               :snare1   [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+               :chat2    [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+               :csnare   [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
-(def dnb2 {:kick1  [k _ k _ _ _ _ _ _ _ k _ _ _ _ _]
-           :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
-           :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
-           :csnare [_ _ _ _ _ _ _ c _ _ _ _ _ _ _ _]})
+(def dnb-base2 {:kick1   [k _ _ _ _ _ _ _ _ _ k _ _ _ _ _]
+                :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+                :chat2   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+                :csnare  [_ _ _ _ _ _ _ _ _ c _ _ _ _ _ _]})
 
-(def longdnb (merge-with concat dnb dnb dnb dnb2))
+(def dnb-final {:kick1   [k _ k _ _ _ _ _ _ _ k _ _ _ _ _]
+                :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+                :chat2   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+                :csnare  [_ _ _ _ _ _ _ c _ _ _ _ _ _ _ _]})
+
+(def longdnb (merge-with concat dnb-base dnb-base2 dnb-base dnb-final))
 
 
-(def metro (metronome 194))
 (stop)
 (player longdnb (metro))
 
