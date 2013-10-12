@@ -22,7 +22,8 @@
 (defn play-pattern
   "For each track in a pattern it tries to play hits for given beat-slice"
   [pattern hitname beat]
-  (let [pattern-part-index (mod beat 4)
+  (let [
+        pattern-part-index (mod beat 4)
         pattern-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
     (doseq [hit-index (range 4) :when (hit-present? pattern-slice hit-index)]
       (at (metro (+ (* 0.25 hit-index) beat)) ((amen hitname))))))
@@ -33,19 +34,20 @@
   (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
+(def dnb {:kick1   [k _ _ _ _ _ _ _ _ _ k _ _ _ _ _]
+          :snare1  [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+          :chat1   [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+          :csnare  [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
+(def dnb2 {:kick1  [k _ k _ _ _ _ _ _ _ k _ _ _ _ _]
+           :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+           :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+           :csnare [_ _ _ _ _ _ _ c _ _ _ _ _ _ _ _]})
 
-
-
-                    ;;  [X . . . X . . . X . . . X . . .]
-(def dnb-break {:kick1  [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
-                :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
-                :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
-                :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
-
-
-
-
+(def longdnb (merge-with concat dnb dnb2))
 
 (stop)
-(player dnb-break (metro))
+(player longdnb (metro))
+
+
+
