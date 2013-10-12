@@ -11,11 +11,11 @@
 (def s 1)
 (def h 1)
 (def c 1)
-                  ;;  [X . . . X . . . X . . . X . . .]
-(def pattern {:kick1  [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
-              :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
-              :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
-              :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
+                    ;;  [X . . . X . . . X . . . X . . .]
+(def dnb-break {:kick1  [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
+                :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+                :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+                :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
 (def metro (metronome 194))
 
@@ -24,16 +24,16 @@
   [hits hit-index]
   (= 1 (hits hit-index)))
 
-(defn play-pattern [beat hitname]
+(defn play-pattern [pattern hitname beat]
   (let [pattern-part-index (mod beat 4)
         pattern-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
     (doseq [hit-index (range 4) :when (hit-present? pattern-slice hit-index)]
       (at (metro (+ (* 0.25 hit-index) beat)) ((amen hitname))))))
 
-(defn player [beat]
-  (doseq [hitname (keys pattern)] (play-pattern beat hitname))
-  (apply-at (metro (inc beat)) #'player (inc beat) []))
+(defn player [pattern beat]
+  (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
+  (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
 (stop)
 
-(player (metro))
+(player dnb-break (metro))
