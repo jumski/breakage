@@ -11,25 +11,31 @@
 (def s 1)
 (def h 1)
 (def c 1)
-              ;;  [X . . . X . . . X . . . X . . .]
+                  ;;  [X . . . X . . . X . . . X . . .]
 (def pattern {:kick1  [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
-          :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
-          :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
-          :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
+              :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+              :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+              :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
 (def metro (metronome 194))
 
 (defn play-pattern [beat hitname]
-  (let [t (mod beat 4)
-        p (vec (take 4 (drop (* 4 t) (pattern hitname))))]
-    (if (= 1 (p 0)) (at (metro (+ 0.00 beat)) ((amen hitname))))
-    (if (= 1 (p 1)) (at (metro (+ 0.25 beat)) ((amen hitname))))
-    (if (= 1 (p 2)) (at (metro (+ 0.50 beat)) ((amen hitname))))
-    (if (= 1 (p 3)) (at (metro (+ 0.75 beat)) ((amen hitname))))))
+  (let [pattern-part-index (mod beat 4)
+        beat-long-slice (vec (take 4 (drop (* 4 pattern-part-index) (pattern hitname))))]
+    ;; (at (metro (+ 0.00 beat)) ((amen hitname)))))
+    (if (= 1 (beat-long-slice 0)) (at (metro (+ 0.00 beat)) ((amen hitname))))
+    (if (= 1 (beat-long-slice 1)) (at (metro (+ 0.25 beat)) ((amen hitname))))
+    (if (= 1 (beat-long-slice 2)) (at (metro (+ 0.50 beat)) ((amen hitname))))
+    (if (= 1 (beat-long-slice 3)) (at (metro (+ 0.75 beat)) ((amen hitname))))))
 
 (defn player [beat]
   (doseq [hitname (keys pattern)] (play-pattern beat hitname))
   (apply-at (metro (inc beat)) #'player (inc beat) []))
 
+;; (play-pattern 23 :snare1)
+;;     (play-pattern 77 :snare1)
+;;     (play-pattern 35 :snare1)
+;;     (play-pattern 3 :snare1)
 (stop)
+
 (player (metro))
