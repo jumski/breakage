@@ -11,11 +11,6 @@
 (def s 1)
 (def h 1)
 (def c 1)
-                    ;;  [X . . . X . . . X . . . X . . .]
-(def dnb-break {:kick1  [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
-                :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
-                :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
-                :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
 
 (def metro (metronome 194))
 
@@ -38,6 +33,19 @@
   (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
   (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
 
-(stop)
 
+
+
+
+                    ;;  [X . . . X . . . X . . . X . . .]
+(def dnb-break {:kick1  [k _ _ _ _ _ _ k _ _ k _ _ _ _ _]
+                :snare1 [_ _ _ _ s _ _ _ _ _ _ _ s _ _ _]
+                :chat1  [_ _ h _ _ _ h _ h _ _ _ _ _ h _]
+                :csnare [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
+
+
+
+
+
+(stop)
 (player dnb-break (metro))
