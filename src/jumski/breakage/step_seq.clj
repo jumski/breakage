@@ -3,8 +3,6 @@
         [overtone.inst.synth])
   (:require [jumski.breakage.kit :as kit]))
 
-(def amen (kit/load-kit "samples/amen-break"))
-
 (def empty-quarter)
 (def _ empty-quarter)
 
@@ -23,13 +21,13 @@
 
 (defn play-pattern
   "For each track in a pattern it schedules active samples to play at proper time"
-  [pattern hitname beat]
+  [kit pattern hitname beat]
   (let [quarters-in-pattern (-> pattern vals first count)
         beats-in-pattern (/ quarters-in-pattern 4)
         slice-to-play-index (mod beat beats-in-pattern)
         slice-to-play (vec (take 4 (drop (* 4 slice-to-play-index) (pattern hitname))))]
     (doseq [quarter-index (range 4) :when (quarter-active? slice-to-play quarter-index)]
-      (let [hit (amen hitname)
+      (let [hit (kit hitname)
             volume (quarter-volume slice-to-play quarter-index)
             pitch 1]
         (at (metro (+ (* 0.25 quarter-index) beat))
@@ -37,9 +35,9 @@
 
 (defn player
   "Plays all tracks from given pattern"
-  [pattern beat]
-  (doseq [hitname (keys pattern)] (play-pattern pattern hitname beat))
-  (apply-at (metro (inc beat)) #'player pattern (inc beat) []))
+  [kit pattern beat]
+  (doseq [hitname (keys pattern)] (play-pattern kit pattern hitname beat))
+  (apply-at (metro (inc beat)) #'player kit pattern (inc beat) []))
 
 (def dnb-base {:kick1    [9 _ _ _ _ _ _ 9 _ _ 9 _ _ _ _ _]
                :snare2   [_ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ _]
@@ -62,7 +60,9 @@
                 :csnare  [_ _ _ _ _ _ _ 2 _ 2 _ _ _ _ _ _]})
 
 (def longdnb (merge-with concat dnb-base dnb-base2 dnb-base dnb-final))
+(def amen (kit/load-kit "samples/amen-break"))
+
 
 (stop)
-(player longdnb (metro))
+(player amen longdnb (metro))
 
