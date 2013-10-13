@@ -1,4 +1,4 @@
-(ns overtone-sandbox.core)
+(ns jumski.breakage.core)
 (use 'overtone.live)
 
 (definst sin-wave [freq 60 attack 0.01 sustain 0.4 release 0.1 vol 0.4]

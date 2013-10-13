@@ -1,5 +1,5 @@
-(ns overtone-sandbox.amen
-  (:require [overtone-sandbox.kit :as kit]))
+(ns jumski.breakage.amen
+  (:require [jumski.breakage.kit :as kit]))
 
 (def kit-amen (kit/load-kit "samples/amen-break"))
 

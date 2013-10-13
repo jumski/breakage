@@ -1,4 +1,4 @@
-(ns overtone-sandbox.experiment_2)
+(ns jumski.breakage.experiment_2)
 (use 'overtone.live)
 
 ; setup a sound for our metronome to use

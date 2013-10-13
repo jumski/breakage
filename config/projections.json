@@ -1,6 +1,6 @@
 {
-  "src/overtone_sandbox/*.clj": {
+  "src/jumski/breakage/*.clj": {
     "command": "src",
-    "template": "(ns overtone-sandbox.%s)\n(use 'overtone.live)"
+    "template": "(ns jumski.breakage.%s)\n"
   }
 }

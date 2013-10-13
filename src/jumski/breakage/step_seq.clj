@@ -1,7 +1,7 @@
-(ns overtone-sandbox.step-seq
+(ns jumski.breakage.step-seq
   (:use [overtone.live]
         [overtone.inst.synth])
-  (:require [overtone-sandbox.kit :as kit]))
+  (:require [jumski.breakage.kit :as kit]))
 
 (def amen (kit/load-kit "samples/amen-break"))
 

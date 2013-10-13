@@ -1,6 +1,6 @@
-# overtone-sandbox
+# breakage
 
-A Clojure library designed to ... well, that part is up to you.
+Step sequencer written in clojure
 
 ## Usage
 

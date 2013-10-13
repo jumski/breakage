@@ -1,6 +1,6 @@
-(ns overtone-sandbox.core-test
+(ns jumski.breakage.core-test
   (:require [clojure.test :refer :all]
-            [overtone-sandbox.core :refer :all]))
+            [jumski.breakage.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

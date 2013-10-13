@@ -1,4 +1,4 @@
-(ns overtone-sandbox.kit
+(ns jumski.breakage.kit
   (:import [java.io File])
   (:require [overtone.live :as live]))
 
