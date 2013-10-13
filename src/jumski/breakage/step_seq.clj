@@ -20,8 +20,9 @@
 
 (defn play-pattern
   "For each track in a pattern it schedules active samples to play at proper time"
-  [kit pattern hitname beat]
-  (let [quarters-in-pattern (-> pattern vals first count)
+  [kit fnpattern hitname beat]
+  (let [pattern (fnpattern)
+        quarters-in-pattern (-> pattern vals first count)
         beats-in-pattern (/ quarters-in-pattern 4)
         slice-to-play-index (mod beat beats-in-pattern)
         slice-to-play (vec (take 4 (drop (* 4 slice-to-play-index) (pattern hitname))))]
@@ -34,9 +35,10 @@
 
 (defn player
   "Plays all tracks from given pattern"
-  [kit pattern beat]
-  (doseq [hitname (keys pattern)] (play-pattern kit pattern hitname beat))
-  (apply-at (metro (inc beat)) #'player kit pattern (inc beat) []))
+  [kit fnpattern beat]
+  (let [pattern (fnpattern)]
+    (doseq [hitname (keys pattern)] (play-pattern kit fnpattern hitname beat))
+    (apply-at (metro (inc beat)) #'player kit fnpattern (inc beat) [])))
 
 (defn play [kit pattern bpm]
   (do
