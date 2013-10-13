@@ -19,11 +19,9 @@
               :chat2   [_ 4 _ _ _ _ _ _ _ _ 5 _ 5 _ 5 _]
               :ssnare1 [_ _ 7 _ 5 7 _ 5 _ 5 _ 7 _ 7 _ 5]})
 
-(def break-2 {:kick2   (break-1 :kick2)
-              :stab    [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]
-              :crash   (break-1 :crash)
-              :chat2   (break-1 :chat2)
-              :ssnare1 [_ _ 7 _ 5 7 _ 5 _ 5 _ 7 _ 7 _ 5]})
+(def break-2 (assoc break-1
+                    :stab    [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]
+                    :ssnare1 (_ _ 9 _ 7 9 _ 7 _ 7 _ 9 _ 9 _ 7)))
 
 (defn pattern [] (merge-with concat break-1 break-2))
 
