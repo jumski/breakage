@@ -6,7 +6,7 @@
 (def empty-quarter)
 (def _ empty-quarter)
 
-(def metro (metronome 194))
+(def metro (metronome 120))
 
 (defn quarter-active?
   "Returns true if given quarter is set"
@@ -59,10 +59,21 @@
                 :chat2   [_ _ 3 _ _ _ 4 _ 4 _ _ _ _ _ 3 _]
                 :csnare  [_ _ _ _ _ _ _ 2 _ 2 _ _ _ _ _ _]})
 
-(def longdnb (merge-with concat dnb-base dnb-base2 dnb-base dnb-final))
+(def dnb-final2 {:kick1   [9 _ 9 _ _ _ _ _ _ _ _ _ _ _ _ _]
+                 :snare2  [_ _ _ _ 7 _ _ _ _ _ _ _ _ _ _ _]
+                 :chat2   [_ _ 3 _ _ _ 4 _ 4 _ 4 _ 4 _ 4 _]
+                 :csnare  [_ _ _ _ _ _ _ 2 _ 2 _ 2 _ 2 _ 2]})
+
+(def longdnb (merge-with concat
+                         dnb-base dnb-base2 dnb-base dnb-final
+                         dnb-base dnb-base2 dnb-base dnb-final2))
 (def amen (kit/load-kit "samples/amen-break"))
 
+(defn play [kit pattern bpm]
+  (do
+    (stop)
+    (metro :bpm bpm)
+    (player kit pattern (metro))))
 
-(stop)
-(player amen longdnb (metro))
+(play amen longdnb 194)
 
