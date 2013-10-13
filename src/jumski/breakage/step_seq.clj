@@ -1,7 +1,6 @@
 (ns jumski.breakage.step-seq
   (:use [overtone.live]
-        [overtone.inst.synth])
-  (:require [jumski.breakage.kit :as kit]))
+        [overtone.inst.synth]))
 
 (def empty-quarter)
 (def _ empty-quarter)
@@ -39,41 +38,9 @@
   (doseq [hitname (keys pattern)] (play-pattern kit pattern hitname beat))
   (apply-at (metro (inc beat)) #'player kit pattern (inc beat) []))
 
-(def dnb-base {:kick1    [9 _ _ _ _ _ _ 9 _ _ 9 _ _ _ _ _]
-               :snare2   [_ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ _]
-               :chat2    [_ _ 3 _ _ _ 4 _ 4 _ _ _ _ _ 3 _]
-               :csnare   [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})
-
-(def dnb-base2 {:kick1   [9 _ _ _ _ _ _ _ _ _ 9 _ _ _ _ _]
-                :snare2  [_ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ _]
-                :chat2   [_ _ 3 _ _ _ 4 _ 4 _ _ _ _ _ 3 _]
-                :csnare  [_ _ _ _ _ _ _ _ _ 2 _ _ _ _ _ _]})
-
-(def dnb-final {:kick1   [9 _ 9 _ _ _ _ _ _ _ 9 _ _ _ _ _]
-                :snare2  [_ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ _]
-                :chat2   [_ _ 3 _ _ _ 4 _ 4 _ _ _ _ _ 3 _]
-                :csnare  [_ _ _ _ _ _ _ 2 _ _ _ _ _ _ _ _]})
-
-(def dnb-final {:kick1   [9 _ 9 _ _ _ _ _ _ _ 9 _ _ _ _ _]
-                :snare2  [_ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ _]
-                :chat2   [_ _ 3 _ _ _ 4 _ 4 _ _ _ _ _ 3 _]
-                :csnare  [_ _ _ _ _ _ _ 2 _ 2 _ _ _ _ _ _]})
-
-(def dnb-final2 {:kick1   [9 _ 9 _ _ _ _ _ _ _ _ _ _ _ _ _]
-                 :snare2  [_ _ _ _ 7 _ _ _ _ _ _ _ _ _ _ _]
-                 :chat2   [_ _ 3 _ _ _ 4 _ 4 _ 4 _ 4 _ 4 _]
-                 :csnare  [_ _ _ _ _ _ _ 2 _ 2 _ 2 _ 2 _ 2]})
-
-(def longdnb (merge-with concat
-                         dnb-base dnb-base2 dnb-base dnb-final
-                         dnb-base dnb-base2 dnb-base dnb-final2))
-(def amen (kit/load-kit "samples/amen-break"))
-
 (defn play [kit pattern bpm]
   (do
     (stop)
     (metro :bpm bpm)
     (player kit pattern (metro))))
-
-(play amen longdnb 194)
 
