@@ -10,19 +10,20 @@
            q))
        trk))
 
+
 (def amen-break (kit/load-kit "samples/amen-break"))
 
 (def break-1 {:kick2   [7 _ _ 7 _ _ 7 _ _ _ _ _ _ _ _ _]
               :stab    [_ _ _ _ _ _ _ _ _ _ _ 3 _ _ _ _]
               :crash   [_ _ _ _ _ _ _ _ 5 _ _ _ _ _ _ _]
               :chat2   [_ 4 _ _ _ _ _ _ _ _ 5 _ 5 _ 5 _]
-              :ssnare1 [_ _ 5 _ 3 5 _ 3 _ 3 _ 5 _ 5 _ 3]})
+              :ssnare1 [_ _ 7 _ 5 7 _ 5 _ 5 _ 7 _ 7 _ 5]})
 
 (def break-2 {:kick2   (break-1 :kick2)
               :stab    [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]
               :crash   (break-1 :crash)
               :chat2   (break-1 :chat2)
-              :ssnare1 (->> :ssnare1 break-1 (inc-vol 11))})
+              :ssnare1 [_ _ 7 _ 5 7 _ 5 _ 5 _ 7 _ 7 _ 5]})
 
 (defn pattern [] (merge-with concat break-1 break-2))
 
