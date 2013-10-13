@@ -2,8 +2,8 @@
   (:use [overtone.live]
         [overtone.inst.synth]))
 
-(def empty-quarter)
-(def _ empty-quarter)
+(def _ (symbol "_"))
+(def empty-quarter _)
 
 (def metro (metronome 120))
 
