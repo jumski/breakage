@@ -34,4 +34,5 @@
                          dnb-base dnb-base2 dnb-base dnb-final
                          dnb-base dnb-base2 dnb-base dnb-final2))
 
+(o/stop)
 (play amen-break pattern 194)
