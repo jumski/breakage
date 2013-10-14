@@ -1,4 +1,4 @@
-(ns jumski.breakage.break_2
+(ns jumski.breakage.breaks.break_2
   (:use [jumski.breakage.step-seq])
   (:require [jumski.breakage.kit :as kit])
   (:require [overtone.live :as o]))
@@ -21,7 +21,7 @@
 
 (def break-2 (assoc break-1
                     :stab    [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]
-                    :ssnare1 (_ _ 9 _ 7 9 _ 7 _ 7 _ 9 _ 9 _ 7)))
+                    :ssnare1 [_ _ 9 _ 7 9 _ 7 _ 7 _ 9 _ 9 _ 7]))
 
 (defn pattern [] (merge-with concat break-1 break-2))
 
