@@ -2,6 +2,8 @@
   (:use midje.sweet)
   (:require [jumski.breakage.pattern :as p]))
 
+(fact p/_ => nil)
+
 (facts "about `normalize`"
   (fact "returns as is if smp, vol and pit present"
     (p/normalize [:kick [1 2] [3 4]]) => [:kick [1 2] [3 4]])

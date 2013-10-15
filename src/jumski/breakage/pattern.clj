@@ -1,6 +1,6 @@
 (ns jumski.breakage.pattern)
 
-(def _ (symbol "_"))
+(def _ nil)
 
 (defn normalize [patt]
   (cond
