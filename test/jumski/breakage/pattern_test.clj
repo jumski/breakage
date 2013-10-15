@@ -9,34 +9,34 @@
          (fact "split in proper place"
                (p/split-on-keyword patt) => [[:k 1 2] [:v 3]])))
 
-(facts "about `normalize`"
+(facts "about `normalize-track`"
        (fact "returns as is if smp, vol and pit present"
-             (p/normalize [:kick [1 2] [3 4]]) => {:kick [[1 2] [3 4]]})
+             (p/normalize-track [:kick [1 2] [3 4]]) => [:kick [[1 2] [3 4]]])
 
        (fact "appends blank pitches if missing"
-             (p/normalize [:kick [1 2]]) => {:kick [[1 2] [p/_ p/_]]})
+             (p/normalize-track [:kick [1 2]]) => [:kick [[1 2] [p/_ p/_]]])
 
        (fact "appends missing pitches if count not match"
-             (p/normalize [:kick [1 2] [3]]) => {:kick [[1 2] [3 p/_]]}))
+             (p/normalize-track [:kick [1 2] [3]]) => [:kick [[1 2] [3 p/_]]]))
 
 (facts "regression"
       (let [patt '(:kick1
                    [7 0 0 0 7 0 0 0 7 0 0 0 7 0 0 0]
                    [0 0 0 0 2 0 0 0 3 0 0 0 4 0 0 0])]
-        (p/normalize patt) =>
-        {:kick1 [[7 0 0 0 7 0 0 0 7 0 0 0 7 0 0 0]
-                 [0 0 0 0 2 0 0 0 3 0 0 0 4 0 0 0]]})
+        (p/normalize-track patt) =>
+        [:kick1 [[7 0 0 0 7 0 0 0 7 0 0 0 7 0 0 0]
+                 [0 0 0 0 2 0 0 0 3 0 0 0 4 0 0 0]]])
 
       (let [patt '(:snare [7 0 0 0 7 0 0 0 7 0 0 0 7 0 0 0])]
-        (p/normalize patt) =>
-        {:snare [[7 0 0 0 7 0 0 0 7 0 0 0 7 0 0 0]
-                 (vec (repeat 16 nil))]}
+        (p/normalize-track patt) =>
+        [:snare [[7 0 0 0 7 0 0 0 7 0 0 0 7 0 0 0]
+                 (vec (repeat 16 nil))]]
         ))
 
 
 (facts "about `slice-for-beat`"
-       (let [patt {:kick [[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
-                          [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0]]}]
+       (let [patt [:kick [[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
+                          [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0]]]]
          (facts
            (p/track-slice 0 patt :kick) => [[0 1 2 3] [15 14 13 12]]
            (p/track-slice 1 patt :kick) => [[4 5 6 7] [11 10 9 8]]

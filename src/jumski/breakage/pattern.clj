@@ -2,7 +2,7 @@
 
 (def _ nil)
 
-(defn normalize [patt]
+(defn normalize-track [patt]
   (let [flat (cond
           (= 3 (count patt))
           (let [vlen (count (get patt 1))
@@ -16,7 +16,7 @@
           (let [len (count (last patt))
                 pit (vec (repeat len _))]
             (conj (vec patt) pit)))]
-    {(first flat) (vec (rest flat))}))
+    [(first flat) (vec (rest flat))]))
 
 (defn split-on-keyword [patt]
   (->> patt
@@ -26,7 +26,7 @@
        (map #(apply concat %))))
 
 (defn track-slice [beat patt hit]
-  (let [trk (patt hit)
+  (let [trk ((apply hash-map patt) hit)
         trklen (-> trk first count)
         beats (/ trklen 4)
         index (mod beat beats)
