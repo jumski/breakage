@@ -22,7 +22,8 @@
   [slice index]
   (let [pitches (last slice)
         pitch (pitches index)]
-    (if (nil? pitch) 1 pitch)))
+    (if (nil? pitch) 1
+      (+ 1 (/ pitch 10.0)))))
 
 (defn play-pattern
   "For each track in a pattern it schedules active samples to play at proper time"
