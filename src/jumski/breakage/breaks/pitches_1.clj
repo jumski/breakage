@@ -6,9 +6,9 @@
 
 (def amen-break (kit/load-kit "samples/amen-break"))
 
-(def base [:kick1  [2 _ _ _ 7 _ _ _ 7 _ _ _ 7 _ _ _]
-           :snare1 [_ _ _ _ _ _ _ _ _ _ 5 5 5 5 5 5]
-                   [1 _ _ _ 2 _ _ _ 3 _ 0 4 7 8 8 11]])
+(def base [:kick1  [7 _ _ _ 7 _ _ _ _ _ 7 _ _ _ _ _]
+           :snare1 [_ _ _ _ _ _ 5 _ _ _ _ _ 6 _ _ _]
+                   [_ _ _ _ _ _ 1 _ _ _ _ _ 2 _ _ _]])
 
 (defn pattern [] base)
 
