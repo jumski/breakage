@@ -5,8 +5,8 @@
 (defn normalize [patt]
   (let [flat (cond
           (= 3 (count patt))
-          (let [vlen (count (patt 1))
-                plen (count (patt 2))
+          (let [vlen (count (get patt 1))
+                plen (count (get patt 2))
                 missing (- vlen plen)]
             (if (zero? missing) patt
               (let [tail (repeat missing _)
@@ -15,7 +15,7 @@
           (= 2 (count patt))
           (let [len (count (last patt))
                 pit (vec (repeat len _))]
-            (conj patt pit)))]
+            (conj (vec patt) pit)))]
     {(first flat) (vec (rest flat))}))
 
 (defn split-on-keyword [patt]
