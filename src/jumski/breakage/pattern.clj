@@ -23,3 +23,10 @@
        (partition 2)
        concat
        (map #(apply concat %))))
+
+;; (defn track-slice [beat patt hit]
+;;   (let [trk
+;;         quarters (-> trk vals first count)
+;;         beats (/ quarters 4)
+;;         index (mod beat beats)]
+;;     (vec (take 4 (drop (* 4 index) patt)))))
