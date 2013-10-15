@@ -26,10 +26,17 @@
        (map #(apply concat %))))
 
 (defn track-slice [beat patt hit]
-  (let [trk ((apply hash-map patt) hit)
+  (let [trk (hit (apply hash-map (apply concat patt)))
+        ;; x (println trk)
         trklen (-> trk first count)
+        ;; x (println trklen)
         beats (/ trklen 4)
+        ;; x (println beats)
         index (mod beat beats)
+        ;; x (println index)
         start (* 4 index)
-        end (+ 4 start)]
+        ;; x (println start)
+        end (+ 4 start)
+        ;; x (println end)
+        ]
     (map #(subvec % start end) trk)))
