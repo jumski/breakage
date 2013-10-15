@@ -3,6 +3,10 @@
     "command": "src",
     "template": "(ns jumski.breakage.%s)\n"
   },
+  "test/jumski/breakage/*_test.clj": {
+    "command": "test",
+    "template": "(ns jumski.breakage.%s)\n"
+  },
   "src/jumski/breakage/breaks/*.clj": {
     "command": "break",
     "template": "(ns jumski.breakage.breaks.%s\n  (:use [jumski.breakage.step-seq])\n  (:require [jumski.breakage.kit :as kit])\n  (:require [overtone.live :as o]))\n\n(def amen-break (kit/load-kit \"samples/amen-break\"))\n\n(def base {:kick1   [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]\n           :snare2  [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]\n           :chat2   [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]\n           :ssnare4 [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _]})\n\n(defn pattern [] (merge-with concat base))\n\n(o/stop)\n(play amen-break #'pattern 194)"
