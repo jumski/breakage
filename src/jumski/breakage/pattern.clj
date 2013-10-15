@@ -25,8 +25,11 @@
        concat
        (map #(apply concat %))))
 
+(defn pattern-to-map [patt]
+  (apply hash-map (apply concat patt)))
+
 (defn track-slice [beat patt hit]
-  (let [trk (hit (apply hash-map (apply concat patt)))
+  (let [trk (hit (pattern-to-map patt))
         trklen (-> trk first count)
         beats (/ trklen 4)
         index (mod beat beats)
