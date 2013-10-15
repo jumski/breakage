@@ -6,8 +6,9 @@
 
 (facts "about `split-on-keyword`"
        (let [patt [:k 1 2 :v 3]]
-         (fact "split in proper place"
-               (p/split-on-keyword patt) => [[:k 1 2] [:v 3]])))
+         (p/split-on-keyword patt) => [[:k 1 2] [:v 3]]
+         (p/split-on-keyword patt) => (partial every? vector)))
+
 
 (facts "about `normalize-track`"
        (fact "returns as is if smp, vol and pit present"
@@ -34,17 +35,18 @@
         ))
 
 
-(facts "about `slice-for-beat`"
-       (let [patt [:kick [[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
-                          [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0]]]]
-         (facts
-           (p/track-slice 0 patt :kick) => [[0 1 2 3] [15 14 13 12]]
-           (p/track-slice 1 patt :kick) => [[4 5 6 7] [11 10 9 8]]
-           (p/track-slice 2 patt :kick) => [[8 9 10 11] [7 6 5 4]]
-           (p/track-slice 3 patt :kick) => [[12 13 14 15] [3 2 1 0]]
+(facts "about `track-slice`"
+       (let [patt [[:kick  [[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
+                            [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0]]]
+                   [:snare [[20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35]
+                            [35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20]]]]]
+         (p/track-slice 0 patt :kick) => [[0 1 2 3] [15 14 13 12]]
+         (p/track-slice 1 patt :kick) => [[4 5 6 7] [11 10 9 8]]
+         (p/track-slice 2 patt :kick) => [[8 9 10 11] [7 6 5 4]]
+         (p/track-slice 3 patt :kick) => [[12 13 14 15] [3 2 1 0]]
 
-           (p/track-slice 16 patt :kick) => [[0 1 2 3] [15 14 13 12]]
-           (p/track-slice 17 patt :kick) => [[4 5 6 7] [11 10 9 8]]
-           (p/track-slice 18 patt :kick) => [[8 9 10 11] [7 6 5 4]]
-           (p/track-slice 19 patt :kick) => [[12 13 14 15] [3 2 1 0]]
-           )))
+         (p/track-slice 16 patt :kick) => [[0 1 2 3] [15 14 13 12]]
+         (p/track-slice 17 patt :kick) => [[4 5 6 7] [11 10 9 8]]
+         (p/track-slice 18 patt :kick) => [[8 9 10 11] [7 6 5 4]]
+         (p/track-slice 19 patt :kick) => [[12 13 14 15] [3 2 1 0]]
+         ))
