@@ -23,7 +23,9 @@
        (partition-by keyword?)
        (partition 2)
        concat
-       (map #(apply concat %))))
+       (map #(apply concat %))
+       (map vec)
+       vec))
 
 (defn pattern-to-map [patt]
   (apply hash-map (apply concat patt)))

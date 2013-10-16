@@ -7,7 +7,8 @@
 (facts "about `split-on-keyword`"
        (let [patt [:k 1 2 :v 3]]
          (p/split-on-keyword patt) => [[:k 1 2] [:v 3]]
-         (p/split-on-keyword patt) => (partial every? vector)))
+         (p/split-on-keyword patt) => vector?
+         (p/split-on-keyword patt) => (partial every? vector?)))
 
 
 (facts "about `normalize-track`"
@@ -18,7 +19,14 @@
              (p/normalize-track [:kick [1 2]]) => [:kick [[1 2] [p/_ p/_]]])
 
        (fact "appends missing pitches if count not match"
-             (p/normalize-track [:kick [1 2] [3]]) => [:kick [[1 2] [3 p/_]]]))
+             (p/normalize-track [:kick [1 2] [3]]) => [:kick [[1 2] [3 p/_]]])
+
+       (facts
+         (p/normalize-track [:kick [1 2] [3]]) => vector?
+         (p/normalize-track [:kick [1 2] [3]]) => #(->> % first keyword?)
+         (p/normalize-track [:kick [1 2] [3]]) => #(->> % last vector?)
+
+         ))
 
 (facts "regression"
       (let [patt '(:kick1
