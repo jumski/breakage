@@ -10,7 +10,7 @@
            ;[X _ _ _ X _ _ _ X _ _ _ X _ _ _]
   :kick1    [7 _ _ _ _ _ 7 _ _ _ _ _ _ _ _ _]
   :chat1    [_ _ 4 _ 4 _ 4 _ 4 _ 4 _ _ _ _ _]
-  :stab     [_ _ _ _ _ _ _ _ _ _ 2 _ _ _ _ _]
+  :stab     [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 2 _ _ _ _ _]
 
   :ssnare1  [_ _ _ 4 _ 2 _ 2 _ 4 _ 2 _ _ 6 _]
             [_ _ _ 1 _ 2 _ 2 _ 1 _ 2 _ _ _ _]
@@ -31,4 +31,3 @@
 (o/stop)
 (o/volume 0.3)
 (play amen-break #'pattern 194)
-;; (play-pattern amen-break pattern :snare1 0)
