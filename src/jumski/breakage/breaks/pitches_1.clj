@@ -19,6 +19,13 @@
             [_ _ _ _ _ _ _ _ _ _ _ _ 4 _ _ _]
             ])
 
+(defn levery [qtrs vol]
+  (->> vol
+       (conj (repeat (- qtrs 1) _))
+       cycle
+       (take 16)
+       vec))
+
 (defn pattern [] base3)
 
 (o/stop)
