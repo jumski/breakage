@@ -2,7 +2,8 @@
   (:use [jumski.breakage.step-seq]
         [jumski.breakage.pattern])
   (:require [jumski.breakage.kit :as kit])
-  (:require [overtone.live :as o]))
+  (:require [overtone.live :as o])
+  (:require [jumski.breakage.pattern :as p]))
 
 (def amen-break (kit/load-kit "samples/amen-break"))
 
@@ -18,13 +19,6 @@
   :snare4   [_ _ _ _ _ _ _ _ _ _ _ _ 2 1 _ 1]
             [_ _ _ _ _ _ _ _ _ _ _ _ 4 _ _ _]
             ])
-
-(defn levery [qtrs vol]
-  (->> vol
-       (conj (repeat (- qtrs 1) _))
-       cycle
-       (take 16)
-       vec))
 
 (defn pattern [] base3)
 
