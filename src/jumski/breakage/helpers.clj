@@ -12,9 +12,9 @@
        vec))
 
 (defn make-beat [pat]
-  (apply hash-map
-         (first (for [[hitname & [vol pit]]
-                      (split-on-keyword pat)]
-                  [hitname {:volumes vol
-                            :pitches (repeat (count vol) _)}]))))
+  (apply
+    hash-map
+    (first (for [[hitname vol pit] (split-on-keyword pat)]
+             [hitname {:volumes vol
+                       :pitches (repeat (count vol) _)}]))))
 
