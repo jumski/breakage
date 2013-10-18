@@ -25,12 +25,14 @@
     (apply max)))
 
 (defn make-beat [pat]
-  (apply hash-map (mapcat concat
-  (let [splitted (split-on-keyword pat)
-        maxlength (find-maxlength splitted)]
-    (for [[hitname vol pit] splitted]
-      (let [[vol pit] (fixed-length maxlength [vol pit])]
-        [hitname {:volumes vol :pitches pit}]))))))
+  (->>
+    (let [splitted (split-on-keyword pat)
+          maxlength (find-maxlength splitted)]
+      (for [[hitname vol pit] splitted]
+        (let [[vol pit] (fixed-length maxlength [vol pit])]
+          [hitname {:volumes vol :pitches pit}])))
+    (mapcat concat)
+    (apply hash-map)))
 
 
 
