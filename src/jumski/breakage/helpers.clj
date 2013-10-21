@@ -2,7 +2,9 @@
 
 (def _ nil)
 
-(defn split-on-keyword [patt]
+(defn split-on-keyword
+  "Splits input sequence when approched a keyword"
+  [patt]
   (->> patt
        (partition-by keyword?)
        (partition 2)
@@ -11,20 +13,29 @@
        (map vec)
        vec))
 
-(defn fill-with-blanks [len aseq]
+(defn fill-with-blanks
+  "Appends _ at the end of aseq and returns new sequence of length len"
+  [len aseq]
   (let [aseq (if (nil? aseq) [] aseq)]
     (->> (repeat _) (concat aseq) (take len))))
 
-(defn fixed-length [len seqs]
+(defn fixed-length
+  "Fills all the seqs with _ up to the length of len"
+  [len seqs]
   (map (partial fill-with-blanks len) seqs))
 
-(defn find-maxlength [aseq]
+(defn find-maxlength
+  "Returns maximum volume/pitch length for a given pattern slice"
+  [slice]
   (->>
-    (for [[_ & vp] aseq] (map count vp))
+    (for [[_ & vp] slice] (map count vp))
     flatten
     (apply max)))
 
-(defn make-beat [pat]
+(defn make-beat
+  "For a given pattern pat outputs a map where keys are hit names
+  and values are maps of volumes and pitches mapped to sequences of values"
+  [pat]
   (->>
     (let [splitted (split-on-keyword pat)
           maxlength (find-maxlength splitted)]
