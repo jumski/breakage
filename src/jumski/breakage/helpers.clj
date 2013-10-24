@@ -25,7 +25,7 @@
   (map (partial fill-with-blanks len) seqs))
 
 (defn find-maxlength
-  "Returns maximum volume/pitch length for a given pattern slice"
+  "Returns maximum velocity/pitch length for a given pattern slice"
   [slice]
   (->>
     (for [[_ & vp] slice] (map count vp))
@@ -34,14 +34,14 @@
 
 (defn make-beat
   "For a given pattern pat outputs a map where keys are hit names
-  and values are maps of volumes and pitches mapped to sequences of values"
+  and values are maps of velocities and pitches mapped to sequences of values"
   [pat]
   (->>
     (let [splitted (split-on-keyword pat)
           maxlength (find-maxlength splitted)]
-      (for [[hitname vol pit] splitted]
-        (let [[vol pit] (fixed-length maxlength [vol pit])]
-          [hitname {:volumes vol :pitches pit}])))
+      (for [[hitname vel pit] splitted]
+        (let [[vel pit] (fixed-length maxlength [vel pit])]
+          [hitname (map (fn [v p] {:vel v :pit p}) vel pit)])))
     (mapcat concat)
     (apply hash-map)))
 
