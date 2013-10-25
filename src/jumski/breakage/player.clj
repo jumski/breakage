@@ -1,6 +1,9 @@
 (ns jumski.breakage.player)
 
 (defn beat-to-play [beat trk]
-  (nth
-    (->> trk cycle (partition 4 4))
-    (dec beat)))
+  (let [beats (/ (count trk) 4)
+        index (mod (dec beat) beats)
+        start (* 4 index)
+        end   (+ 4 start)
+        trk   (vec trk)]
+    (subvec trk start end)))
