@@ -1,9 +1,8 @@
-(ns jumski.breakage.breaks.pitches_2
+(ns jumski.breakage.breaks.pitches_1
   (:use [jumski.breakage.step-seq]
         [jumski.breakage.pattern])
   (:require [jumski.breakage.kit :as kit])
-  (:require [overtone.live :as o])
-  (:require [jumski.breakage.helpers :as h]))
+  (:require [overtone.live :as o]))
 
 (def amen-break (kit/load-kit "samples/amen-break"))
 
@@ -31,7 +30,7 @@
              _ _ _ _ _ _ _ _ _ _ _ _ 4 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 4 _ _ _]
             ])
 
-(defn pattern [] (h/make-beat base3))
+(defn pattern [] base3)
 
 (o/stop)
 (o/volume 0.3)

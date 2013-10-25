@@ -24,6 +24,13 @@
   [len seqs]
   (map (partial fill-with-blanks len) seqs))
 
+;; (defn make-same-length
+;;   "Finds longest track and cycles the rest to make all have same length"
+;;   [seqs]
+;;   (let [maxlen (apply max (map count seqs))]
+;;     (map #(take maxlen (cycle %)) seqs)
+;;     ))
+
 (defn find-maxlength
   "Returns maximum velocity/pitch length for a given pattern slice"
   [slice]
