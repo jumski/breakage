@@ -31,7 +31,7 @@
          (nth trk 2)))
 
 (defn cycle-to-same-length
-  "Accepts sequences of various length.
+  "Takes sequences of various length.
   Returns sequences of same length.
   Cycles shorter sequence if neccessary"
   [& seqs]
@@ -39,7 +39,7 @@
     (map #(take maxlen (cycle %)) seqs)))
 
 (defn force-same-length
-  "Accepts sequences of various length.
+  "Takes sequences of various length.
   Returns sequences of same length.
   Appends nils to rests if shorter than first.
   Shortens rests if longer than first."
@@ -55,17 +55,27 @@
   [trk]
   (first trk))
 
-(defn make-track [_])
+(defn build-steps [vels pits]
+  )
+
+(defn make-track
+  "Takes list of hit, velocities and pitches.
+  Returns a map of hit to steps."
+  [[hit vels pits]]
+  {hit (build-steps vels pits)})
+
+(defn normalize-tracks [trks]
+  "Takes sequence of tracks trks.
+  Returns sequence of tracks with velocities cycled
+  to the length of the longest one"
+  (let [spltd (map #(split-on-keyword %) trks)
+        vels  (map #(nth % 1) spltd)
+        nvels (apply cycle-to-same-length vels)]
+    (map (fn [trk nvel] (assoc trk 1 nvel)) spltd nvels)))
 
 (defn make-pattern
-  "Accepts flat list of hits, velocities and pitches.
-  Returns a map of hits to lists, each list
-  containing a maps of velocities and pitches to values."
+  "Takes flat list of hits, velocities and pitches.
+  Returns a map of hits to lists of steps"
   [trks]
-  (apply merge (map make-track trks)))
-  ;; (let [trks (split-on-keyword trks)]
-  ;;   (count (first trks))
-    ;; (map count trks)
-    ;; (map #(make-track %) trks)
-    ;; (map #(println "xxxx" %) trks)
-    ;; ))
+  (let [trks (normalize-tracks trks)]
+    (apply merge (map make-track trks))))

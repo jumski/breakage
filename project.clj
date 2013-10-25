@@ -6,5 +6,5 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojars.runa/conjure "2.1.3"]
                  [overtone "0.8.1"]]
-  :profiles {:dev {:dependencies [[midje "1.5.1"]]}})
+  :profiles {:dev {:dependencies [[midje "1.6-beta1"]]}})
 
