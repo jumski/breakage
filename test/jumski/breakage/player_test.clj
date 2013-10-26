@@ -104,9 +104,13 @@
     (p/force-same-length [.v1. .v2.] [.p1.])
       => [[.v1. .v2.] [.p1. nil]]))
 
-(def flat
-  [:k [1 2 3 4] [2] :s [1 2] [3]])
-
+(fact
+  "make-pattern works on real data"
+  (p/make-pattern [:k [1 2 3 4] [1 2] :s [4 5 6] [9 8]])
+    => {:k [{:vel 1 :pit 1}   {:vel 2 :pit 2}
+            {:vel 3 :pit nil} {:vel 4 :pit nil}]
+        :s [{:vel 4 :pit 9}   {:vel 5 :pit 8}
+            {:vel 6 :pit nil} {:vel 4 :pit nil}]})
 
 (require '[jumski.breakage.player :as p] :reload)
 (check-facts)
