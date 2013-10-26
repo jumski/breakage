@@ -83,11 +83,11 @@
         ))
 
 (fact "normalize-tracks splits tracks and makes all velocities same length"
-      (p/normalize-tracks [.t1. .t2.])
-      => [[.k1. .nv1. .p1.] [.k2. .nv2. .p2.]]
+      (p/normalize-tracks .flat.) => [[.k1. .nv1. .p1.]
+                                      [.k2. .nv2. .p2.]]
       (provided
-        (p/split-on-keyword .t1.) => [.k1. .v1. .p1.]
-        (p/split-on-keyword .t2.) => [.k2. .v2. .p2.]
+        (p/split-on-keyword .flat.) => [[.k1. .v1. .p1.]
+                                        [.k2. .v2. .p2.]]
         (p/cycle-to-same-length .v1. .v2.) => [.nv1. .nv2.]))
 
 (fact
@@ -103,6 +103,10 @@
   (provided
     (p/force-same-length [.v1. .v2.] [.p1.])
       => [[.v1. .v2.] [.p1. nil]]))
+
+(def flat
+  [:k [1 2 3 4] [2] :s [1 2] [3]])
+
 
 (require '[jumski.breakage.player :as p] :reload)
 (check-facts)

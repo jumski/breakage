@@ -77,7 +77,7 @@
   "Takes sequence of tracks trks.
   Returns sequence of tracks with velocities cycled
   to the length of the longest one"
-  (let [spltd (map #(split-on-keyword %) trks)
+  (let [spltd (split-on-keyword trks)
         vels  (map #(nth % 1) spltd)
         nvels (apply cycle-to-same-length vels)]
     (map (fn [trk nvel] (assoc trk 1 nvel)) spltd nvels)))
