@@ -49,7 +49,7 @@
   Returns a map of steps of :vel to vels values
   and :pit to pits values"
   [vels pits]
-  (let [[vels pits] (force-same-length vels pits)
+  (let [[vels pits] (cycle-to-same-length vels pits)
         lst         (interleave vels pits)
         lst         (interleave (cycle [:vel :pit]) lst)
         steps       (partition 4 lst)]
