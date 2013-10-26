@@ -21,6 +21,10 @@
   (p/cycle-to-same-length [1 2 3 4] [9 7 8] [1])
     => [[1 2 3 4] [9 7 8 9] [1 1 1 1]])
 
+(fact "cycle-to-same-length treats nils as list with single nil"
+  (p/cycle-to-same-length [1 2] nil)
+    => [[1 2] [nil nil]])
+
 (fact "force-same-length"
   (p/force-same-length [1 2] [1]) => [[1 2] [1 nil]])
 
@@ -71,6 +75,9 @@
         :s [{:vel 4 :pit 9}   {:vel 5 :pit 8}
             {:vel 6 :pit 9} {:vel 4 :pit 8}]})
 
+(facts
+  "bugs"
+  (p/make-pattern [:kick1 [5 nil nil nil nil nil nil nil]])
+    => {:kick1 (take 8 (concat [{:vel 5 :pit nil}] (repeat {:vel nil :pit nil})))})
+
 (require '[jumski.breakage.player :as p] :reload)
-(check-facts)
-;; (run-tests 'jumski.breakage.player-test)

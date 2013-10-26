@@ -22,9 +22,11 @@
 (defn cycle-to-same-length
   "Takes sequences of various length.
   Returns sequences of same length.
-  Cycles shorter sequence if neccessary"
+  Cycles shorter sequence if neccessary.
+  If any sequence is nil?, converts it to [nil]"
   [& seqs]
-  (let [maxlen (apply max (map count seqs))]
+  (let [seqs   (map #(if (nil? %) [nil] %) seqs)
+        maxlen (apply max (map count seqs))]
     (map #(take maxlen (cycle %)) seqs)))
 
 (defn force-same-length
@@ -46,7 +48,7 @@
 
 (defn build-steps
   "Takes vels and pits.
-  Returns a map of steps of :vel to vels values
+  Returns a list of maps (steps) of :vel to vels values
   and :pit to pits values"
   [vels pits]
   (let [[vels pits] (cycle-to-same-length vels pits)
