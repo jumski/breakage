@@ -48,7 +48,7 @@
           maxlength (find-maxlength splitted)]
       (for [[hitname vel pit] splitted]
         (let [[vel pit] (fixed-length maxlength [vel pit])]
-          [hitname (map (fn [v p] {:vel v :pit p}) vel pit)])))
+          [hitname (map (fn [v p] {:v v :p p}) vel pit)])))
     (mapcat concat)
     (apply hash-map)))
 

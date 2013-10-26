@@ -12,10 +12,10 @@
   (doseq [[hit steps] pattern]
     (let [steps (p/beat-to-play beat steps)
           smp   (hit kit)]
-      (doseq [qtr (range 4) :when (->> qtr steps :vel nil? not)]
+      (doseq [qtr (range 4) :when (->> qtr steps :v nil? not)]
         (let [step (steps qtr)
-              vel  (:vel step)
-              pit  (:pit step)
+              vel  (:v step)
+              pit  (:p step)
               pit  (if (nil? pit) 1 pit)]
           (at (metro (+ (* 0.25 qtr) beat))
               (smp :rate pit :vol vel)))))))

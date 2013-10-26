@@ -62,7 +62,7 @@
 (fact
   "build map of velocities and pitches to its values"
   (p/build-steps [.v1. .v2.] [.p1.])
-    => [{:vel .v1. :pit .p1.} {:vel .v2. :pit .p1.}]
+    => [{:v .v1. :p .p1.} {:v .v2. :p .p1.}]
   (provided
     (p/cycle-to-same-length [.v1. .v2.] [.p1.])
       => [[.v1. .v2.] [.p1. .p1.]]))
@@ -70,14 +70,14 @@
 (fact
   "make-pattern works on real data"
   (p/make-pattern [:k [1 2 3 4] [1 2] :s [4 5 6] [9 8]])
-    => {:k [{:vel 1 :pit 1}   {:vel 2 :pit 2}
-            {:vel 3 :pit 1} {:vel 4 :pit 2}]
-        :s [{:vel 4 :pit 9}   {:vel 5 :pit 8}
-            {:vel 6 :pit 9} {:vel 4 :pit 8}]})
+    => {:k [{:v 1 :p 1} {:v 2 :p 2}
+            {:v 3 :p 1} {:v 4 :p 2}]
+        :s [{:v 4 :p 9} {:v 5 :p 8}
+            {:v 6 :p 9} {:v 4 :p 8}]})
 
 (facts
   "bugs"
   (p/make-pattern [:kick1 [5 nil nil nil nil nil nil nil]])
-    => {:kick1 (take 8 (concat [{:vel 5 :pit nil}] (repeat {:vel nil :pit nil})))})
+    => {:kick1 (take 8 (concat [{:v 5 :p nil}] (repeat {:v nil :p nil})))})
 
 (require '[jumski.breakage.player :as p] :reload)

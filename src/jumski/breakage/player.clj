@@ -48,12 +48,12 @@
 
 (defn build-steps
   "Takes vels and pits.
-  Returns a list of maps (steps) of :vel to vels values
-  and :pit to pits values"
+  Returns a list of maps (steps) of :v to vels values
+  and :p to pits values"
   [vels pits]
   (let [[vels pits] (cycle-to-same-length vels pits)
         lst         (interleave vels pits)
-        lst         (interleave (cycle [:vel :pit]) lst)
+        lst         (interleave (cycle [:v :p]) lst)
         steps       (partition 4 lst)]
     (map (partial apply hash-map) steps)))
 
