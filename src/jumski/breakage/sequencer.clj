@@ -12,20 +12,13 @@
   (doseq [[hit steps] pattern]
     (let [steps (p/beat-to-play beat steps)
           smp   (hit kit)]
-      (println "steps==== " steps)
-      (println "smp====== " smp)
-      (smp)
-      ;; (for [qtr (range 4) :when (->> steps qtr :vel nil? not)]
-      ;;   (let [step (steps qtr)
-      ;;         vel  (:vel step)
-      ;;         pit  (:pit step)]
-      ;;     (println vel " |||||| " smp)
-      ;;     )))
-          ;; (println "step= " step " vel= " vel " pit= " pit)
-          ;; (at (metro (+ (* 0.25 qtr) beat))
-          ;;     (smp :rate pit :vol vel))
-
-          )))
+      (doseq [qtr (range 4) :when (->> qtr steps :vel nil? not)]
+        (let [step (steps qtr)
+              vel  (:vel step)
+              pit  (:pit step)
+              pit  (if (nil? pit) 1 pit)]
+          (at (metro (+ (* 0.25 qtr) beat))
+              (smp :rate pit :vol vel)))))))
 
 (defn player
   "Plays all tracks from given pattern"
