@@ -1,4 +1,4 @@
-(ns jumski.breakage.breaks.pitches_2
+(ns jumski.breakage.breaks.pitches_1
   (:use [jumski.breakage.step-seq]
         [jumski.breakage.pattern])
   (:require [jumski.breakage.kit :as kit])

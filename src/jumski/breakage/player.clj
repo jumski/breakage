@@ -19,17 +19,6 @@
        (map vec)
        vec))
 
-(defn vels
-  "Returns velocities from track"
-  [trk]
-  (nth trk 1))
-
-(defn pits
-  "Returns pitches from track. If not found, return empty list"
-  [trk]
-  (if (= 2 (count trk)) [nil]
-         (nth trk 2)))
-
 (defn cycle-to-same-length
   "Takes sequences of various length.
   Returns sequences of same length.
