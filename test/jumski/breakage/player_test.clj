@@ -73,33 +73,28 @@
 
 (defn dupa [])
 
-(facts
-  "about `make-pattern`"
-  (fact "normalizes pattern and makes tracks"
-        (p/make-pattern .flat.) => {:k .steps1.
-                                        :s .steps2.}
-        (provided
-          (p/normalize-tracks .flat.) => [.trk1. .trk2.]
-          (p/make-track .trk1.) => {:k .steps1.}
-          (p/make-track .trk2.) => {:s .steps2.}
-          )))
+(fact "make-pattern normalizes pattern and makes tracks"
+      (p/make-pattern .flat.) => {:k .steps1.
+                                  :s .steps2.}
+      (provided
+        (p/normalize-tracks .flat.) => [.trk1. .trk2.]
+        (p/make-track .trk1.) => {:k .steps1.}
+        (p/make-track .trk2.) => {:s .steps2.}
+        ))
 
-(facts
-  "about normalize-tracks"
-  (fact "splits tracks and makes all velocities same length"
-        (p/normalize-tracks [.t1. .t2.])
-          => [[.k1. .nv1. .p1.] [.k2. .nv2. .p2.]]
-        (provided
-          (p/split-on-keyword .t1.) => [.k1. .v1. .p1.]
-          (p/split-on-keyword .t2.) => [.k2. .v2. .p2.]
-          (p/cycle-to-same-length .v1. .v2.) => [.nv1. .nv2.])))
+(fact "normalize-tracks splits tracks and makes all velocities same length"
+      (p/normalize-tracks [.t1. .t2.])
+      => [[.k1. .nv1. .p1.] [.k2. .nv2. .p2.]]
+      (provided
+        (p/split-on-keyword .t1.) => [.k1. .v1. .p1.]
+        (p/split-on-keyword .t2.) => [.k2. .v2. .p2.]
+        (p/cycle-to-same-length .v1. .v2.) => [.nv1. .nv2.]))
 
-(facts
-  "about make-track"
-  (fact "builds a map of hit to steps"
-        (p/make-track [.hit. .vels. .pits.]) => {.hit. .steps.}
-        (provided
-          (p/build-steps .vels. .pits.) => .steps.)))
+(fact
+  "make-track builds a map of hit to steps"
+  (p/make-track [.hit. .vels. .pits.]) => {.hit. .steps.}
+  (provided
+    (p/build-steps .vels. .pits.) => .steps.))
 
 (require '[jumski.breakage.player :as p] :reload)
 (check-facts)
