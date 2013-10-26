@@ -55,8 +55,17 @@
   [trk]
   (first trk))
 
-(defn build-steps [vels pits]
-  )
+(defn build-steps
+  "Takes vels and pits.
+  Returns a map of steps of :vel to vels values
+  and :pit to pits values"
+  [vels pits]
+  (let [[vels pits] (force-same-length vels pits)
+        lst         (interleave vels pits)
+        lst         (interleave (cycle [:vel :pit]) lst)
+        steps       (partition 4 lst)]
+    (map (partial apply hash-map) steps)))
+
 
 (defn make-track
   "Takes list of hit, velocities and pitches.

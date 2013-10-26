@@ -96,6 +96,14 @@
   (provided
     (p/build-steps .vels. .pits.) => .steps.))
 
+(fact
+  "build map of velocities and pitches to its values"
+  (p/build-steps [.v1. .v2.] [.p1.])
+    => [{:vel .v1. :pit .p1.} {:vel .v2. :pit nil}]
+  (provided
+    (p/force-same-length [.v1. .v2.] [.p1.])
+      => [[.v1. .v2.] [.p1. nil]]))
+
 (require '[jumski.breakage.player :as p] :reload)
 (check-facts)
 ;; (run-tests 'jumski.breakage.player-test)
