@@ -73,14 +73,22 @@
 
 (defn dupa [])
 
-(fact "make-pattern normalizes pattern and makes tracks"
-      (p/make-pattern .flat.) => {:k .steps1.
-                                  :s .steps2.}
+(fact "make-pattern extracts tracks and merges them"
+      (p/make-pattern .flat.) => .merged.
+      (provided
+        (p/make-tracks .flat.) => [.trk1. .trk2.]
+        (p/merge-tracks .trk1. .trk2.) => .merged.))
+
+(fact "make-tracks normalizes tracks and returns list of tracks"
+      (p/make-tracks .flat.) => [.map1. .map2.]
       (provided
         (p/normalize-tracks .flat.) => [.trk1. .trk2.]
-        (p/make-track .trk1.) => {:k .steps1.}
-        (p/make-track .trk2.) => {:s .steps2.}
-        ))
+        (p/make-track .trk1.) => .map1.
+        (p/make-track .trk2.) => .map2.))
+
+(fact "merge-tracks concatenates all steps when mergind"
+      (p/merge-tracks {:k [1 2] :s [9 8]} {:s [7 6] :h [5 5]})
+        => {:k [1 2] :s [9 8 7 6] :h [5 5]})
 
 (fact "normalize-tracks splits tracks and makes all velocities same length"
       (p/normalize-tracks .flat.) => [[.k1. .nv1. .p1.]

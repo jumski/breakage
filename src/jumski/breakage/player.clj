@@ -82,9 +82,22 @@
         nvels (apply cycle-to-same-length vels)]
     (map (fn [trk nvel] (assoc trk 1 nvel)) spltd nvels)))
 
+(defn make-tracks
+  "Takes flat list of multiple hits, velocities and pitches
+  Returns sequence of maps of hit to vels and pits."
+  [flat]
+  (let [trks (normalize-tracks flat)]
+    (map make-track trks)))
+
+(defn merge-tracks
+  "Takes variable number of maps.
+  Returns map merged with concat."
+  [& trks]
+  (apply merge-with concat trks))
+
 (defn make-pattern
   "Takes flat list of hits, velocities and pitches.
   Returns a map of hits to lists of steps"
-  [trks]
-  (let [trks (normalize-tracks trks)]
-    (apply merge (map make-track trks))))
+  [flat]
+  (let [trks (make-tracks flat)]
+    (apply merge-tracks trks)))
