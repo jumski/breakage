@@ -78,6 +78,10 @@
 (facts
   "bugs"
   (p/make-pattern [:kick1 [5 nil nil nil nil nil nil nil]])
-    => {:kick1 (take 8 (concat [{:v 5 :p nil}] (repeat {:v nil :p nil})))})
+    => {:kick1 (take 8 (concat [{:v 5 :p nil}] (repeat {:v nil :p nil})))}
+
+  (p/make-pattern [:kick1 [5 nil] :snare [1]])
+    => {:kick1 [{:v 5 :p nil} {:v nil :p nil}]
+        :snare [{:v 1 :p nil} {:v 1 :p nil}]})
 
 (require '[jumski.breakage.player :as p] :reload)
