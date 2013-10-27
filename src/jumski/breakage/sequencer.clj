@@ -1,6 +1,7 @@
 (ns jumski.breakage.sequencer
   (:use [overtone.live])
-  (:require [jumski.breakage.pattern :as p]))
+  (:require [jumski.breakage.pattern :as p])
+  (:require [jumski.breakage.step :as s]))
 
 (def metro (metronome 120))
 
@@ -14,11 +15,10 @@
           smp   (hit kit)]
       (doseq [qtr (range 4) :when (->> qtr steps :v nil? not)]
         (let [step (steps qtr)
-              vel  (:v step)
-              pit  (:p step)
-              pit  (if (nil? pit) 1 pit)]
+              vol  (s/volume step)
+              rat  (s/rate step)]
           (at (metro (+ (* 0.25 qtr) beat))
-              (smp :rate pit :vol vel)))))))
+              (smp :vol vol :rate rat)))))))
 
 (defn player
   "Plays all tracks from given pattern"
