@@ -1,4 +1,4 @@
-(ns jumski.breakage.player)
+(ns jumski.breakage.pattern)
 
 (defn beat-to-play [beat trk]
   (let [beats (/ (count trk) 4)

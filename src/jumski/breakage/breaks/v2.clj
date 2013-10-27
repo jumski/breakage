@@ -1,7 +1,6 @@
 (ns jumski.breakage.breaks.v2
   (:use [jumski.breakage.sequencer] :reload)
   (:require [jumski.breakage.kit :as kit])
-  (:require [jumski.breakage.player :as p])
   (:require [overtone.live :as o]))
 
 (def amen-break (kit/load-kit "samples/amen-break"))

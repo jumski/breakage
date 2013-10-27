@@ -1,6 +1,6 @@
 (ns jumski.breakage.sequencer
   (:use [overtone.live])
-  (:require [jumski.breakage.player :as p]))
+  (:require [jumski.breakage.pattern :as p]))
 
 (def metro (metronome 120))
 

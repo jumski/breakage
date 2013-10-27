@@ -1,9 +1,9 @@
-(ns jumski.breakage.player-test)
+(ns jumski.breakage.pattern-test)
 (use 'clojure.test)
 (use 'conjure.core)
 ;; (use 'midje.sweet)
 (use 'midje.repl)
-(require '[jumski.breakage.player :as p] :reload)
+(require '[jumski.breakage.pattern :as p] :reload)
 
 (defn mkdummy [len]
   (take len (iterate inc 0)))
@@ -84,4 +84,4 @@
     => {:kick1 [{:v 5 :p nil} {:v nil :p nil}]
         :snare [{:v 1 :p nil} {:v 1 :p nil}]})
 
-(require '[jumski.breakage.player :as p] :reload)
+(require '[jumski.breakage.pattern :as p] :reload)
