@@ -1,6 +1,5 @@
 (ns jumski.breakage.breaks.break_1
-  (:use [jumski.breakage.step-seq]
-        [jumski.breakage.pattern])
+  (:use [jumski.breakage.sequencer])
   (:require [jumski.breakage.kit :as kit])
   (:require [overtone.live :as o]))
 
@@ -33,9 +32,6 @@
                     [_ _ _ _ _ _ _ 1 _ 1 _ 1 _ 2 _ 1]])
 
 (defn pattern [] dnb)
-;; (defn pattern [] (merge-with concat
-;;                          dnb-base dnb-base2 dnb-base dnb-final
-;;                          dnb-base dnb-base2 dnb-base dnb-final2))
 
 (o/stop)
 (play amen-break #'pattern 194)

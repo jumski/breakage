@@ -1,6 +1,5 @@
 (ns jumski.breakage.breaks.pitches_1
-  (:use [jumski.breakage.step-seq]
-        [jumski.breakage.pattern])
+  (:use [jumski.breakage.sequencer])
   (:require [jumski.breakage.kit :as kit])
   (:require [overtone.live :as o]))
 
