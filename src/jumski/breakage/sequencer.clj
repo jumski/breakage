@@ -7,7 +7,7 @@
 (def _ nil)
 
 (defn play-track
-  "For each track in a pattern it schedules active samples to play at proper time"
+  "Schedules active steps to play at proper time"
   [kit pattern hit beat]
   (doseq [[hit steps] pattern]
     (let [steps (p/beat-to-play beat steps)
