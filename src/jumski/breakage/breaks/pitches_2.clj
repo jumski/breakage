@@ -33,4 +33,4 @@
 
 (o/stop)
 (o/volume 0.3)
-(play amen-break #'pattern 184)
+(play amen-break #'pattern 178)
