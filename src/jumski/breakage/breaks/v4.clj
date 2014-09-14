@@ -15,7 +15,6 @@
            :stab   (->> [2 1 _] cycle (take 16))
                    (let [up (->> 5 (iterate #(* 1.06 %)) (take 8))
                          down (->> 3 (iterate #(* 0.98 %)) (take 8))]
-                        ;; (interleave down down)
                     (interleave up down)
                      )
            ])
