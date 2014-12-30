@@ -6,8 +6,8 @@
 (def amen-break (kit/load-kit "samples/amen-break"))
 
 (def base3 [
-  :kick4    [5 _ _ _ _ _ 5 _ _ _ _ _ _ _ _ _]
-            [1 _ _ _ _ _ 1 _ _ _ _ _ _ _ _ _]
+  :kick4    [5 _ _ 2 _ _ 5 _ _ 2 _ _ 3 _ _ _]
+            [1 _ _ 6 _ _ 1 _ _ 4 _ _ 2 _ _ _]
   :chat1    [_ _ 4 _ 4 _ 4 _ 4 _ 4 _ _ _ _ _]
 
   :csnare   [_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
