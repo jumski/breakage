@@ -14,7 +14,7 @@
 (def amen-break (kit/load-kit "samples/amen-break"))
 
 (def break-1 [:kick2   [7 _ _ 7 _ _ 7 _ _ _ _ _ _ _ _ _]
-              :stab    [_ _ _ _ _ _ _ _ _ _ _ 3 _ _ _ _]
+              :snare2  [_ _ _ _ _ _ _ _ _ 7 _ _ _ _ _ _]
               :crash   [_ _ _ _ _ _ _ _ 5 _ _ _ _ _ _ _]
               :chat2   [_ 4 _ _ _ _ _ _ _ _ 5 _ 5 _ 5 _]
 
