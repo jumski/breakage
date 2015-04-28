@@ -34,4 +34,4 @@
 (defn pattern [] dnb)
 
 (o/stop)
-(play amen-break #'pattern 194)
+(play amen-break #'pattern 154)
