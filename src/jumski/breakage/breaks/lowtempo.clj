@@ -25,10 +25,10 @@
            :chat1    [_ _ _ _ _ _ 1 _ 1 _ _ _ _ _ _ _]
            :ssnare2  [_ _ _ _ _ _ _ 5 _ 5 _ _ _ _ _ _]
                      [_ _ _ _ _ _ _ 8 _ 8 _ _ _ _ _ _]
-           ;; :rroll     (->> [3 2 _] cycle (take 16))
-           ;;            (let [up (->> 12 (iterate #(* 1.2 %)) (take 8))
-           ;;                  down (->> 12 (iterate #(* 0.9 %)) (take 8))]
-           ;;                    (interleave down up))
+           :rroll     (->> [3 2 _] cycle (take 16))
+                      (let [up (->> 1 (iterate #(* 2 %)) (take 8))
+                            down (->> -1 (iterate #(* 1 %)) (take 8))]
+                              (interleave down up))
            ;; :rroll [3 2 3 2]
            ])
 
