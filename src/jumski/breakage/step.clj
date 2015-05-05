@@ -13,8 +13,7 @@
 (defmulti rate class)
 (defmethod rate :default [step]
   (let [semitones (:p step)]
-    (cond (nil? semitones) 1
-          (#{0 1} semitones) 1
+    (cond (or (nil? semitones) (zero? semitones)) 1
           :else (semitones-to-rate semitones))))
 
 

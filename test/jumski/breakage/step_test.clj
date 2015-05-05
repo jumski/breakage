@@ -9,17 +9,18 @@
 (facts
   (s/rate {:p nil}) => 1
   (s/rate {:p 0})   => 1
-  (s/rate {:p 1})   => 1
 
   (s/rate {:p 12}) => 2
   (s/rate {:p 24}) => 4
   (s/rate {:p 36}) => 8
+  (s/rate {:p 1})  => (m/expt 2 1/12)
   (s/rate {:p 5})  => (m/expt 2 5/12)
   (s/rate {:p 7})  => (m/expt 2 7/12)
 
   (s/rate {:p -12}) => 1/2
   (s/rate {:p -24}) => 1/4
   (s/rate {:p -36}) => 1/8
+  (s/rate {:p -1})  => (m/expt 2 -1/12)
   (s/rate {:p -5})  => (m/expt 2 -5/12)
   (s/rate {:p -7})  => (m/expt 2 -7/12)
 )
