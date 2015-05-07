@@ -6,8 +6,8 @@
 (def amen-break (kit/load-kit "samples/amen-break"))
 
 (def base [
-           ;; :snare3 (->> [3 _] cycle (take 16))
-           ;;         (take 16 (iterate #(* 0.5 %) 8))
+           :snare3 (->> [_ 7] cycle (take 16))
+                   (take 16 (iterate #(- % 1) 16))
            :skick  (take 16 (cycle [4 _ ]))
            :kick1   [5 _ _ _ 3 _ _ _]
            :snare1  [_ _ _ 3 2 _ 2   _ _ 2 _ 3 2 _ 2   _]

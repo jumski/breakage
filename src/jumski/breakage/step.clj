@@ -3,7 +3,7 @@
 
 (defmulti volume class)
 (defmethod volume :default [step]
-  (/ (:v step) 10))
+  (/ (:v step) 50))
 
 (defn- semitones-to-rate
   "Given transpose in semitones, returns sample rate"
