@@ -26,7 +26,7 @@
        (map vec)
        vec))
 
-(defn- make-pattern [flat]
+(defn make-pattern [& flat]
   (let [splitted (split-on-keyword flat)
         tracks (for [[hitname & steps] splitted]
                  {hitname (make-track steps)})]

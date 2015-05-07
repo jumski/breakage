@@ -5,9 +5,12 @@
 (use 'midje.repl)
 (require '[jumski.breakage.mindstorm :as m] :reload)
 
-(m/defpattern intro :k 1 _ 2 _)
-                    ;; :p _ 3 _ 4)
+(fact "Handles even length of tracks"
+  (m/make-pattern :k 1 m/. 2 m/.
+                  :p 3 m/. 4 m/.) => {:k {0 1, 2 2}
+                                      :p {0 3, 2 4}})
 
-(facts
-  (:intro @m/patterns) => {:k {0 1, 2 2}})
-                           ;; :p {1 3, 3 4}})
+(fact "Handles different lenght of tracks"
+  (m/make-pattern :k 1 m/. 2
+                  :p 3 m/. 4 m/.) => {:k {0 1 2 2}
+                                      :p {0 3, 2 4}})
