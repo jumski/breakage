@@ -26,7 +26,7 @@
        (map vec)
        vec))
 
-(defn make-pattern [& flat]
+(defn make-pattern [flat]
   (let [splitted (split-on-keyword flat)
         tracks (for [[hitname & steps] splitted]
                  {hitname (make-track steps)})]
@@ -35,9 +35,16 @@
 (defmacro defpattern
   "Parses steps into a pattern and stores in patterns atom"
   [name & body]
-  (let [name (keyword name)
-        pattern (make-pattern body)]
+  `(let [name# (keyword name)
+        pattern# (make-pattern ~body)]
     (do
-      (swap! patterns assoc name pattern))))
+      (swap! patterns assoc name# pattern#))))
+;; (defmacro defpattern
+;;   [name & body]
+;;   `(list ~@body))
 
+;; (let [n (keyword 'intro)
+;;       p (make-pattern [:kick1 9 . . . | . 9 .])]
+;;   (do
+;;     (swap! patterns assoc n p)))
 (defpattern intro :kick1 9 . . . | . 9 .)
