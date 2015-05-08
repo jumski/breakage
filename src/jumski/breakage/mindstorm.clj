@@ -2,10 +2,10 @@
 
 (def patterns (atom {}))
 
-(def | nil)
-(def . nil)
-
 (defn- make-track [steps]
+  "Converts sequence of integers or nils into a map of
+  sequence index to integer value, skipping any indexes
+  where value is nil"
   (->> steps
     (map-indexed
       (fn [idx val]
@@ -26,16 +26,24 @@
        (map vec)
        vec))
 
-(defn make-pattern [flat]
+(defn make-pattern
+  "Makes hash-map of hitnames to steps from a flat list provided by defpattern"
+  [flat]
   (let [splitted (split-on-keyword flat)
         tracks (for [[hitname & steps] splitted]
                  {hitname (make-track steps)})]
     (apply merge-with concat tracks)))
 
-(defn defpattern
+(defn- keyword-or-integer-or-nil
+  "If item is a number or keyword, return it.  Otherwise return nil"
+  [item]
+  (if (or (keyword? item) (number? item)) item))
+
+(defmacro defpattern
   "Parses steps into a pattern and stores in patterns atom"
   [pname & body]
-  (let [patt (make-pattern body)]
+  (let [body (map keyword-or-integer-or-nil body)
+        patt (make-pattern body)]
     (swap! patterns assoc pname patt)))
 
 (comment
