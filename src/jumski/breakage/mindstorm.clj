@@ -32,19 +32,59 @@
                  {hitname (make-track steps)})]
     (apply merge-with concat tracks)))
 
-(defmacro defpattern
+(defn defpattern
   "Parses steps into a pattern and stores in patterns atom"
-  [name & body]
-  `(let [name# (keyword name)
-        pattern# (make-pattern ~body)]
-    (do
-      (swap! patterns assoc name# pattern#))))
-;; (defmacro defpattern
-;;   [name & body]
-;;   `(list ~@body))
+  [pname & body]
+  (let [patt (make-pattern body)]
+    (swap! patterns assoc pname patt)))
 
-;; (let [n (keyword 'intro)
-;;       p (make-pattern [:kick1 9 . . . | . 9 .])]
-;;   (do
-;;     (swap! patterns assoc n p)))
-(defpattern intro :kick1 9 . . . | . 9 .)
+(comment
+  (defpattern :intro
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    :kick1    9 . . .   . . 9 .   9 . . 8   9 . 5 .
+
+    :hat      . 2
+
+    :snare    . . 4 .   3 . . 3
+
+    :tomhi    . 1 1 2   . . 3 2
+
+    :tomlo    3 . . .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    )
+)

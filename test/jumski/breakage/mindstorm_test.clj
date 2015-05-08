@@ -19,5 +19,5 @@
 (facts "defpattern"
   (fact "parses stuff using make-pattern and stores in an atom"
     (do
-      (m/defpattern intro :k 1 m/. 2 m/.)
+      (m/defpattern :intro :k 1 m/. 2 m/.)
       (:intro @m/patterns)) => {:k {0 1, 2 2}}))
