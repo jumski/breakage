@@ -31,5 +31,5 @@
   (fact
     "Anything other than integer is treated as nil step"
     (do
-      (m/defpattern :intro :k 1 / + . 1 | = -)
-      (:intro @m/patterns)) => {:k {0 1, 4 1}}))
+      (m/defpattern :intro :k 1 / + . 1 | = - 1 "" \c #{})
+      (:intro @m/patterns)) => {:k {0 1, 4 1, 8 1}}))
