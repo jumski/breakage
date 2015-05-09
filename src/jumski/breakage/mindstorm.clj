@@ -34,7 +34,7 @@
                  {hitname (make-track steps)})]
     (apply merge-with concat tracks)))
 
-(defn- keyword-or-integer-or-nil
+(defn- normalize-step
   "If item is a number or keyword, return it.  Otherwise return nil"
   [item]
   (if (or (keyword? item) (number? item)) item))
@@ -42,12 +42,13 @@
 (defmacro defpattern
   "Parses steps into a pattern and stores in patterns atom"
   [pname & body]
-  (let [body (map keyword-or-integer-or-nil body)
+  (let [body (map normalize-step body)
         patt (make-pattern body)]
     (swap! patterns assoc pname patt)))
 
 (comment
   (defpattern :intro
+
 
 
 
