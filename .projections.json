@@ -1,13 +1,13 @@
 {
   "src/jumski/breakage/*.clj": {
     "command": "src",
-    "alternate": "test/jumski/breakage/%s_test.clj",
-    "template": "(ns jumski.breakage.%s)\n"
+    "alternate": "test/jumski/breakage/{}_test.clj",
+    "template": "(ns jumski.breakage.{})\n"
   },
   "test/jumski/breakage/*_test.clj": {
     "command": "test",
-    "alternate": "src/jumski/breakage/%s.clj",
-    "template": "(ns jumski.breakage.%s)\n"
+    "alternate": "src/jumski/breakage/{}.clj",
+    "template": "(ns jumski.breakage.{})\n"
   },
   "src/jumski/breakage/breaks/*.clj": {
     "command": "break",
