@@ -33,9 +33,9 @@
   (midi-note-on akai 60 126)
   (midi-note-off akai 60)
 
-  (doseq [note (cycle [60 60 65])]
+  (future
+    (doseq [note [60 60 60 65]]
       (do
-        (midi-note akai note 126 500)
-        (Thread/sleep 750)))
-
+        (midi-note akai note 126 400)
+        (Thread/sleep 200))))
 )
