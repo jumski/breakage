@@ -1,8 +1,11 @@
 (ns jumski.breakage.tests.akai-s2000
-  (:use [overtone.live :as o]))
+  (:use [overtone.live :as o])
+  (:use [overtone.midi :only [midi-out]])
+  ;; (:use [overtone.midi :only [midi-out]])
+  (:use [clojure.pprint :only [pprint] :rename {pprint pp}]))
 
-(def midi-out-to-sampler (first (midi-find-connected-devices "USB20MIDI")))
-(def akai midi-out-to-sampler)
+;; (def akai (first (midi-find-connected-devices "MIDI")))
+;; (def akai (first (midi-find-connected-devices "MIDI")))
 
 (comment
 
@@ -23,10 +26,16 @@
   (testsaw :outno 7)
   (o/stop)
 
+  (def akai (midi-out "USB"))
+
   ;; (o/midi-note-on midi-out-to-sampler 60 100)
-  (o/midi-note akai 60 100 1000 1)
+  (midi-note akai 65 126 500 7)
+  (midi-note-on akai 60 126)
+  (midi-note-off akai 60)
 
-  (doseq [n (range 126)]
-    (o/midi-note-on midi-out-to-sampler n 100))
+  (doseq [note (cycle [60 60 65])]
+      (do
+        (midi-note akai note 126 500)
+        (Thread/sleep 750)))
 
-  )
+)
