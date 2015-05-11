@@ -21,9 +21,9 @@
   (midi-note-off akai 60)
 
   (future
-    (doseq [note [60 60 60 65]]
+    (doseq [note (take 32 (cycle [60 60 60 65]))]
       (do
-        (midi-note-on akai note 126)
+        (midi-note akai note 126 50)
         (Thread/sleep 150))))
 
   (state/defpattern :test
@@ -34,10 +34,17 @@
 
     )
 
+  ;; (notes-for-measure patt 17 1/4)
   (defn notes-for-measure
-    [patt meas]
+    [patt beat step]
     "Returns notes that are playing for given measure"
-    (filter (complement nil?) patt)
+    )
+
+  (defn foo
+    [t val]
+    (println val)
+    (let [next-t (+ t 200)]
+      (apply-at next-t #'foo [next-t (inc val)])))
 
   (defn midi-play-pattern
     [patt meas sink channel]
@@ -62,27 +69,4 @@
 
 
 
-
-
-(def metro (metronome 154))
-
-(defn foo
-  [m val]
-  (let [next-t (+ m 200)]
-    (apply-at next-t #'foo [next-t (inc val)])))
-
-  (o/stop)
-  (testsaw :outno 0)
-  (testsaw :outno 1)
-  (o/stop)
-  (testsaw :outno 2)
-  (testsaw :outno 2)
-  (testsaw :outno 3)
-  (testsaw :outno 4)
-  (o/stop)
-  (testsaw :outno 5)
-  (testsaw :outno 6)
-  (testsaw :outno 7)
-  (o/stop)
-
-)
+  )

@@ -11,7 +11,7 @@
       (fn [idx val]
         (if (not (nil? val))
           [idx val])))
-    (filter (complement nil?))
+    ;; (filter (complement nil?))
     (map #(apply hash-map %))
     (apply merge-with concat)))
 
@@ -45,6 +45,11 @@
   (let [body (map normalize-step body)
         patt (make-pattern body)]
     (swap! patterns assoc pname patt)))
+
+(defmacro getpattern
+  "Gets pattern by name"
+  [pname]
+  (@patterns pname))
 
 (comment
   (defpattern :intro
@@ -96,4 +101,4 @@
 
 
     )
-)
+  )
