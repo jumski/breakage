@@ -7,26 +7,25 @@
 (facts "Mindstorm"
 
   (facts "make-pattern"
-    (fact "Handles even length of tracks"
+    (fact "Does not cycle anything if tracks are even in length"
       (m/make-pattern [:k 1 2 :p 3 4])
-        => {:k {0 1, 1 2} :p {0 3, 1 4}})
+        => {:k [1 2] :p [3 4]})
 
-    (fact "Handles different lenght of tracks"
-      (m/make-pattern [:k 1 2 :p 3 4 5])
-        => {:k {0 1, 1 2} :p {0 3, 1 4, 2 5}})
+    (fact "Cycles shorter tracks to length of longest one"
+      (m/make-pattern [:k 1 2 :p 3 4 5 :h 6 7 8 9])
+        => {:k [1 2 1 2] :p [3 4 5 3] :h [6 7 8 9]})
 
-    (fact "Skips nil steps"
-      (m/make-pattern [:k 1 nil 2 nil]) => {:k {0 1, 2 2}}))
+    (fact "Preserves nil steps"
+      (m/make-pattern [:k 1 nil 2 nil]) => {:k [1 nil 2 nil]}))
 
   (facts "defpattern"
     (fact "Stores pattern created by make-pattern in an atom"
           (do
-            ;; (reset! patterns {})
             (m/defpattern :intro :k 1 2 3 4)
-            (m/getpattern :intro)) => {:k {0 1, 1 2, 2 3, 3 4}})
+            (m/getpattern :intro)) => {:k [1 2 3 4]})
 
     (fact "Anything other than integer is treated as nil step"
           (do
             ;; (reset! patterns {})
             (m/defpattern :intro :k 1 / + . 1 | = - 1 "" \c #{})
-            (m/getpattern :intro)) => {:k {0 1, 4 1, 8 1}})))
+            (m/getpattern :intro)) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]})))

@@ -2,19 +2,6 @@
 
 (def patterns (atom {}))
 
-(defn- make-track [steps]
-  "Converts sequence of integers or nils into a map of
-  sequence index to integer value, skipping any indexes
-  where value is nil"
-  (->> steps
-    (map-indexed
-      (fn [idx val]
-        (if (not (nil? val))
-          [idx val])))
-    ;; (filter (complement nil?))
-    (map #(apply hash-map %))
-    (apply merge-with concat)))
-
 (defn- split-on-keyword
   "Splits input sequence on chunks, each starting with keyword"
   [pat]
@@ -29,10 +16,12 @@
 (defn make-pattern
   "Makes hash-map of hitnames to steps from a flat list provided by defpattern"
   [flat]
-  (let [splitted (split-on-keyword flat)
-        tracks (for [[hitname & steps] splitted]
-                 {hitname (make-track steps)})]
-    (apply merge-with concat tracks)))
+  (let [raw-tracks  (split-on-keyword flat)
+        avals       (map rest raw-tracks)
+        akeys       (map first raw-tracks)
+        maxlen      (apply max (map count avals))
+        avals (map #(take maxlen %) (map cycle avals))]
+    (zipmap akeys avals)))
 
 (defn- normalize-step
   "If item is a number or keyword, return it.  Otherwise return nil"
