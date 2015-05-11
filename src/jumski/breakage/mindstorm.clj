@@ -33,7 +33,8 @@
   [pname & body]
   (let [body (map normalize-step body)
         patt (make-pattern body)]
-    (swap! patterns assoc pname patt)))
+    (swap! patterns assoc pname patt)
+    pname))
 
 (defmacro getpattern
   "Gets pattern by name"

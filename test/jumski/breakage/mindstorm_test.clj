@@ -26,6 +26,5 @@
 
     (fact "Anything other than integer is treated as nil step"
           (do
-            ;; (reset! patterns {})
             (m/defpattern :intro :k 1 / + . 1 | = - 1 "" \c #{})
             (m/getpattern :intro)) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]})))
