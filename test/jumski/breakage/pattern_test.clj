@@ -1,7 +1,5 @@
 (ns jumski.breakage.pattern-test)
 (use 'clojure.test)
-(use 'conjure.core)
-;; (use 'midje.sweet)
 (use 'midje.repl)
 (require '[jumski.breakage.pattern :as p] :reload)
 

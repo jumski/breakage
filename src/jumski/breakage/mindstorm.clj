@@ -33,34 +33,26 @@
   [pname & body]
   (let [body (map normalize-step body)
         patt (make-pattern body)]
-    (swap! patterns assoc pname patt)
-    pname))
+    (swap! patterns assoc pname patt)))
 
 (defmacro getpattern
   "Gets pattern by name"
   [pname]
   (@patterns pname))
 
+(defn tracks-to-play [patt step]
+  "Given pattern, returns map of track name to velocity,
+  for tracks that should trigger a note on for this step."
+  (->>
+    (for [[n & [steps]] patt
+          :let [velo (get steps step)]
+          :when (not (nil? velo))]
+      [n velo])
+    flatten
+    (apply hash-map)))
+
 (comment
   (defpattern :intro
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     :kick1    9 . . .   . . 9 .   9 . . 8   9 . 5 .
 
@@ -72,23 +64,5 @@
 
     :tomlo    3 . . .
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    )
   )
+)

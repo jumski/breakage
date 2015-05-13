@@ -19,12 +19,22 @@
       (m/make-pattern [:k 1 nil 2 nil]) => {:k [1 nil 2 nil]}))
 
   (facts "defpattern"
-    (fact "Stores pattern created by make-pattern in an atom"
+    (fact "defpattern Stores pattern created by make-pattern in an atom"
           (do
             (m/defpattern :intro :k 1 2 3 4)
             (m/getpattern :intro)) => {:k [1 2 3 4]})
 
-    (fact "Anything other than integer is treated as nil step"
+    (fact "defpattern Anything other than integer is treated as nil step"
           (do
             (m/defpattern :intro :k 1 / + . 1 | = - 1 "" \c #{})
-            (m/getpattern :intro)) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]})))
+            (m/getpattern :intro)) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]}))
+
+  (facts "tracks-to-play"
+    (def patt {:k [  1 nil 2 nil]
+               :p [nil nil 3 4  ]})
+    (m/tracks-to-play patt 0) => {:k 1}
+    (m/tracks-to-play patt 1) => {}
+    (m/tracks-to-play patt 2) => {:k 2 :p 3}
+    (m/tracks-to-play patt 3) => {:p 4})
+
+  )
