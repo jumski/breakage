@@ -23,14 +23,6 @@
       (when-let [velo (-> steps cycle (nth step))]
         (-> velo inc (* 12.7))))
 
-    (defn notes-for-step [steps step notemap]
-      (let [names (keys steps)
-            velos (map velo-for-step (vals steps))
-            notes (map notemap names)]
-        names
-        ))
-        ;; (zipmap notes velos)))
-
     (def current-step (atom 0))
 
     (defn play-current-step [patt notemap sink]
@@ -41,6 +33,11 @@
                 :when (not (nil? velo))]
           (midi-note sink note velo 50))
         (swap! current-step inc)))
+
+    (doseq [step (range 64)]
+      (do
+        (play-current-step patt notemap sink)
+        (Thread/sleep 150)))
 
     (defn sequence [patt bpm notemap sink]
       "Starts sequencing midi messages to sink for pattern at given bpm.
