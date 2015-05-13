@@ -1,22 +1,19 @@
-(ns jumski.breakage.tests.sequencer)
+(ns jumski.breakage.tests.sequencer-test)
 (use 'clojure.test)
 ;; (use 'midje.sweet)
 (use 'midje.repl)
 (require '[jumski.breakage.tests.sequencer :as s] :reload)
-(require '[jumski.breakage.tests.mindstorm :as m] :reload)
+(require '[jumski.breakage.mindstorm :as m] :reload)
 
 (facts "Sequencer"
-  (facts "steps-to-play"
-    (def patt (m/make-pattern [:k 1 nil 2 nil
-                               :p 3 4   5 nil])
-    (def notemap {:k 1 :p 2})
+  (facts "velo-for-step"
+    (s/velo-for-step [0 1 2 3] 0) => (* 1 12.7)
+    (s/velo-for-step [0 1 2 3] 1) => (* 2 12.7)
+    (s/velo-for-step [0 1 2 3] 2) => (* 3 12.7)
+    (s/velo-for-step [0 1 2 3] 3) => (* 4 12.7)
 
-    (notes-for-step patt 0 notemap) => {1 1}
-    (notes-for-step patt 1 notemap) => {2 4}
-    (notes-for-step patt 2 notemap) => {1 2, 2 5}
-    (notes-for-step patt 3 notemap) => {}
-
-    (notes-for-step patt 0 notemap) => {1 1}
-    (notes-for-step patt 1 notemap) => {2 4}
-    (notes-for-step patt 2 notemap) => {1 2, 2 5}
-    (notes-for-step patt 3 notemap) => {}
+    (s/velo-for-step [0 1 2 3] 4) => (* 1 12.7)
+    (s/velo-for-step [0 1 2 3] 5) => (* 2 12.7)
+    (s/velo-for-step [0 1 2 3] 6) => (* 3 12.7)
+    (s/velo-for-step [0 1 2 3] 7) => (* 4 12.7)
+    ))
