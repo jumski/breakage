@@ -15,16 +15,21 @@
       (m/make-pattern [:k 1 2 :p 3 4 5 :h 6 7 8 9])
         => {:k [1 2 1 2] :p [3 4 5 3] :h [6 7 8 9]})
 
+    (fact "flattens any sequences"
+      (m/make-pattern [:k 1 [2 3] 4 :p [5 6] [7 8]]) => {:k [1 2 3 4]
+                                                         :p [5 6 7 8]})
+
+
     (fact "Preserves nil steps"
       (m/make-pattern [:k 1 nil 2 nil]) => {:k [1 nil 2 nil]}))
 
   (facts "defpattern"
-    (fact "defpattern Stores pattern created by make-pattern in an atom"
+    (fact "stores pattern created by make-pattern in an atom"
           (do
             (m/defpattern :intro :k 1 2 3 4)
             (m/getpattern :intro)) => {:k [1 2 3 4]})
 
-    (fact "defpattern Anything other than integer is treated as nil step"
+    (fact "Anything other is treated as nil step"
           (do
             (m/defpattern :intro :k 1 / + . 1 | = - 1 "" \c #{})
             (m/getpattern :intro)) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]}))

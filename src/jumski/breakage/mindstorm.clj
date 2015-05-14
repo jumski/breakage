@@ -17,10 +17,10 @@
   "Makes hash-map of hitnames to steps from a flat list provided by defpattern"
   [flat]
   (let [raw-tracks  (split-on-keyword flat)
-        avals       (map rest raw-tracks)
+        avals       (map (comp rest flatten) raw-tracks)
         akeys       (map first raw-tracks)
         maxlen      (apply max (map count avals))
-        avals (map #(take maxlen %) (map cycle avals))]
+        avals (map #(take maxlen %) (->> avals (map cycle)))]
     (zipmap akeys avals)))
 
 (defn- normalize-step
