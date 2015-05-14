@@ -37,7 +37,7 @@
       (swap! patterns assoc pname patt)
       pname)))
 
-(defmacro getpattern
+(defn getpattern
   "Gets pattern by name"
   [pname]
   (@patterns pname))
