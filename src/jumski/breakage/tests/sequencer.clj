@@ -15,10 +15,11 @@
     (defpattern :intro
       :kick1  9 . 3 9 . . 9 .
               9 . . 9 3 . 9 4
-      :snare1 . . . . . 7 . .
-              . . . . . 7 . .
-              . . . . . 7 . .
-              . . 5 . . 7 . .
+      :snare1 . . 7
+      ;; :snare1 . 2 . 3 . 7 . .
+      ;;         . 2 . 3 . 7 . .
+      ;;         . 2 . 3 . 7 . .
+      ;;         . . 5 . . 7 . .
       ;; :chat1  2 . 4 .
       :chat1 5 4 2
       ;; :csnare . 3 . 3
@@ -55,7 +56,7 @@
         (every step-ms #(play-and-advance pname notemap sink) atat-pool)))
 
     (def sequencer (do (reset! current-step 0)
-                       (play-pattern! :intro 154 notemap sink)))
+                       (play-pattern! :intro 134 notemap sink)))
     (stop sequencer)
 ;;
 ;;
