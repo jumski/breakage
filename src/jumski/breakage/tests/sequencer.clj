@@ -3,6 +3,7 @@
   (:use [overtone.midi :only [midi-out]])
   (:use [overtone.at-at :only [every mk-pool stop]])
   (:use [jumski.breakage.mindstorm :only [make-pattern patterns defpattern getpattern]])
+  (:use [jumski.breakage.tests.akai-s2000 :as akai])
   (:use [clojure.pprint :only [pprint] :rename {pprint pp}]))
 
 ; --- STATE ---
@@ -10,12 +11,9 @@
 (def sequencer (atom nil))
 
 ; --- OPTS ---
-(def sink (midi-out "USB"))
 (def atat-pool (mk-pool))
-(def notemap {:chat1 :c#3 :chat2 :d#3 :chat3 :f#3 :chat4 :g#3 :chat5 :a#3
-              :kick1 :e2 :kick2 :f2 :kick3 :g2 :kick4 :a2 :kick5 :b2 :kick6 :c3
-              :snare1 :f3 :snare2 :g3 :snare3 :a3 :snare4 :b3
-              :snare5 :c4 :snare6 :d4 :snare7 :e4 :snare8 :f4})
+
+(def akai-player (akai/make-player "USB"))
 
 ; --- PATTERNS ---
 (defpattern :intro
@@ -42,18 +40,6 @@
   )
 
 (defpattern :test :kick1 9)
-
-; --- FUNCTIONS ---
-(defn velo-for-step [steps step]
-  (when-let [velo (-> steps cycle (nth step))]
-    (* (inc velo) 12.7)))
-
-
-(defn akai-player [[tname steps] step]
-  (let [noteno (-> tname notemap note (+ 12))
-        velo   (velo-for-step steps step)]
-    (if-not (nil? velo)
-      (midi-note sink noteno velo 100))))
 
 (defn play-and-advance [pname player-fn]
   (do
