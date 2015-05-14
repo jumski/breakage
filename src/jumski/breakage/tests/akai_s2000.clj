@@ -1,5 +1,5 @@
 (ns jumski.breakage.tests.akai-s2000
-  (:use [overtone.live :as o :only [beat-ms midi-note note]])
+  (:use [overtone.live :only [midi-note note]])
   (:use [overtone.midi :only [midi-out]]))
 
 ; --- FUNCTIONS ---

@@ -4,7 +4,8 @@
   (:use [overtone.at-at :only [every mk-pool stop]])
   (:use [jumski.breakage.mindstorm :only [make-pattern patterns defpattern getpattern]])
   (:use [jumski.breakage.tests.akai-s2000 :as akai])
-  (:use [clojure.pprint :only [pprint] :rename {pprint pp}]))
+  (:use [clojure.pprint :only [pprint] :rename {pprint pp}])
+  (:use [jumski.breakage.kit :only [load-kit]]))
 
 ; --- STATE ---
 (def current-step (atom 0))
@@ -58,6 +59,16 @@
   (let [step-ms (beat-ms 1/4 bpm)]
     (every step-ms #(play-and-advance pname player-fn) atat-pool)))
 
+
+(def amen-break (load-kit "samples/amen-break"))
+(defn overtone-player [[tname steps] step]
+  (let [sample (amen-break tname)
+        vol    (nth steps step)
+        vol    (* 10 vol)]
+    (if-not (nil? vol)
+      sample)))
+      ;; (sample :vol vol))))
+(def xxx (overtone-player [:snare1 [9 9 9 9]] 1))
 
 
 ; --- LIVE ---
