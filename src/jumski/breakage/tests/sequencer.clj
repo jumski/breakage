@@ -55,21 +55,22 @@
     (if-not (nil? velo)
       (midi-note sink noteno velo 100))))
 
-(defn play-and-advance [pname player]
+(defn play-and-advance [pname player-fn]
   (do
     (doseq [trk (pname @patterns)]
-      (player trk @current-step))
+      (player-fn trk @current-step))
     (swap! current-step inc)))
 (comment
   (play-and-advance :intro akai-player sink)
   )
 
-(defn play-pattern! [pname bpm player]
-  "Starts sequencing midi messages to sink for pattern at given bpm.
+(defn play-pattern! [pname bpm player-fn]
+  "Starts sequencing midi messages. Plays each step using player-fn
+  which is c
   Uses notemap to translate track names to midi notes.
   Returns scheduled-fn, which can be stopped with stop."
   (let [step-ms (beat-ms 1/4 bpm)]
-    (every step-ms #(play-and-advance pname player) atat-pool)))
+    (every step-ms #(play-and-advance pname player-fn) atat-pool)))
 
 
 
