@@ -14,10 +14,18 @@
    :snare1 :f3 :snare2 :g3 :snare3 :a3 :snare4 :b3
    :snare5 :c4 :snare6 :d4 :snare7 :e4 :snare8 :f4})
 
+(defn- noteno-for-tname [tname]
+  "Given track name, returns note number.
+  Not number is trasnposed 1 octave up, this
+  is because Overtone and Akai note numbers
+  are shifted by 12 semitones (don't know why)."
+  (-> tname notemap note (+ 12)))
+
 (defn make-player [midi-out-string]
+  "Returns player-fn with opened midi-out"
   (let [sink (midi-out midi-out-string)]
     (fn [[tname steps] step]
-     (let [noteno (-> tname notemap note (+ 12))
+     (let [noteno (noteno-for-tname tname)
            velo   (velo-for-step steps step)]
        (if-not (nil? velo)
          (midi-note sink noteno velo 100))))))

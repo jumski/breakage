@@ -26,17 +26,17 @@
           . 2 . 3 . 7 . .
           . . 5 . . 7 . .
   ;; :chat1  2 . 4 .
-  :chat1 5 4 2
+  :chat1 3 2 1
   ;; :csnare . 3 . 3
   )
 
 (defpattern :break1
-  :kick1  9 . . . . 9 . .
-  :kick2  . . 7 . 4 . . .
-  :chat1  . 6 .
-  :snare2 . . . . . . 4 .
-  :snare3 . . . . . . . 4
-  :snare1 . . 5 . . . . .
+  :kick1   9 . . . . 9 . .
+  :kick2   . . 7 . 4 . . .
+  :chat1   . 4 .
+  :snare2  . . . . . . 4 .
+  :snare3  . . . . . . . 4
+  :snare1  . . 5 . . . . .
   ;; :snare2 . 2 . 2 4 5 2 .
   )
 
@@ -75,7 +75,7 @@
 (comment
   (do (stop @sequencer)
       (reset! current-step 0)
-      (reset! sequencer (play-pattern! :break1 154 akai-player)))
+      (reset! sequencer (play-pattern! :intro 174 akai-player)))
   (stop @sequencer)
 
 
