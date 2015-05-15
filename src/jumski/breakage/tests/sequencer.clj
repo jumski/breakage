@@ -16,42 +16,6 @@
 
 (def akai-player (akai/make-player "USB"))
 
-; --- PATTERNS ---
-(defpattern :intro
-  :kick1  9 . . 9 9 . . .
-  ;; :kick1  9 . 3 9 . . 9 .
-
-  ;; :snare1 . . . . . 9 . .
-          ;; . . . . . 1 . .
-  :snare3 . . . . 5
-  ;;         9 . . 9 3 . 9 4
-  ;; :snare1 . . 7
-  ;; :snare1 . 2 . 3 . 7 . .
-          ;; . 2 . 3 . 7 . .
-          ;; . 2 . 3 . 7 . .
-          ;; . . 5 . . 7 . .
-  :chat1  2 . 4 . . 3
-  :chat3  . . . . 4 . . .
-  ;; :chat3  . 2 .
-  ;; :chat1  . 4
-  :kick6
-          4 4 4 4 4 . . .
-          . . . . . . . .
-          . . . . . . . .
-          . . . . . . . .
-  ;; :chat1 3 2 1
-  ;; :csnare . 3 . 3
-  )
-
-(defpattern :break1
-  :kick1   9 . . . . 9 . .
-  :kick2   . . 7 . 4 . . .
-  :chat1   . 4 .
-  :snare2  . . . . . . 4 .
-  :snare3  . . . . . . . 4
-  :snare1  . . 5 . . . . .
-  ;; :snare2 . 2 . 2 4 5 2 .
-  )
 
 (defpattern :test :kick1 9)
 
@@ -103,6 +67,16 @@
 
   (restart-sequencing :intro 154 akai-player)
   (stop-sequencing :intro)
+
+  (defpattern :break1
+    :kick1   9 . . . . 9 . .
+    :kick2   . . 7 . 4 . . .
+    :chat1   . 4 .
+    :snare2  . . . . . . 4 .
+    :snare3  . . . . . . . 4
+    :snare1  . . 5 . . . . .
+    ;; :snare2 . 2 . 2 4 5 2 .
+    )
 
 
   ;; (let [hm {:a {:b {:c 1} :d 99}}]
