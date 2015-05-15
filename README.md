@@ -2,11 +2,9 @@
 
 Turn your editor into a groovebox.
 
-* designed for jamming, live hotswapping of moving parts
-* expected to be run from your editor
-* sequences internal synth (SuperCollider) or external gear via MIDI
-* mainly for composing drums, but easily extendable for other purposes
-* powered by Clojure and Overtone
+* lightning-fast and elegant programming of drum loops
+* very jammable, expected to be run from your editor (tested with `vim-fireplace`)
+* can drive SuperCollider or external MIDI gear
 
 ## Usage
 
@@ -15,43 +13,42 @@ Turn your editor into a groovebox.
 Drum patches are sequences of velocities.
 Defined with `defdrumpatch` macro, which accept
 a "map" of traks to steps (xoxox style).
-Steps are numbers from 0 to 9, so you can set velocities with a 12.7 precision.
-Any non-keyword, non-number and no-sequence form will be treated as empty step.
+Each step is 1/16 long.
+If it is a number, this step will play. Number represents velocity (0 -> 12.7, 9 -> 127).
+Any other non-number, non-keyword and non-list form is treated as empty step.
 
 ```clojure
 (defdrumpatch :fast-hats
-  :hat1 . . 1 .
-  :hat2 . . . 2
-        . 3 . 4
-  :hat3 . . 5 .
+  :hat1 . . 3 . . . 3 .
+  :hat2 . 2 . 2 . 2 . .
 )
 ```
 
-You can set various lengths of tracks. Shorten ones will get `cycle`'d to the
-length of longest one.
+Tracks can be of various lengths. All of them will be `cycle`d to the length
+of the longest one.
 
 ```clojure
 (defdrumpatch :kick-snare
   :kick  1 . . .
-  :snare . . 3 .
-         . 2 3 .
+  :snare . . 3 . . 2 3 .
 )
 ```
 
-`defdrumpatch` is a powerful macro. Any sequences in steps
-will get evaled and results flattened, so you can do this:
+Any lists will be evaled and results flattened into the steps, so you can do this:
 
 ```clojure
 (defdrumpatch :snare-solo
    :snare1 (-> [1 . 5] cycle (take 4))
    ; same as:
    :snare1 [1 . 5 1]
+   ; same as:
+   :snare1 1 . 5 1
 )
 ```
 
 ### Notemaps
 
-Notemaps are needed to get a note from a drumpatch label.
+Notemaps are for translating a note-label, like `:kick1` to a note.
 
 ```clojure
 (defnotemap :amen-break-kit
@@ -64,7 +61,8 @@ Notemaps are needed to get a note from a drumpatch label.
 
 ### Patterns
 
-Patterns are maps of track numbers to patchees.
+Patches are used to play multiple patches simultaneously.
+They are maps of track numbers to patch names.
 
 ```clojure
 (defpattern :intro
@@ -77,7 +75,7 @@ Patterns are maps of track numbers to patchees.
 
 ### Songs
 
-Songs are sequences of patterns.
+Songs are sequences of patterns, that will be played in that order.
 
 ```clojure
 (defsong :clojungle
