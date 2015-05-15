@@ -18,15 +18,28 @@
 
 ; --- PATTERNS ---
 (defpattern :intro
-  :kick1  9 . 3 9 . . 9 .
-          9 . . 9 3 . 9 4
+  :kick1  9 . . 9 9 . . .
+  ;; :kick1  9 . 3 9 . . 9 .
+
+  ;; :snare1 . . . . . 9 . .
+          ;; . . . . . 1 . .
+  :snare3 . . . . 5
+  ;;         9 . . 9 3 . 9 4
   ;; :snare1 . . 7
-  :snare1 . 2 . 3 . 7 . .
-          . 2 . 3 . 7 . .
-          . 2 . 3 . 7 . .
-          . . 5 . . 7 . .
-  ;; :chat1  2 . 4 .
-  :chat1 3 2 1
+  ;; :snare1 . 2 . 3 . 7 . .
+          ;; . 2 . 3 . 7 . .
+          ;; . 2 . 3 . 7 . .
+          ;; . . 5 . . 7 . .
+  :chat1  2 . 4 . . 3
+  :chat3  . . . . 4 . . .
+  ;; :chat3  . 2 .
+  ;; :chat1  . 4
+  :kick6
+          4 4 4 4 4 . . .
+          . . . . . . . .
+          . . . . . . . .
+          . . . . . . . .
+  ;; :chat1 3 2 1
   ;; :csnare . 3 . 3
   )
 
@@ -77,17 +90,18 @@
 
 ; --- LIVE ---
 (comment
-  (do (stop @sequencer)
-      (reset! current-step 0)
-      (reset! sequencer (play-pattern! :intro 174 akai-player)))
+  (defn start-sequencing [pname bpm player]
+    (do (stop @sequencer)
+        (reset! current-step 0)
+        (reset! sequencer (play-pattern! :intro 154 akai-player)))
   (stop @sequencer)
 
 
-  (future
-    (doseq [step (range 8)]
-      (do
-        (midi-note sink 60 126 50)
-        ;; (play-and-advance :intro notemap sink)
-        (Thread/sleep (beat-ms 1/4 150)))))
+  ;; (let [hm {:a {:b {:c 1} :d 99}}]
+  ;;   (update-in hm [:a :b :c] (comp inc inc inc)))
+
+  ;; (future
+  ;;   (doseq [trk [0 9]]
+         ;; (Thread/sleep (beat-ms 1/4 150))))))
 )
 
