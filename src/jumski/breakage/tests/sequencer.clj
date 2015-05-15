@@ -70,6 +70,10 @@
       ;; (sample :vol vol))))
 (def xxx (overtone-player [:snare1 [9 9 9 9]] 1))
 
+;; (defn process-tick [metro ppqn player]
+;;   (do
+;;     (for [tick-len (* 1/4 (metro-tick metro)
+          ;; [note velo] (notes-for-tick
 
 ; --- LIVE ---
 (comment
@@ -77,10 +81,6 @@
       (reset! current-step 0)
       (reset! sequencer (play-pattern! :intro 174 akai-player)))
   (stop @sequencer)
-
-
-
-
 
 
   (future
