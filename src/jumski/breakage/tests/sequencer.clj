@@ -90,11 +90,19 @@
 
 ; --- LIVE ---
 (comment
-  (defn start-sequencing [pname bpm player]
+  (defn restart-sequencing [pname bpm player]
+    (do (stop-sequencing)
+        (reset! sequencer (play-pattern! :intro 154 akai-player))))
+
+  (defn stop-sequencing [pname]
     (do (stop @sequencer)
-        (reset! current-step 0)
-        (reset! sequencer (play-pattern! :intro 154 akai-player)))
+        (reset! current-step 0)))
+
+    (stop @sequencer)
   (stop @sequencer)
+
+  (restart-sequencing :intro 154 akai-player)
+  (stop-sequencing :intro)
 
 
   ;; (let [hm {:a {:b {:c 1} :d 99}}]
