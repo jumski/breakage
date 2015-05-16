@@ -7,17 +7,11 @@
   (:use [clojure.pprint :only [pprint] :rename {pprint pp}])
   (:use [jumski.breakage.kit :only [load-kit]]))
 
-; --- STATE ---
 (def current-step (atom 0))
 (def sequencer (atom nil))
 
-; --- OPTS ---
 (def atat-pool (mk-pool))
-
 (def akai-player (akai/make-player "USB"))
-
-
-(defpattern :test :kick1 9)
 
 (defn play-and-advance [pname player-fn]
   (do
@@ -36,35 +30,16 @@
   (let [step-ms (beat-ms 1/4 bpm)]
     (every step-ms #(play-and-advance pname player-fn) atat-pool)))
 
+(defn stop-sequencing [pname]
+  (do (stop @sequencer)
+      (reset! current-step 0)))
 
-(def amen-break (load-kit "samples/amen-break"))
-(defn overtone-player [[tname steps] step]
-  (let [sample (amen-break tname)
-        vol    (nth steps step)
-        vol    (* 10 vol)]
-    (if-not (nil? vol)
-      sample)))
-      ;; (sample :vol vol))))
-(def xxx (overtone-player [:snare1 [9 9 9 9]] 1))
-
-;; (defn process-tick [metro ppqn player]
-;;   (do
-;;     (for [tick-len (* 1/4 (metro-tick metro)
-          ;; [note velo] (notes-for-tick
+(defn restart-sequencing [pname bpm player]
+  (do (stop-sequencing pname)
+      (reset! sequencer (play-pattern! pname bpm akai-player))))
 
 ; --- LIVE ---
 (comment
-  (defn restart-sequencing [pname bpm player]
-    (do (stop-sequencing)
-        (reset! sequencer (play-pattern! :intro 154 akai-player))))
-
-  (defn stop-sequencing [pname]
-    (do (stop @sequencer)
-        (reset! current-step 0)))
-
-    (stop @sequencer)
-  (stop @sequencer)
-
   (restart-sequencing :intro 154 akai-player)
   (stop-sequencing :intro)
 
@@ -78,12 +53,13 @@
     ;; :snare2 . 2 . 2 4 5 2 .
     )
 
+  (def amen-break (load-kit "samples/amen-break"))
 
-  ;; (let [hm {:a {:b {:c 1} :d 99}}]
-  ;;   (update-in hm [:a :b :c] (comp inc inc inc)))
+  (defn sc-sample-player [[tname steps] step]
+    (let [sample (amen-break tname)
+          vol    (nth steps step)
+          vol    (* 10 vol)]
+      (if-not (nil? vol)
+        sample)))
 
-  ;; (future
-  ;;   (doseq [trk [0 9]]
-         ;; (Thread/sleep (beat-ms 1/4 150))))))
 )
-

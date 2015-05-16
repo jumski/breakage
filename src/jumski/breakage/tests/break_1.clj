@@ -4,8 +4,8 @@
   (:use [jumski.breakage.tests.akai-s2000 :as akai]))
 
 (comment
-  (restart-sequencing :intro 154 akai-player)
-  (stop-sequencing :intro)
+  (s/restart-sequencing :intro 140 midi-player)
+  (s/stop-sequencing :intro)
   )
 
 ; SOURCE
@@ -17,14 +17,14 @@
   :snare3 . . . . 5
   :chat1  2 . 4 . . 3
   :chat3  . . . . 4 . . .
-  :kick6
-          4 4 4 4 4 . . .
-          . . . . . . . .
-          . . . . . . . .
-          . . . . . . . .
+  ;; :kick6
+  ;;         4 4 4 4 4 . . .
+  ;;         . . . . . . . .
+  ;;         . . . . . . . .
+  ;;         . . . . . . . .
   )
 
-(defpattern :intro2
+(defpattern :intro
   :kick1  9 . . 9 9 . . .
   :kick1  9 . 3 9 . . 9 .
 
