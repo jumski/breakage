@@ -11,7 +11,7 @@
 (def sequencer (atom nil))
 
 (def atat-pool (mk-pool))
-(def akai-player (akai/make-player "USB"))
+(def akai-player (akai/make-player "USB" 0))
 
 (defn play-and-advance [pname player-fn]
   (do
@@ -40,18 +40,24 @@
 
 ; --- LIVE ---
 (comment
-  (restart-sequencing :intro 154 akai-player)
-  (stop-sequencing :intro)
+  (restart-sequencing :break1 154 akai-player)
+  (stop-sequencing :break1)
 
   (defpattern :break1
     :kick1   9 . . . . 9 . .
     :kick2   . . 7 . 4 . . .
-    :chat1   . 4 .
-    :snare2  . . . . . . 4 .
-    :snare3  . . . . . . . 4
-    :snare1  . . 5 . . . . .
+    :chat2   . 4 .
+    ;; :snare2  . . . . . . 4 .
+    :snare2  . 2 . 2 . 4 4 4
+    ;; :snare1  . . 5 . . . . .
     ;; :snare2 . 2 . 2 4 5 2 .
     )
+
+  ;; (defn play-tracks [trks bpm]
+  ;;   (doseq [[tname] trks
+  ;;           :let [tname @tracks]
+  ;;     (restart-sequencing tname 1
+
 
   (def amen-break (load-kit "samples/amen-break"))
 

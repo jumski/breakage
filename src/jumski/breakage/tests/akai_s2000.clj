@@ -21,11 +21,11 @@
   are shifted by 12 semitones (don't know why)."
   (-> tname notemap note (+ 12)))
 
-(defn make-player [midi-out-string]
+(defn make-player [midi-out-string chan]
   "Returns player-fn with opened midi-out"
   (let [sink (midi-out midi-out-string)]
     (fn [[tname steps] step]
      (let [noteno (noteno-for-tname tname)
            velo   (velo-for-step steps step)]
        (if-not (nil? velo)
-         (midi-note sink noteno velo 100))))))
+         (midi-note sink noteno velo 100 chan))))))

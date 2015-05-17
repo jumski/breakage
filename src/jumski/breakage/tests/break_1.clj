@@ -3,25 +3,40 @@
   (:use [jumski.breakage.mindstorm :only [defpattern patterns]])
   (:use [jumski.breakage.tests.akai-s2000 :as akai]))
 
+(def ch0 (akai/make-player "USB" 0))
+(def ch1 (akai/make-player "USB" 1))
+
+(def pattern (atom {0 {:midi-channel 0}
+         }))
+
 (comment
-  (s/restart-sequencing :intro 140 midi-player)
+  (s/restart-sequencing :intro 154 ch0)
   (s/stop-sequencing :intro)
   )
 
 ; SOURCE
+  ;;         . . . . . . . .
+  ;;         . . . . . . . .
 
-(def midi-player (akai/make-player "USB"))
+( defpattern :intro
+  :kick1 8 .)
 
 (defpattern :intro
-  :kick1  9 . . 9 9 . . .
-  :snare3 . . . . 5
-  :chat1  2 . 4 . . 3
-  :chat3  . . . . 4 . . .
-  ;; :kick6
-  ;;         4 4 4 4 4 . . .
-  ;;         . . . . . . . .
-  ;;         . . . . . . . .
-  ;;         . . . . . . . .
+  :kick5     8 . 3 . 8 . 4 .
+  :snare1    . . . . 5 . . .
+             . . . . . . . .
+  :snare7    . . . . . . . .
+             . 9 . . 9 . . 9
+             . . . . . . . .
+             . 9 . . . . . .
+  :snare8    . 9 . . 9 . . 9
+             . . . . . . . .
+             . 9 . . . . . .
+             . . . . . . . .
+             ;; . . . . . . . .
+             ;; . 9 . . . . . .
+             ;; . . . . . . . .
+             ;; . 9 . . . . . .
   )
 
 (defpattern :intro
