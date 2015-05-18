@@ -1,6 +1,6 @@
 (ns jumski.breakage.tests.break-1
   (:use [jumski.breakage.tests.sequencer :as s])
-  (:use [jumski.breakage.mindstorm :only [defpattern patterns]])
+  (:use [jumski.breakage.mindstorm :only [defpatch patterns]])
   (:use [jumski.breakage.tests.akai-s2000 :as akai]))
 
 (comment
@@ -11,10 +11,10 @@
 (def ch0 (akai/make-player "USB" 0))
 (def ch1 (akai/make-player "USB" 1))
 
-(defpattern :intro
+(defpatch :intro
   :kick1 8 .)
 
-(defpattern :intro
+(defpatch :intro
   :kick5     6 . 3 . 8 . 4 .
   :snare1    . . . . 5 . . .   . . . . . . . .
   :snare7    . . . . . . . .   . 9 . . 9 . . 9

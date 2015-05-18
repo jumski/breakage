@@ -2,7 +2,7 @@
   (:use [overtone.live :as o :only [beat-ms midi-note note]])
   (:use [overtone.midi :only [midi-out]])
   (:use [overtone.at-at :only [every mk-pool stop]])
-  (:use [jumski.breakage.mindstorm :only [make-pattern patterns defpattern getpattern]])
+  (:use [jumski.breakage.mindstorm :only [make-pattern patterns defpatch getpattern]])
   (:use [jumski.breakage.tests.akai-s2000 :as akai])
   (:use [clojure.pprint :only [pprint] :rename {pprint pp}])
   (:use [jumski.breakage.kit :only [load-kit]]))
@@ -43,7 +43,7 @@
   (restart-sequencing :break1 154 akai-player)
   (stop-sequencing :break1)
 
-  (defpattern :break1
+  (defpatch :break1
     :kick1   9 . . . . 9 . .
     :kick2   . . 7 . 4 . . .
     :chat2   . 4 .

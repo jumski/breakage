@@ -23,15 +23,15 @@
     (fact "Preserves nil steps"
       (m/make-pattern [:k 1 nil 2 nil]) => {:k [1 nil 2 nil]}))
 
-  (facts "defpattern"
+  (facts "defpatch"
     (fact "stores pattern created by make-pattern in an atom"
           (do
-            (m/defpattern :intro :k 1 2 3 4)
+            (m/defpatch :intro :k 1 2 3 4)
             (m/getpattern :intro)) => {:k [1 2 3 4]})
 
     (fact "Anything other is treated as nil step"
           (do
-            (m/defpattern :intro :k 1 / + . 1 | = - 1 "" \c #{})
+            (m/defpatch :intro :k 1 / + . 1 | = - 1 "" \c #{})
             (m/getpattern :intro)) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]}))
 
   (facts "tracks-to-play"

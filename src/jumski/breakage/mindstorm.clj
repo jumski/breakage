@@ -14,7 +14,7 @@
        vec))
 
 (defn make-pattern
-  "Makes hash-map of hitnames to steps from a flat list provided by defpattern"
+  "Makes hash-map of hitnames to steps from a flat list provided by defpatch"
   [flat]
   (let [raw-tracks  (split-on-keyword flat)
         avals       (map (comp rest flatten) raw-tracks)
@@ -28,7 +28,7 @@
   [item]
   (if (or (keyword? item) (number? item)) item))
 
-(defmacro defpattern
+(defmacro defpatch
   "Parses steps into a pattern and stores in patterns atom"
   [pname & body]
   (let [body (map normalize-step body)
@@ -54,7 +54,7 @@
     (apply hash-map)))
 
 (comment
-  (defpattern :intro
+  (defpatch :intro
 
     :kick1    9 . . .   . . 9 .   9 . . 8   9 . 5 .
 
