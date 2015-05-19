@@ -1,7 +1,7 @@
 (ns jumski.breakage.tests.sequencer
   (:use [overtone.live :as o :only [beat-ms midi-note note]])
   (:use [overtone.midi :only [midi-out]])
-  (:use [overtone.at-at :only [every mk-pool stop]])
+  (:use [overtone.at-at :only [every mk-pool stop scheduled-jobs show-schedule]])
   (:use [jumski.breakage.mindstorm :only [make-pattern patterns defpatch getpattern]])
   (:use [jumski.breakage.tests.akai-s2000 :as akai])
   (:use [clojure.pprint :only [pprint] :rename {pprint pp}])
@@ -9,34 +9,35 @@
 
 (def current-step (atom 0))
 (def sequencer (atom nil))
+(def playing? (atom false))
 
 (def atat-pool (mk-pool))
 (def akai-player (akai/make-player "USB" 0))
 
-(defn play-and-advance [pname player-fn]
+(defn play-and-advance [player-fn]
   (do
-    (doseq [trk (pname @patterns)]
-      (player-fn trk @current-step))
+    (player-fn @current-step)
     (swap! current-step inc)))
-(comment
-  (play-and-advance :intro akai-player sink)
-  )
 
-(defn play-pattern! [pname bpm player-fn]
+(defn loop-pattern! [bpm player-fn]
   "Starts sequencing midi messages. Plays each step using player-fn
-  which is c
-  Uses notemap to translate track names to midi notes.
   Returns scheduled-fn, which can be stopped with stop."
   (let [step-ms (beat-ms 1/4 bpm)]
-    (every step-ms #(play-and-advance pname player-fn) atat-pool)))
+    (do
+      (play-and-advance player-fn)
+      (if @playing?
+        (o/apply-at (+ (o/now) step-ms) loop-pattern! [bpm player-fn])))))
+      ;; (every step-ms #(play-and-advance player-fn) atat-pool))))
 
-(defn stop-sequencing [pname]
-  (do (stop @sequencer)
+(defn stop-sequencing []
+  (do (reset! playing? false)
       (reset! current-step 0)))
 
-(defn restart-sequencing [pname bpm player]
-  (do (stop-sequencing pname)
-      (reset! sequencer (play-pattern! pname bpm akai-player))))
+(defn restart-sequencing [bpm player-fn]
+  (do (stop-sequencing)
+      (reset! playing? true)
+      (reset! current-step 0)
+      (loop-pattern! bpm player-fn)))
 
 ; --- LIVE ---
 (comment
