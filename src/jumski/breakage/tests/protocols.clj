@@ -1,5 +1,5 @@
 (ns jumski.breakage.tests.protocols)
 
 (defprotocol StepSequence
-  (notes-for-step step resolution))
+  (notes-for-step step))
 

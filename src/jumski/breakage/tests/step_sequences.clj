@@ -2,7 +2,7 @@
 
 (defrecord Patch steps
   StepSequence
-  (notes-for-step [step resolution]
+  (notes-for-step [step]
     (for [[tname steps] (:steps this)
           :let [velo (nth (cycle steps) step)]
           :when (not (nil? velo))
@@ -14,7 +14,7 @@
 
 (defrecord Pattern tracks
   StepSequence
-  (notes-for-step [step resolution]
+  (notes-for-step [step]
     (let [[tno trk] (:tracks this)]
       )
     ))
