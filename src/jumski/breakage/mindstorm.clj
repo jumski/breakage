@@ -56,7 +56,7 @@
 (comment
   (defpatch :intro
 
-    :kick1    9 . . .   . . 9 .   9 . . 8   9 . 5 .
+    :kick1    8 . . .   . . 9 .   9 . . 8   9 . 5 .
 
     :hat      . 2
 
