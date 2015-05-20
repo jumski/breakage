@@ -24,7 +24,8 @@
 
 (defn player-fn [step]
   (doseq [[anote velo] (notes-for-step step)
-          :let [anote (note anote)]]
+          :let [anote (akai/tname->note anote)
+                anote (note anote)]]
     (midi-note sink anote velo 100 0)))
 
 (def ch0 (akai/make-player "USB" 0))
