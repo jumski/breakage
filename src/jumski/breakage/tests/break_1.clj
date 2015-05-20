@@ -3,7 +3,8 @@
   (:use [overtone.midi :only [midi-out]])
   (:use [jumski.breakage.tests.sequencer :as s])
   (:use [jumski.breakage.mindstorm :only [defpatch patterns]])
-  (:use [jumski.breakage.tests.akai-s2000 :as akai]))
+  (:use [jumski.breakage.tests.akai-s2000 :as akai])
+  (:use [jumski.breakage.tests.step-sequences :as stepseq]))
 
 (comment
   (def metro (metronome 154))
@@ -15,12 +16,12 @@
 
 (def sink (midi-out "USB"))
 
-(defn notes-for-step [step]
-  (for [[anote steps] (:intro @patterns)
-        :let [velo (nth (cycle steps) step)]
-        :when (not (nil? velo))
-        :let [velo (* 12.7 (inc velo))]]
-    [anote velo]))
+;; (defn notes-for-step [step]
+;;   (for [[anote steps] (:intro @patterns)
+;;         :let [velo (nth (cycle steps) step)]
+;;         :when (not (nil? velo))
+;;         :let [velo (* 12.7 (inc velo))]]
+;;     [anote velo]))
 
 (defn player-fn [step]
   (doseq [[anote velo] (notes-for-step step)
