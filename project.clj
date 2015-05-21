@@ -6,5 +6,5 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [overtone "0.9.1"]
                  [org.clojure/math.numeric-tower "0.0.4"]]
-  :profiles {:dev {:dependencies [[midje "1.6-beta1"]]}})
+  :profiles {:dev {:dependencies [[midje "1.6.3"]]}})
 
