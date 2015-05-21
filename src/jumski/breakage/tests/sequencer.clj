@@ -2,7 +2,7 @@
   (:use [overtone.live :as o :only [beat-ms midi-note note]])
   (:use [overtone.midi :only [midi-out]])
   (:use [overtone.at-at :only [every mk-pool stop scheduled-jobs show-schedule]])
-  (:use [jumski.breakage.mindstorm :only [make-pattern patterns defpatch getpattern]])
+  (:use [jumski.breakage.state :only [make-pattern db defpatch getpattern]])
   (:use [jumski.breakage.tests.akai-s2000 :as akai])
   (:use [clojure.pprint :only [pprint] :rename {pprint pp}])
   (:use [jumski.breakage.kit :only [load-kit]]))

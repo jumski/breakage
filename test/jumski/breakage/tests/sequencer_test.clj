@@ -3,7 +3,7 @@
 ;; (use 'midje.sweet)
 (use 'midje.repl)
 (require '[jumski.breakage.tests.sequencer :as s] :reload)
-(require '[jumski.breakage.mindstorm :as m] :reload)
+(require '[jumski.breakage.state :as m] :reload)
 
 (facts "Sequencer"
   (facts "velo-for-step"

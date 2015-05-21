@@ -1,6 +1,6 @@
-(ns jumski.breakage.mindstorm)
+(ns jumski.breakage.state)
 
-(def patterns (atom {}))
+(def db (atom {}))
 
 (defn- split-on-keyword
   "Splits input sequence on chunks, each starting with keyword"
@@ -29,18 +29,18 @@
   (if (or (keyword? item) (number? item)) item))
 
 (defmacro defpatch
-  "Parses steps into a pattern and stores in patterns atom"
+  "Parses steps into a pattern and stores in db atom"
   [pname & body]
   (let [body (map normalize-step body)
         patt (make-pattern body)]
     (do
-      (swap! patterns assoc pname patt)
+      (swap! db assoc pname patt)
       pname)))
 
 (defn getpattern
   "Gets pattern by name"
   [pname]
-  (@patterns pname))
+  (@db pname))
 
 (defn tracks-to-play [patt step]
   "Given pattern, returns map of track name to velocity,
