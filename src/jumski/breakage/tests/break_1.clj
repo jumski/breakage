@@ -7,7 +7,7 @@
 
 (comment
   (def metro (metronome 154))
-  (s/restart-sequencing 154 player-fn)
+  (s/restart-sequencing 174 player-fn)
   (s/stop-sequencing)
   (s/play-and-advance player-fn)
   (def x (loop-pattern! 154 player-fn))
@@ -27,10 +27,14 @@
     (doseq [[anote velo] (notes-for-step patch step)
             :let [anote (akai/tname->note anote)
                   anote (note anote)]]
-      (midi-note sink anote velo 100 0))))
+      (midi-note sink anote velo 200 0))))
 
 ;; (def ch0 (akai/make-player "USB" 0))
 ;; (def ch1 (akai/make-player "USB" 1))
+
+(defpatch :intro
+  :kick1  1 . . .
+  :snare1 . 1 . .)
 
 (defpatch :intro
   :e3   2 . . . 4 . . .
@@ -40,6 +44,11 @@
         . . . . . . 4 .
   :e#3  . 3 .
   ;; :g#3  . . . . . 6
+  )
+
+(defpatch :intro
+  :kick2    9 . . . . . . .
+  :snare1   . . . . . 6 . .
   )
 
 (defpatch :intro
