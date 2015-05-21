@@ -3,8 +3,7 @@
             [overtone.music.rhythm :refer [metronome]]
             [overtone.studio.midi :refer [midi-note]]
             [overtone.midi :refer [midi-out]]
-            [jumski.breakage.sequencer :refer [restart-sequencing
-                                               stop-sequencing]]
+            [jumski.breakage.sequencer :refer [restart-sequencing stop-sequencing]]
             [jumski.breakage.state :refer [defpatch db]]
             [jumski.breakage.akai-s2000 :as akai]))
 
