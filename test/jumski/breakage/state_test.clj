@@ -1,11 +1,10 @@
-(ns jumski.breakage.mindstorm_test)
+(ns jumski.breakage.state_test)
 (use 'clojure.test)
 ;; (use 'midje.sweet)
 (use 'midje.repl)
-(require '[jumski.breakage.mindstorm :as m] :reload)
+(require '[jumski.breakage.state :as m] :reload)
 
-(facts "Mindstorm"
-
+(facts "state"
   (facts "make-pattern"
     (fact "Does not cycle anything if tracks are even in length"
       (m/make-pattern [:k 1 2 :p 3 4])
