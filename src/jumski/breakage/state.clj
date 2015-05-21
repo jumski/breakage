@@ -1,6 +1,8 @@
 (ns jumski.breakage.state)
 
-(def db (atom {}))
+(def db
+ "Stores patches, patterns and chains."
+ (atom {}))
 
 (defn- split-on-keyword
   "Splits input sequence on chunks, each starting with keyword"
