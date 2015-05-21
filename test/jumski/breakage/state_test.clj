@@ -19,10 +19,6 @@
                (defpatch :name :k 1 2 3 4)
                (:name @db) => {:k [1 2 3 4]})
 
-         (fact "stores pattern created by make-pattern in an atom"
-               (defpatch :name :k 1 2 3 4)
-               (:name @db) => {:k [1 2 3 4]})
-
          (fact "Anything other is treated as nil step"
                (defpatch :name :k 1 / + . 1 | = - 1 "" \c #{})
                (:name @db) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]})))

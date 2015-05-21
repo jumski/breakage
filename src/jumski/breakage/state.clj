@@ -26,7 +26,7 @@
     (zipmap akeys avals)))
 
 (defn- normalize-step
-  "If item is a number or keyword, return it.  Otherwise return nil"
+  "If item is a number or keyword, return it. Otherwise return nil"
   [item]
   (if (or (keyword? item) (number? item)) item))
 
