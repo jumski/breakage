@@ -29,11 +29,18 @@
       (midi-note sink anote velo 200 0))))
 
 (defpatch :intro
-  :kick1  1 . . .
-  :snare1 . 1 . .
-  :chat1  . . 1 .
-  :chat2  . . . 1)
+  :kick2    9 . . . . . 4 .
+            . . 9 . . . . .
+  :snare1   . . . . 4 . . .
+            . . . . 4 . . .
+            . . . . 4 . . .
+            . . . . 4 . . 2
+  :snare5   . 3 . . . 3 . .
+  :chat1    4 .
+  :kick6    . . . 3 . . . .
+  )
 
+(comment
 (defpatch :intro
   :e3   2 . . . 4 . . .
   ;; :f3   . 1
@@ -84,3 +91,4 @@
   ;; ;; :chat1 3 2 1
   ;; ;; :csnare . 3 . 3
   ;; )
+  )
