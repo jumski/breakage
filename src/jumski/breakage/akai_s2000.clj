@@ -1,4 +1,4 @@
-(ns jumski.breakage.tests.akai-s2000
+(ns jumski.breakage.akai-s2000
   (:use [overtone.live :only [midi-note note]])
   (:use [overtone.midi :only [midi-out]]))
 

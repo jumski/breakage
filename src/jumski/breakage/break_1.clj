@@ -1,16 +1,16 @@
-(ns jumski.breakage.tests.break-1
-  (:use [overtone.live :as o :only [metronome midi-note note stop]])
-  (:use [overtone.midi :only [midi-out]])
-  (:use [jumski.breakage.tests.sequencer :as s])
-  (:use [jumski.breakage.state :only [defpatch db]])
-  (:use [jumski.breakage.tests.akai-s2000 :as akai]))
+(ns jumski.breakage.break-1
+  (:require [overtone.music.pitch :refer [note]]
+            [overtone.music.rhythm :refer [metronome]]
+            [overtone.studio.midi :refer [midi-note]]
+            [overtone.midi :refer [midi-out]]
+            [jumski.breakage.sequencer :refer [restart-sequencing
+                                               stop-sequencing]]
+            [jumski.breakage.state :refer [defpatch db]]
+            [jumski.breakage.akai-s2000 :as akai]))
 
 (comment
-  (def metro (metronome 154))
-  (s/restart-sequencing 174 player-fn)
-  (s/stop-sequencing)
-  (s/play-and-advance player-fn)
-  (def x (loop-pattern! 154 player-fn))
+  (restart-sequencing 174 player-fn)
+  (stop-sequencing)
   )
 
 (def sink (midi-out "USB"))
@@ -28,9 +28,6 @@
             :let [anote (akai/tname->note anote)
                   anote (note anote)]]
       (midi-note sink anote velo 200 0))))
-
-;; (def ch0 (akai/make-player "USB" 0))
-;; (def ch1 (akai/make-player "USB" 1))
 
 (defpatch :intro
   :kick1  1 . . .
