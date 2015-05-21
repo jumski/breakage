@@ -23,12 +23,3 @@
         n (note n)
         n (+ 12 n)]
     n))
-
-(defn make-player [midi-out-string chan]
-  "Returns player-fn with opened midi-out"
-  (let [sink (midi-out midi-out-string)]
-    (fn [[tname steps] step]
-     (let [noteno (noteno-for-tname tname)
-           velo   (velo-for-step steps step)]
-       (if-not (nil? velo)
-         (midi-note sink noteno velo 100 chan))))))

@@ -12,7 +12,6 @@
 (def playing? (atom false))
 
 (def atat-pool (mk-pool))
-(def akai-player (akai/make-player "USB" 0))
 
 (defn play-and-advance [player-fn]
   (do

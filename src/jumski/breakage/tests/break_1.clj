@@ -3,8 +3,7 @@
   (:use [overtone.midi :only [midi-out]])
   (:use [jumski.breakage.tests.sequencer :as s])
   (:use [jumski.breakage.mindstorm :only [defpatch patterns]])
-  (:use [jumski.breakage.tests.akai-s2000 :as akai])
-  (:use [jumski.breakage.tests.step-sequences :as stepseq]))
+  (:use [jumski.breakage.tests.akai-s2000 :as akai]))
 
 (comment
   (def metro (metronome 154))
@@ -16,21 +15,22 @@
 
 (def sink (midi-out "USB"))
 
-;; (defn notes-for-step [step]
-;;   (for [[anote steps] (:intro @patterns)
-;;         :let [velo (nth (cycle steps) step)]
-;;         :when (not (nil? velo))
-;;         :let [velo (* 12.7 (inc velo))]]
-;;     [anote velo]))
+(defn notes-for-step [patch step]
+  (for [[anote steps] (:intro @patterns)
+        :let [velo (nth (cycle steps) step)]
+        :when (not (nil? velo))
+        :let [velo (* 12.7 (inc velo))]]
+    [anote velo]))
 
 (defn player-fn [step]
-  (doseq [[anote velo] (notes-for-step step)
-          :let [anote (akai/tname->note anote)
-                anote (note anote)]]
-    (midi-note sink anote velo 100 0)))
+  (let [patch (:intro @patterns)]
+    (doseq [[anote velo] (notes-for-step patch step)
+            :let [anote (akai/tname->note anote)
+                  anote (note anote)]]
+      (midi-note sink anote velo 100 0))))
 
-(def ch0 (akai/make-player "USB" 0))
-(def ch1 (akai/make-player "USB" 1))
+;; (def ch0 (akai/make-player "USB" 0))
+;; (def ch1 (akai/make-player "USB" 1))
 
 (defpatch :intro
   :e3   2 . . . 4 . . .

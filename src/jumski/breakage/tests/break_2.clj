@@ -2,6 +2,11 @@
 
 (comment
 
+  (loop-patch 154 :drums/base
+              :channel 0)
+  (loop-pattern 154 :intro)
+  (loop-song 154 :song)
+  (stop-sequencer)
 
   (defpatch :drums/base
     :kick1    6 . . . 6 . . .
@@ -10,6 +15,7 @@
 
   (defpatch :drums/fast
     {:resolution 1/32}
+    :snare2 1 2 3 . . . 4 5
     )
 
   (defpatch :bass/intro
