@@ -30,7 +30,9 @@
 
 (defpatch :intro
   :kick1  1 . . .
-  :snare1 . 1 . .)
+  :snare1 . 1 . .
+  :chat1  . . 1 .
+  :chat2  . . . 1)
 
 (defpatch :intro
   :e3   2 . . . 4 . . .
@@ -44,7 +46,7 @@
 
 (defpatch :intro
   :kick2    9 . . . . . . .
-  :snare1   . . . . . 6 . .
+  :snare1   . . . . . 9 . .
   )
 
 (defpatch :intro
