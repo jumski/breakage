@@ -30,33 +30,40 @@
           [anote velo] (notes-for-step (@db patch-name) step)
           :let [anote (akai/tname->note anote)
                 anote (note anote)]]
-    (midi-note sink anote velo 200 (dec midi-ch))))
+    (midi-note sink anote velo 80 (dec midi-ch))))
 
 (defpatch :intro
-  :chat1 7 . . .)
+  :chat1 7 . 3 .)
 
 (defpatch :synth
-  :c2  . . . . . . 5 .
+  :e2  . . . . . . 5 .
        . . . . . . 5 .
        . . . . . . 5 .
-       . . 5 . . . 5 .
-  :c#2 . . . . . . . .
+       . . . . . . 5 .
+       . . . . . . 5 .
+       . . . . . . 5 .
+       . . . . . . 5 .
+       . . . . . . 5 .
+  :f2  . 2 2 2 . . . .
        . . . . . . . .
+       . 2 2 2 . . . .
        . . . . . . . .
+       . 2 2 2 . . . .
        . . . . . . . .
-       . . . 2 . . . .
-       . . . . . . . .
+       . 2 2 2 . . . .
+       1 2 3 . 5 4 . 4
   )
 
 (defpatch :intro
   :kick5    9 . . . . . 1 .
             . . 9 . . . . .
-  :snare4   . 1 . . 8 . . .
+  :snare4   . 0.3 . . 8 . . .
   :chat1    . . 2 . . . . .
             . . . . . . 2 .
             . 2 . . . . . .
             . . . . . . . 2
-  :snare5   . . 3
+  :snare5   . . 3 . . 2
+
   ;; :kick6    . . . 1 . . . .
   ;; :snare6   . . . . . . . .
   ;;           . . . . . . . .
