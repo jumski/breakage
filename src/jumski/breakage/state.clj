@@ -34,7 +34,27 @@
 
 (defmacro defpatch
   "Parses steps into a pattern and stores in db atom"
-  [pname & body]
-  (let [body (map normalize-step body)
-        patt (make-pattern body)]
-    `(swap! db assoc ~pname ~patt)))
+  [pname & bodyopts]
+  (let [[opts body] (if (map? (first bodyopts))
+                      [(first bodyopts) (rest bodyopts)]
+                      [{} bodyopts])
+        body (map #(if (list? %) (eval %) %) body)
+        body (flatten body)
+        body (map normalize-step body)
+        patch {:opts opts :body (vec body)}]
+    `(swap! db assoc ~pname ~patch)))
+
+(defpatch :name
+  :k1 1 1 (take 6 (cycle [3 4 5]))
+  :p1 2 (take 7 (cycle [1 nil 2])))
+
+(comment
+  (defn player-fn [step]
+    (doseq [[midi-ch patch-name] midimap
+            [anote velo] (notes-for-step (@db patch-name) step)
+            :let [anote (akai/tname->note anote)
+                  anote (note anote)]]
+      (midi-note sink anote velo 80 (dec midi-ch))))
+
+
+  )
