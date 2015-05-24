@@ -1,9 +1,15 @@
 (ns jumski.breakage.sequencer
   (:require [overtone.music.rhythm :refer [beat-ms]]
-            [overtone.music.time :refer [apply-at now]]))
+            [overtone.music.time :refer [apply-at now]]
+            [overtone.at-at :refer [every mk-pool stop scheduled-jobs show-schedule]]))
 
 (def current-step (atom 0))
+
 (def playing? (atom false))
+
+(def sequencer (atom nil))
+
+(def atat-pool (mk-pool))
 
 (defn play-and-advance
   "Plays current step via player-fn and advances current-step."
@@ -26,8 +32,29 @@
   (do (reset! playing? false)
       (reset! current-step 0)))
 
+(defn stop-every-sequencing
+  "Stops sequencing started via every."
+  []
+  (do
+    (stop sequencer)
+    (reset! current-step 0)))
+
+
+(defn start-every-sequencing
+  "Starts sequencing playing each step with every."
+  [bpm player-fn]
+  (do
+    (stop-every-sequencing)
+    (let [step-ms (beat-ms 1/4 bpm)]
+     (every step-ms #(play-and-advance player-fn) atat-pool)
+     (play-and-advance player-fn))))
+
 (defn restart-sequencing
-  "Stops sequencer, resets current-step to 0 and starts sequencing
+  "DEPRECATED: This shifts and goes out of phase after some more repeats.
+  This is because apply-at is called after various number of notes being sent via midi.
+
+  OLD DOC:
+  Stops sequencer, resets current-step to 0 and starts sequencing
   at given bpm, playing each step with player-fn."
   [bpm player-fn]
   (do (stop-sequencing)
