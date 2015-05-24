@@ -27,7 +27,7 @@
 (def midimap {1 :intro  9  :synth 10 :synth2})
 (def midimap {1 :break1 9  :synth 10 :synth2})
 (def midimap {1 :break1 2 :intro })
-(def midimap {1 :break1 2 :intro 9  :synth 10 :synth2})
+(def midimap {1 :break1 2 :intro 10 :intro})
 (def midimap {9 :synth})
 
 (defn player-fn [step]
