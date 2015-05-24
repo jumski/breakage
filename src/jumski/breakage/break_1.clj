@@ -21,8 +21,13 @@
         :let [velo (* 12.7 (inc velo))]]
     [anote velo]))
 
-(def midimap {1 :intro 9 :synth 10 :synth})
-(def midimap {1 :intro})
+(def midimap {1 :intro  9  :synth})
+(def midimap {1 :intro  10 :synth2})
+(def midimap {1 :break1 10 :synth2})
+(def midimap {1 :intro  9  :synth 10 :synth2})
+(def midimap {1 :break1 9  :synth 10 :synth2})
+(def midimap {1 :break1 2 :intro })
+(def midimap {1 :break1 2 :intro 9  :synth 10 :synth2})
 (def midimap {9 :synth})
 
 (defn player-fn [step]
@@ -31,6 +36,29 @@
           :let [anote (akai/tname->note anote)
                 anote (note anote)]]
     (midi-note sink anote velo 200 (dec midi-ch))))
+
+(defpatch :synth2
+  :e2 . 3 . . 3 . . 3
+  :c3 . . . 2 . . . .
+      . . . . . . . .
+      . . . . . . 1 .
+      . . . . . . . .
+  )
+
+(defpatch :break1
+  :kick1     8 . . . 8 . . .
+  :kick2     . . 6 . . . 6 .
+  :chat3     . . . 4 . . . 4
+  :snare1    . . . . . . . .
+             . . . . . . . .
+             . . . . . . . .
+             . . 9 . . . . .
+  :chat5     . 5 . 2 . 2 1 .
+  :snare2    . . . . . . . .
+             . . . . . . . .
+             . . . . . . . .
+             . . 2 3 4 5 6 7
+  )
 
 (defpatch :intro
   :chat1 7 . . .)
