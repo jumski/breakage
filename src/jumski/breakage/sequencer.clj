@@ -46,7 +46,7 @@
   (do
     (stop-every-sequencing)
     (let [step-ms (beat-ms 1/4 bpm)]
-     (every step-ms #(play-and-advance player-fn) atat-pool)
+     (reset! sequencer (every step-ms #(play-and-advance player-fn) atat-pool))
      (play-and-advance player-fn))))
 
 (defn restart-sequencing
