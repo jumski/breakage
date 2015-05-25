@@ -1,31 +1,16 @@
 (ns jumski.breakage.break-1
-  (:require [overtone.music.pitch :refer [note]]
-            [overtone.music.rhythm :refer [metronome]]
-            [overtone.studio.midi :refer [midi-note]]
-            [overtone.midi :refer [midi-out]]
-            [jumski.breakage.sequencer :refer [restart-sequencing
-                                               stop-sequencing
-                                               start-every-sequencing
+  (:require [overtone.midi :refer [midi-out]]
+            [jumski.breakage.sequencer :refer [start-every-sequencing
                                                stop-every-sequencing]]
-            [jumski.breakage.state :refer [defpatch db]]
-            [jumski.breakage.akai-s2000 :as akai]))
+            [jumski.breakage.state :refer [defpatch]]
+            [jumski.breakage.helpers :refer [player-fn]]))
 
 (comment
-  (start-every-sequencing 154 player-fn)
+  (start-every-sequencing 154 #(player-fn sin midimap %))
   (stop-every-sequencing)
-
-  (restart-sequencing 194 player-fn)
-  (stop-sequencing)
   )
 
 (def sink (midi-out "USB"))
-
-(defn notes-for-step [patch step]
-  (for [[anote steps] patch
-        :let [velo (nth (cycle steps) step)]
-        :when (not (nil? velo))
-        :let [velo (* 12.7 (inc velo))]]
-    [anote velo]))
 
 (def midimap {})
 (def midimap {1 :intro  9  :synth})
@@ -46,13 +31,6 @@
 (def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch} )
 (def midimap {7 :snare:pitch 9 :snare:pitch} )
 (def midimap {9 :synth})
-
-(defn player-fn [step]
-  (doseq [[midi-ch patch-name] midimap
-          [anote velo] (notes-for-step (@db patch-name) step)
-          :let [anote (akai/tname->note anote)
-                anote (note anote)]]
-    (midi-note sink anote velo 200 (dec midi-ch))))
 
 (defpatch :snare:pitch
   :c#5    + . . . + . . . + . . . + . . .    + . . . + . 7 . + . . . + . . .
@@ -138,7 +116,7 @@
 
 (defpatch :break1
   :kick1     8 . . . 8 . . .
-  :kick2     . . 6 . . . 6 .
+  ;; :kick2     . . 6 . . . 6 .
   :chat3     . . . 1 . . . 1
   :snare1    . . . . . . . .
              . . . . . . . .
