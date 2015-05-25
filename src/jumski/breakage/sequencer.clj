@@ -37,6 +37,7 @@
   []
   (do
     (stop sequencer)
+    (reset! playing? false)
     (reset! current-step 0)))
 
 
@@ -46,7 +47,10 @@
   (let [step-ms (beat-ms 1/4 bpm)]
     (do
       (stop-every-sequencing)
-      (reset! sequencer (every step-ms #(play-and-advance player-fn) atat-pool)))))
+      (reset! playing? true)
+      (reset! sequencer (every step-ms
+                               #(when @playing?  (play-and-advance player-fn))
+                               atat-pool)))))
 
 (defn restart-sequencing
   "DEPRECATED: This shifts and goes out of phase after some more repeats.
