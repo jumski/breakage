@@ -27,6 +27,7 @@
         :let [velo (* 12.7 (inc velo))]]
     [anote velo]))
 
+(def midimap {})
 (def midimap {1 :intro  9  :synth})
 (def midimap {1 :intro  10 :synth2})
 (def midimap {1 :break1 10 :synth2})
@@ -34,6 +35,10 @@
 (def midimap {1 :break1 9  :synth 10 :synth2})
 (def midimap {1 :break1 2 :intro })
 (def midimap {1 :break1 2 :intro 10 :intro})
+(def midimap {1 :break1 2 :intro 7 :snare:pitch 10 :intro})
+(def midimap {7 :snare:pitch} )
+(def midimap {8 :snare:pitch2} )
+(def midimap {1 :break1 7 :snare:pitch} )
 (def midimap {9 :synth})
 
 (defn player-fn [step]
@@ -42,6 +47,36 @@
           :let [anote (akai/tname->note anote)
                 anote (note anote)]]
     (midi-note sink anote velo 200 (dec midi-ch))))
+
+(defpatch :snare:pitch
+  :c#3    5 . . . 5 . . . + . . . + . . .
+  :c3     + 5 . . + 5 . . + . . . + . . .
+  :b2     + . 5 . + . 5 . + . . . + . . .
+  :a#2    + . . 5 + . . 5 + . . . + . . .
+  :a2     + . . . + . . . + . . . + . . .
+  :g#2    + . . . + . . . + . . . + . . .
+  :g2     + . . . + . . . + . . . + . . .
+  :f#2    + . . . + . . . + . . . + . . .
+  :f2     + . . . + . . . 5 . . . 5 . . .
+  :e2     + . . . + . . . + 5 . . + 5 . .
+  :d#2    + . . . + . . . + . 5 . + . 5 .
+  :d2     + . . . + . . . + . . 5 + . . 5
+  :c#2    + . . . + . . . + . . . + . . .
+  :c2     + . . . + . . . + . . . + . . .
+  )
+
+;; (defpatch :snare:pitch
+;;
+;;   :c3   + . . . + 7 . .
+;;   :c#3  + 1 . 3 + 3 . 3 + . . 3 + 3 . 3
+;;   :e2   + . . . + . . . + 1 . 2 + 3 . 4
+;;
+;;   :d#2  + . . 7 + . . . + . . . + . . .
+;;         + . . . + . . . + . . . + . . .
+;;
+;;   :d2   + . . . + . . . + . . . + . . .
+;;   :c2   + . 3 . + . . . + . 3 . + . . .
+;;   )
 
 (defpatch :synth2
   :e2 . 3 . . 3 . . 3
@@ -54,12 +89,12 @@
 (defpatch :break1
   :kick1     8 . . . 8 . . .
   :kick2     . . 6 . . . 6 .
-  :chat3     . . . 4 . . . 4
+  :chat3     . . . 1 . . . 1
   :snare1    . . . . . . . .
              . . . . . . . .
              . . . . . . . .
              . . 9 . . . . .
-  :chat5     . 5 . 2 . 2 1 .
+  :chat5     . 1 . 1 . 1 1 .
   :snare2    . . . . . . . .
              . . . . . . . .
              . . . . . . . .

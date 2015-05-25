@@ -43,11 +43,10 @@
 (defn start-every-sequencing
   "Starts sequencing playing each step with every."
   [bpm player-fn]
-  (do
-    (stop-every-sequencing)
-    (let [step-ms (beat-ms 1/4 bpm)]
-     (reset! sequencer (every step-ms #(play-and-advance player-fn) atat-pool))
-     (play-and-advance player-fn))))
+  (let [step-ms (beat-ms 1/4 bpm)]
+    (do
+      (stop-every-sequencing)
+      (reset! sequencer (every step-ms #(play-and-advance player-fn) atat-pool)))))
 
 (defn restart-sequencing
   "DEPRECATED: This shifts and goes out of phase after some more repeats.
