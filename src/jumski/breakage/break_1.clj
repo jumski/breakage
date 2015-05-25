@@ -14,6 +14,10 @@
 
 (def midimap {})
 (def midimap {1 :intro  9  :synth})
+(def midimap {1 :intro 2 :break1  9 :synth})
+(def midimap {1 :intro 2 :break1 3 :break2 9 :synth})
+(def midimap {3 :break2})
+
 (def midimap {1 :intro  10 :synth2})
 (def midimap {1 :break1 10 :synth2})
 (def midimap {1 :intro  9  :synth 10 :synth2})
@@ -30,7 +34,13 @@
 (def midimap {1 :break1 2 :intro 7 :snare:pitch 8 :break1} )
 (def midimap {1 :break1 2 :intro 7 :snare:pitch 8 :break1 10 :synth2} )
 (def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch 10 :synth2} )
+(def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch 10 :intro-delayed} )
+(def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch 10 :intro-delayed} )
+(def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch 9 :synth} )
+(def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch 9 :intro-delayed} )
+(def midimap {9 :intro-delayed} )
 (def midimap {7 :snare:pitch 9 :snare:pitch} )
+(def midimap {1 :break1 2 :intro 3 :break2  9 :snare:pitch} )
 (def midimap {9 :synth})
 
 (defpatch :snare:pitch
@@ -58,21 +68,21 @@
   :c3     + . . . + . . . + . . . + . . .
 
   :b2     + . . . + . . . + . . . + . . .
-          + . . . + . . . + . 5 . + . . .
+          + . . . + . . . + . 7 . + . . .
 
   :a#2    + . . . + . . . + . . . + . . .
   :a2     + . . . + . . . + . . . + . . .
-  :g#2    + 5 . . + . . . + . . . + . . .
+  :g#2    + 7 . . + . . . + . . . + . . .
   :g2     + . . . + . . . + . . . + . . .
   :f#2    + . . . + . . . + . . . + . . .
   :f2     + . . . + . . . + . . . + . . .
-  :e2     + . . . + 7 . . 7 . . 7 + . . .
+  :e2     + . . . + 6 . . 6 . . 6 + . . .
   :d#2    + . . . + . . . + . . . + . . .
   :d2     + . . . + . . . + . . . + . . .
   :c#2    + . . . + . . . + . . . + . . .
 
-  .c2     + . . . + . . . + . . . + . . .
-          + . . . + . . . + . . . + . 9 .
+  :c2     + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . 5 .
   )
 
 (defpatch :break2
@@ -117,6 +127,17 @@
       . . . . . . . .
   )
 
+(defpatch :intro-delayed
+  :kick5    . 6 . 6 9 . . 6
+            . . . . . . 9 .
+  :snare4   . . . . . 6 . .
+            . . 5 . . 6 . .
+  :chat3    . . . . . . 5 .
+            . . . . . . . .
+            . . . . . 5 . .
+            . . . . . . . .
+  )
+
 (defpatch :break1
   :kick1     8 . . . 8 . . .
   ;; :kick2     . . 6 . . . 6 .
@@ -136,16 +157,8 @@
   :chat1 7 . . .)
 
 (defpatch :synth
-  :c2  . . . . . . 5 .
-       . . . . . . 5 .
-       . . . . . . 5 .
-       . . 5 . . . 5 .
-  :c#2 . . . . . . . .
-       . . . . . . . .
-       . . . . . . . .
-       . . . . . . . .
-       . . . 2 . . . .
-       . . . . . . . .
+  :e2 + . 5 . 2 . 2 . 5 . . . + . 5 . + . . . 5 . . .
+      + . 5 . + . . . 5 . . 3 + . 5 . + . . . 5 . 4 .
   )
 
 (defpatch :intro
@@ -157,11 +170,6 @@
             . 2 . . . . . .
             . . . . . . . 2
   :snare5   . . 3
-  ;; :kick6    . . . 1 . . . .
-  ;; :snare6   . . . . . . . .
-  ;;           . . . . . . . .
-  ;;           . . . . . . . .
-  ;;           . . 3 . 4 . 5 .
   )
 
 (comment
@@ -187,10 +195,6 @@
              . . . . . . . .   . 9 . . . . . .
   :snare8    . 9 . . 9 . . 9   . . . . . . . .
              . 9 . . . . . .   . . . . . . . .
-             ;; . . . . . . . .
-             ;; . 9 . . . . . .
-             ;; . . . . . . . .
-             ;; . 9 . . . . . .
   )
 
   ;; :kick1  9 . 3 9 . . 9 .
@@ -215,4 +219,22 @@
   ;; ;; :chat1 3 2 1
   ;; ;; :csnare . 3 . 3
   ;; )
+  )
+
+(comment
+
+
+  (defpatch :intro-delayed {:parser parse-drumkit :length 32}
+    :kick5    . . . . 9 . . .
+              . . . . . . 9 .
+    :snare4   . . . . . 1 . .
+              . . 2 . . 1 . .
+    :chat1    . . . . . . 2 .
+              . . . . . . . .
+              . . . . . 2 . .
+              . . . . . . . .
+    )
+
+
+
   )

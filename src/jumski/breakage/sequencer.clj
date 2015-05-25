@@ -9,7 +9,7 @@
 
 (def sequencer (atom nil))
 
-(def atat-pool (mk-pool))
+(def atat-pool (mk-pool :cpu-count 32))
 
 (defn play-and-advance
   "Plays current step via player-fn and advances current-step."
