@@ -28,7 +28,8 @@
 (def midimap {1 :break1 2 :intro 7 :snare:pitch} )
 (def midimap {1 :break1 2 :intro 7 :snare:pitch 8 :break1 10 :snare:pitch} )
 (def midimap {1 :break1 2 :intro 7 :snare:pitch 8 :break1} )
-(def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch} )
+(def midimap {1 :break1 2 :intro 7 :snare:pitch 8 :break1 10 :synth2} )
+(def midimap {1 :break1 2 :intro 3 :break2 7 :snare:pitch 10 :synth2} )
 (def midimap {7 :snare:pitch 9 :snare:pitch} )
 (def midimap {9 :synth})
 
@@ -109,10 +110,10 @@
 ;;   )
 
 (defpatch :synth2
-  :e2 . 3 . . 3 . . 3
-  :c3 . . . 2 . . . .
+  :e2 . 4 . . 4 . . 4
+  :c3 . . . 3 . . . .
       . . . . . . . .
-      . . . . . . 1 .
+      . . . . . . 4 .
       . . . . . . . .
   )
 
