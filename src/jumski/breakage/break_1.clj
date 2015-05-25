@@ -6,7 +6,7 @@
             [jumski.breakage.helpers :refer [player-fn]]))
 
 (comment
-  (start-every-sequencing 154 #(player-fn sin midimap %))
+  (start-every-sequencing 154 #(player-fn sink midimap %))
   (stop-every-sequencing)
   )
 
