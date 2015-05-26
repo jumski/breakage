@@ -58,7 +58,7 @@
 
 (defpatch :stabs:thirds
   :g1      + . . . + . . . + . . . + . . .
-           + . . . + . 9 . + . . . + . . .
+           + . . . + . . + 9 . . . + . . .
   :a#1     (concat
              (take 16 (cycle [nil nil 9]))
              (take 16 (repeat nil)))
