@@ -37,6 +37,7 @@
   []
   (do
     (stop sequencer)
+    (reset! sequencer nil)
     (reset! playing? false)
     (reset! current-step 0)))
 

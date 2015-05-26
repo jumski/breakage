@@ -32,9 +32,16 @@
   [item]
   (if (or (keyword? item) (number? item)) item))
 
+(defn reset-state! []
+  (reset! db {}))
+
 (defmacro defpatch
   "Parses steps into a pattern and stores in db atom"
   [pname & body]
-  (let [body (map normalize-step body)
+  (let [body  (map #(if  (list? %)  (eval %) %) body)
+        body (flatten body)
+        body (map normalize-step body)
         patt (make-pattern body)]
-    `(swap! db assoc ~pname ~patt)))
+    `(do
+       (swap! db assoc ~pname ~patt)
+       true)))

@@ -19,6 +19,14 @@
                (defpatch :name :k 1 2 3 4)
                (:name @db) => {:k [1 2 3 4]})
 
+         (fact "flattens any sequences"
+               (defpatch :name :k [1 2] 3 [4])
+               (:name @db) => {:k [1 2 3 4]})
+
+         (fact "evaluates any lists"
+               (defpatch :name :k (take 4 (cycle [1 2])))
+               (:name @db) => {:k [1 2 1 2]})
+
          (fact "Anything other is treated as nil step"
                (defpatch :name :k 1 / + . 1 | = - 1 "" \c #{})
                (:name @db) => {:k [1 nil nil nil 1 nil nil nil 1 nil nil nil]})))
