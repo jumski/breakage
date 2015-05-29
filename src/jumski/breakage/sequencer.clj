@@ -36,7 +36,8 @@
   "Stops sequencing started via every."
   []
   (do
-    (stop sequencer)
+    (when-let [sqn @sequencer] (stop sqn))
+    (stop @sequencer)
     (reset! sequencer nil)
     (reset! playing? false)
     (reset! current-step 0)))
