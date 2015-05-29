@@ -20,45 +20,59 @@
   (def midimap {1 :break:hard-kick   2 :hats:fast 7 :snares:slow 9 :stabs:thirds})
   (def midimap {9 :stabs:thirds})
   (def midimap {2 :hats:slow 9 :stabs:thirds})
-  (def midimap {2 :hats:slow 9 :stabs:thirds2})
-  (def midimap {1 :break:hard-kick 9 :stabs:thirds2})
+  (def midimap {1 :break:hard-kick 9 :stabs:thirds})
+  (def midimap {1 :break:hard-kick 2 :hats:fast   9 :stabs:thirds})
+  (def midimap {1 :break:hard-kick 2 :hats:fast   7 :snares:slow 9 :stabs:thirds})
+  (def midimap {1 :break:hard-kick 8 :snares:fast 9 :stabs:thirds})
+  (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast})
+  (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast 9 :stabs:thirds})
   )
 
 (defpatch :break:slow
-  :kick1    8 . . 1 + . . . + . 8 . + . 1 .
+  :kick2    8 . . 1 + . . . + . 8 . + . 1 .
   :snare4   + . 1 . 9 . . . + . . . 9 . . .
-  :snare5   + . . . + . . . 4 . . . + . . .
+  :snare5   + . . . + . . 4 + . . . + . . .
   )
 (defpatch :break:snares-only
   :snare4   + . 1 . 9 . . . + . . . 9 . . .
-  :snare5   + . . . + . . . 4 . . . + . . .
+  :snare5   + . . . + 2 . . + 2 . . + . . .
   )
 (defpatch :break:hard-kick
-  :kick6    8 . . 1 + . . . + . 8 . + . 1 .
-  :snare4   + . 1 . 9 . . . + 3 . . 9 . . .
-            + . 1 . 9 . 3 . + . . . 9 . . .
-  :snare5   + . . . + . . . 7 . . . + . . .
-  :snare3   + . . . + . 5 . + . . . + . . .
+  :kick2    8 . . 1 + . . . + . 8 . + . 1 .
+  :snare5   + . 1 . 5 . . . + 3 . . 5 . . .
+            2 . 1 . 5 . 3 . + . . . 5 . . .
+  :snare3   + . . . + . . 5 + . . . + . . .
+  :snare1   + . . . + 3 . . + . . . + . . .
+            + . . . + . . . + 1 1 1 + . . .
+            + . . . + 3 . . + . . . + . . .
+            + . . . + . . . + 1 1 1 + 3 . 3
   )
 
 (defpatch :hats:slow
-  :chat3    + 1 . . + 2 . 2 + . . . + . . .
+  :chat4    2 . .
   )
 (defpatch :hats:fast
   :chat3    3 . . .
   :chat5    . . 2 .
   )
+(defpatch :snares:fast
+  :c#4   . . . . . . . . . . . . . . 2 .
+  :c#3   . . . . . . . . . 2 . . . . . .
+  :d#3   . . . . . . . . . . 2 . . . . .
+  :e#3   . . . . . . . . . . . 2 . . . .
+  :g1    . . . + . . . + . . . + . . . +
+  )
 
 (defpatch :snares:slow
-  :c4        + 1 . 1 + . . . + . . . + . . .
+  :c4        + 2 . 2 + . . . + . . . + . . .
              + . . . + . . . + . . . + . . .
-  :c#3       + . . . + . . . + . 5 . + . . .
-  :c2        + . . . + . 6 . + . . . + . . .
+  :c#3       + . . . + . . . + . 4 . + . . .
+  :c2        + . . . + . 5 . + . . . + . . .
   )
 
 (defpatch :stabs:thirds
   :g1      + . . . + . . . + . . . + . . .
-           + . . . + . . + 9 . . . + . . .
+           + . . . + . 9 . + . . . + . . .
   :a#1     (concat
              (take 16 (cycle [nil nil 9]))
              (take 16 (repeat nil)))
@@ -69,6 +83,6 @@
   :a#1     (concat
              (take 16 (cycle [nil nil 9]))
              (take 12 (cycle [nil 8]))
-             [nil nil nil nil]
-  ))
+             [nil nil nil nil])
+  )
 
