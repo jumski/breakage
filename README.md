@@ -6,6 +6,16 @@ Turn your editor into a groovebox.
 * very jammable, expected to be run from your editor (tested with `vim-fireplace`)
 * can drive SuperCollider or external MIDI gear
 
+## TODO
+
+- refactor data model to hash of arrays of steps, where each step is a map
+- refactor `defpatch` to accept a transform-fn
+- implement durations, maybe like this:
+
+```clojure
+:c3     + . . . 8______ + . . . + . .. .
+```
+
 ## Usage
 
 ### Drumpatches
