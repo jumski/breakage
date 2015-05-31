@@ -10,15 +10,16 @@
 (def midimap {})
 
 (comment
-  (start-every-sequencing 174 #(player-fn sink midimap %))
+  (start-every-sequencing 154 #(player-fn sink midimap %))
   (stop-every-sequencing)
+
 
   (def midimap {1 :break:slow})
   (def midimap {1 :break:slow        2 :hats:slow})
   (def midimap {1 :break:slow        2 :hats:slow 7 :snares:slow})
   (def midimap {1 :break:snares-only 2 :hats:slow 7 :snares:slow})
-  (def midimap {1 :break:hard-kick   2 :hats:fast 7 :snares:slow 9 :stabs:thirds})
-  (def midimap {9 :stabs:thirds})
+  (def midimap {1 :break:hard-kick   2 :hats:fast 7 :snares:slow 9 :stabs:thirds-low})
+  (def midimap {9 :stabs:thirds-low})
   (def midimap {2 :hats:slow 9 :stabs:thirds})
   (def midimap {1 :break:hard-kick 9 :stabs:thirds})
   (def midimap {1 :break:hard-kick 2 :hats:fast   9 :stabs:thirds})
@@ -26,6 +27,18 @@
   (def midimap {1 :break:hard-kick 8 :snares:fast 9 :stabs:thirds})
   (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast})
   (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast 9 :stabs:thirds})
+  (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast 9 :stabs:thirds 10 :drop-out:1})
+  (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast 10 :drop-out:1})
+  (def midimap {1 :break:hard-kick 2 :hats:fast 7 :snares:slow 8 :snares:fast 10 :drop-out:1})
+  (def midimap {1 :break:hard-kick 2 :hats:fast 7 :snares:slow 8 :snares:fast 9 :stabs:thirds-low 10 :drop-out:1})
+  (def midimap {10 :drop-out:1})
+  )
+
+(defpatch :drop-out:1
+  :c1       + . . + . . . . + . . . + . . .
+            + . . + 3 . . . + . . . + . . .
+            + . . + . . . . + . . . + . . .
+            + . . + 3 . . . . . 3 . + . . .
   )
 
 (defpatch :break:slow
@@ -49,7 +62,7 @@
   )
 
 (defpatch :hats:slow
-  :chat4    2 . .
+  :chat4    2 . 3 .
   )
 (defpatch :hats:fast
   :chat3    3 . . .
@@ -64,10 +77,27 @@
   )
 
 (defpatch :snares:slow
-  :c4        + 2 . 2 + . . . + . . . + . . .
+  :c4        + 3 . 3 + . . . + . . . + . . .
              + . . . + . . . + . . . + . . .
   :c#3       + . . . + . . . + . 4 . + . . .
-  :c2        + . . . + . 5 . + . . . + . . .
+  :c2        + . . . + . 8 . + . . . + . . .
+  )
+
+(defpatch :stabs:thirds
+  :g1      + . . . + . . . + . . . + . . .
+           + . . . + . 9 . + . . . + . . .
+  :a#1     (concat
+             (take 16 (cycle [nil nil 9]))
+             (take 16 (repeat nil)))
+  )
+
+(defpatch :stabs:thirds-low
+  :g1      + . . . + . . . + . . . + . . .
+           + . . . + . 9 . + . . . + . . .
+  :a#1     + . 9 . + . . . . . . . + . . .
+           + . . . + . . . + . . . + . . .
+           + . 9 . + . . . . . . . + . 9 .
+           + . . . + . . . + . . . + . . .
   )
 
 (defpatch :stabs:thirds
