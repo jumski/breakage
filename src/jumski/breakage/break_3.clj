@@ -21,6 +21,8 @@
 (def midimap { 1 :break1 2 :hats1 })
 (def midimap { 1 :break1 2 :hats1 3 :snares1 })
 (def midimap { 1 :break1 2 :hats1 3 :snares2 })
+(def midimap {           2 :hats1 3 :snares2 })
+(def midimap { 1 :kicks1 2 :hats1 3 :snares2 })
 
 (defpatch :break1
   :kick-drop    2 . . . + . 9 . + . . . 9 . . .
@@ -48,4 +50,10 @@
   :snare5       . . 4 . . .
   :snare1       + . . . + 4 . . + 4 . . + . . .
                 + . . . + . . + 5 . . . + . . .
+  )
+
+(defpatch :kicks1
+  :c0       (repeat 16 nil)
+  :kick2    9 . . . . .
+  :kick6    9 . . . . .
   )
