@@ -12,16 +12,18 @@
 (reset! x 10)
 
 (comment
-  (start-sequencing 194 #(player-fn sink midimap %))
+  (start-sequencing 154 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
 
-(def midimap {1 :break1})
-(def midimap {1 :break1 2 :hats1 3 :snares1})
+(def midimap { 1 :break1 })
+(def midimap { 1 :break1 2 :hats1 })
+(def midimap { 1 :break1 2 :hats1 3 :snares1 })
+(def midimap { 1 :break1 2 :hats1 3 :snares2 })
 
 (defpatch :break1
-  :kick-drop    9 . . . + . 9 . + . . . 9 . . .
+  :kick-drop    2 . . . + . 9 . + . . . 9 . . .
   :snare-drop   + . . . 9 . . . + . 9 . + . . .
                 + . . . 9 . . 2 3 4 9 . + . . .
                 + . . . 9 . . . + . 9 . + . . .
@@ -34,8 +36,16 @@
 
 (defpatch :snares1
   :c0           + . . . + . . . + . . . + . . .
-  :snare4       . . 4
-  :snare5       . . 4
+  :snare6       . . . . . 4
+  :snare5       . . 4 . . .
   :snare1       + . . . + . . . + . . . + . . .
-                + . . . + . . + 6 . . . + . . .
+                + . . . + . . + 5 . . . + . . .
+  )
+
+(defpatch :snares2
+  :c0           + . . . + . . . + . . . + . . .
+  ;; :snare6       . . . . . 4
+  :snare5       . . 4 . . .
+  :snare1       + . . . + 4 . . + 4 . . + . . .
+                + . . . + . . + 5 . . . + . . .
   )
