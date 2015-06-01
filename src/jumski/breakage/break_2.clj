@@ -31,6 +31,7 @@
   (def midimap {1 :break:hard-kick 7 :snares:slow 8 :snares:fast 10 :drop-out:1})
   (def midimap {1 :break:hard-kick 2 :hats:fast 7 :snares:slow 8 :snares:fast 10 :drop-out:1})
   (def midimap {1 :break:hard-kick 2 :hats:fast 7 :snares:slow 8 :snares:fast 9 :stabs:thirds-low 10 :drop-out:1})
+  (def midimap {1 :break:hard-kick 9 :stabs:thirds-low 10 :drop-out:1})
   (def midimap {10 :drop-out:1})
   )
 
@@ -42,9 +43,14 @@
   )
 
 (defpatch :break:slow
-  :kick2    8 . . 1 + . . . + . 8 . + . 1 .
+  ;; :kick2    (reverse (range 10)) . . . . . .
+  ;; :chat1    . . . . . . (range 10)
+  :kick2    8 . . 2 + . . . + . 8 . + . 1 .
   :snare4   + . 1 . 9 . . . + . . . 9 . . .
-  :snare5   + . . . + . . 4 + . . . + . . .
+  :snare5   + . . . + . . . + . . . + . . .
+            + . . . + . . . + . . . + . . .
+            + . . . + . . . + . . . + . . .
+            + . . . + . . 4 + . . . + . . .
   )
 (defpatch :break:snares-only
   :snare4   + . 1 . 9 . . . + . . . 9 . . .
