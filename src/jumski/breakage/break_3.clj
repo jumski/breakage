@@ -12,7 +12,7 @@
 (reset! x 10)
 
 (comment
-  (start-sequencing 154 #(player-fn sink midimap %))
+  (start-sequencing 184 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
@@ -23,6 +23,7 @@
 (def midimap { 1 :break1 2 :hats1 3 :snares2 })
 (def midimap {           2 :hats1 3 :snares2 })
 (def midimap { 1 :kicks1 2 :hats1 3 :snares2 })
+(def midimap { 1 :kicks1 2 :hats1 3 :snares2 4 :hard-snare })
 
 (defpatch :break1
   :kick-drop    2 . . . + . 9 . + . . . 9 . . .
@@ -55,5 +56,8 @@
 (defpatch :kicks1
   :c0       (repeat 16 nil)
   :kick2    9 . . . . .
-  :kick6    9 . . . . .
+  )
+
+(defpatch :hard-snare
+
   )
