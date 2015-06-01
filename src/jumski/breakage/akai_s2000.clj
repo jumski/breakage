@@ -5,7 +5,10 @@
 ; --- FUNCTIONS ---
 (defn- velo-for-step [steps step]
   (when-let [velo (-> steps cycle (nth step))]
-    (* (inc velo) 12.7)))
+    (if (and (number? velo)
+             (>= velo 0)
+             (<= velo 9))
+      (* (inc velo) 12.7))))
 
 (def ^:private labels-to-notes
   "Maps track name to note"
