@@ -10,7 +10,7 @@
 (def midimap {})
 
 (comment
-  (start-every-sequencing 154 #(player-fn sink midimap %))
+  (start-every-sequencing 194 #(player-fn sink midimap %))
   (stop-every-sequencing)
 )
 
@@ -25,5 +25,8 @@
 
 (defpatch :break2
   :kick-drop    8 . . . + . 8 . + . . . 8 . . .
-  :snare-drop   + . . 7 + . . . + 7 . . + . . .
+  :snare-drop   + . . + 7 . . . + . 7 . + . . .
+                + . . + 7 . . . + . 7 . + . . .
+                + . . + 7 . . . + . 7 . + . . .
+                + . . + 7 . . . + . 7 . + . 7 .
   )
