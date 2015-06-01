@@ -58,6 +58,3 @@
   :kick2    9 . . . . .
   )
 
-(defpatch :hard-snare
-
-  )
