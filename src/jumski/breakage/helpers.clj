@@ -1,12 +1,7 @@
 (ns jumski.breakage.helpers
   (:require [overtone.music.pitch :refer [note]]
-            [overtone.music.rhythm :refer [metronome]]
             [overtone.studio.midi :refer [midi-note]]
-            [jumski.breakage.sequencer :refer [restart-sequencing
-                                               stop-sequencing
-                                               start-every-sequencing
-                                               stop-every-sequencing]]
-            [jumski.breakage.state :refer [defpatch db]]
+            [jumski.breakage.state :refer [db]]
             [jumski.breakage.akai-s2000 :as akai]))
 
 (defn notes-for-step [patch step]

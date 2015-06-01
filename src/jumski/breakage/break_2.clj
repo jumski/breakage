@@ -1,7 +1,7 @@
 (ns jumski.breakage.break-2
   (:require [overtone.midi :refer [midi-out]]
-            [jumski.breakage.sequencer :refer [start-every-sequencing
-                                               stop-every-sequencing]]
+            [jumski.breakage.sequencer :refer [start-sequencing
+                                               stop-sequencing]]
             [jumski.breakage.state :refer [defpatch reset-state!]]
             [jumski.breakage.helpers :refer [player-fn]]))
 
@@ -10,8 +10,8 @@
 (def midimap {})
 
 (comment
-  (start-every-sequencing 154 #(player-fn sink midimap %))
-  (stop-every-sequencing)
+  (start-sequencing 154 #(player-fn sink midimap %))
+  (stop-sequencing)
 
 
   (def midimap {1 :break:slow})

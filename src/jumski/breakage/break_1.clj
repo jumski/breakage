@@ -1,13 +1,13 @@
 (ns jumski.breakage.break-1
   (:require [overtone.midi :refer [midi-out]]
-            [jumski.breakage.sequencer :refer [start-every-sequencing
-                                               stop-every-sequencing]]
+            [jumski.breakage.sequencer :refer [start-sequencing
+                                               stop-sequencing]]
             [jumski.breakage.state :refer [defpatch]]
             [jumski.breakage.helpers :refer [player-fn]]))
 
 (comment
-  (start-every-sequencing 154 #(player-fn sink midimap %))
-  (stop-every-sequencing)
+  (start-sequencing 154 #(player-fn sink midimap %))
+  (stop-sequencing)
   )
 
 (def sink (midi-out "USB"))

@@ -27,12 +27,6 @@
         (apply-at (+ (now) step-ms) loop-pattern! [bpm player-fn])))))
 
 (defn stop-sequencing
-  "Stops sequencer."
-  []
-  (do (reset! playing? false)
-      (reset! current-step 0)))
-
-(defn stop-every-sequencing
   "Stops sequencing started via every."
   []
   (do
@@ -43,26 +37,13 @@
     (reset! current-step 0)))
 
 
-(defn start-every-sequencing
+(defn start-sequencing
   "Starts sequencing playing each step with every."
   [bpm player-fn]
   (let [step-ms (beat-ms 1/4 bpm)]
     (do
-      (stop-every-sequencing)
+      (stop-sequencing)
       (reset! playing? true)
       (reset! sequencer (every step-ms
                                #(when @playing? (play-and-advance player-fn))
                                atat-pool)))))
-
-(defn restart-sequencing
-  "DEPRECATED: This shifts and goes out of phase after some more repeats.
-  This is because apply-at is called after various number of notes being sent via midi.
-
-  OLD DOC:
-  Stops sequencer, resets current-step to 0 and starts sequencing
-  at given bpm, playing each step with player-fn."
-  [bpm player-fn]
-  (do (stop-sequencing)
-      (reset! playing? true)
-      (reset! current-step 0)
-      (loop-pattern! bpm player-fn)))

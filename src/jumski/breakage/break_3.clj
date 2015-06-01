@@ -1,7 +1,6 @@
 (ns jumski.breakage.break-3
   (:require [overtone.midi :refer [midi-out]]
-            [jumski.breakage.sequencer :refer [start-every-sequencing
-                                               stop-every-sequencing]]
+            [jumski.breakage.sequencer :refer [start-sequencing stop-sequencing]]
             [jumski.breakage.state :refer [defpatch reset-state!]]
             [jumski.breakage.helpers :refer [player-fn]]))
 
@@ -9,27 +8,34 @@
 (def sink (midi-out "USB"))
 (def midimap {})
 
+(def x (atom 0))
+(reset! x 10)
+
 (comment
-  (start-every-sequencing 194 #(player-fn sink midimap %))
-  (stop-every-sequencing)
+  (start-sequencing 194 #(player-fn sink midimap %))
+  (stop-sequencing)
 )
 
 
-(def midimap {1 :break2})
+(def midimap {1 :break1})
+(def midimap {1 :break1 2 :hats1 3 :snares1})
 
 (defpatch :break1
-  :kick-drop    9 . . . + . . 4 + . 9 . + . . .
-                9 . . 5 + . . 3 + . 9 . + . 3 .
-  :snare-drop   + . . . 8 . . . + . . . 8 . . .
+  :kick-drop    9 . . . + . 9 . + . . . 9 . . .
+  :snare-drop   + . . . 9 . . . + . 9 . + . . .
+                + . . . 9 . . 2 3 4 9 . + . . .
+                + . . . 9 . . . + . 9 . + . . .
+                + . . . 9 . . . + . 9 . + . 9 .
   )
 
-(defpatch :break2
-  :snare-drop   . . . . (interleave
-                          (reverse (range 10))
-                          (repeat 10 nil))
-  :kick-drop    8 . . . + . 8 . + . . . 8 . . .
-  ;; :snare-drop   + . . + 9 . . . + . 9 . + . . .
-  ;;               + . . + 7 . . . + . 7 . + . . .
-  ;;               + . . + 7 . . . + . 7 . + . . .
-  ;;               + . . + 9 . . . + . 9 . + . 9 .
+(defpatch :hats1
+  :chat-drop    + . 6 . + . 6 . 6 . . . + . 6 .
+  )
+
+(defpatch :snares1
+  :c0           + . . . + . . . + . . . + . . .
+  :snare4       . . 4
+  :snare5       . . 4
+  :snare1       + . . . + . . . + . . . + . . .
+                + . . . + . . + 6 . . . + . . .
   )
