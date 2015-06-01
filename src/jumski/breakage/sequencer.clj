@@ -51,7 +51,7 @@
       (stop-every-sequencing)
       (reset! playing? true)
       (reset! sequencer (every step-ms
-                               #(when @playing?  (play-and-advance player-fn))
+                               #(when @playing? (play-and-advance player-fn))
                                atat-pool)))))
 
 (defn restart-sequencing
