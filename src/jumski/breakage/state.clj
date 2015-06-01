@@ -32,7 +32,8 @@
   [item]
   (if (or (keyword? item) (number? item)) item))
 
-(defn reset-state! []
+(defn reset-state!
+  "Resets patches atom." []
   (reset! db {}))
 
 (defmacro defpatch
