@@ -15,9 +15,15 @@
 )
 
 
-(def midimap {1 :break1})
+(def midimap {1 :break2})
 
 (defpatch :break1
-  :kick4     9 . . . 1 . . .
+  :kick-drop    9 . . . + . . 4 + . 9 . + . . .
+                9 . . 5 + . . 3 + . 9 . + . 3 .
+  :snare-drop   + . . . 8 . . . + . . . 8 . . .
+  )
 
+(defpatch :break2
+  :kick-drop    8 . . . + . 8 . + . . . 8 . . .
+  :snare-drop   + . . 7 + . . . + 7 . . + . . .
   )
