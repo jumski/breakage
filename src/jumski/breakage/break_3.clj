@@ -8,31 +8,34 @@
 (def sink (midi-out "USB"))
 (def midimap {})
 
-(def x (atom 0))
-(reset! x 10)
-
 (comment
-  (start-sequencing 160 #(player-fn sink midimap %))
+  (start-sequencing 154 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
 
-(def midimap { 1 :break1                                                               })
-(def midimap { 1 :break1   2 :hats1                                                    })
-(def midimap {             2 :hats1   3 :snares2                                       })
+(def midimap { 1 :break1                                                                })
+(def midimap { 1 :break1   2 :hats1                                                     })
+(def midimap {             2 :hats1   3 :snares2                                        })
 
-(def midimap { 1 :break1   2 :hats1   3 :snares1                                       })
-(def midimap { 1 :break1   2 :hats1   3 :snares2                                       })
-(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                       })
-(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch      })
-(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast })
+(def midimap { 1 :break1   2 :hats1   3 :snares1                                        })
+(def midimap { 1 :break1   2 :hats1   3 :snares2                                        })
+(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                        })
+(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch       })
+(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast  })
+(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast2 })
 
-(def midimap { 1 :kicks1   2 :hats1   3 :snares1                                       })
-(def midimap { 1 :kicks1   2 :hats2   3 :snares2                                       })
-(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare                       })
-(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch      })
-(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast })
+(def midimap { 1 :kicks1   2 :hats1   3 :snares1                                        })
+(def midimap { 1 :kicks1   2 :hats2   3 :snares2                                        })
+(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare                        })
+(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch       })
+(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast  })
+(def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast2 })
 (def midimap { 4 :hard-snare})
+(def midimap {1 :test})
+
+(defpatch :test
+  :snare-drop    7 . . . )
 
 
 (defpatch :snare-pitch
@@ -46,7 +49,15 @@
 
 (defpatch :snare-pitch-fast
   :c#3    + . . . + . . . + . . . + . . .
+          + . . . + . . + . . . . + . . .
           + . . . + . . . + . . . + . . .
+          + . . . + . . . 2 . 3 . 4 . 6 .
+  :e2     2 . 3 . 4 . 6 . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+  )
+(defpatch :snare-pitch-fast2
+  :c#3    + . . . + . . . + . . . + . . .
+          + . 4 . + . . + 4 . . . + . . .
           + . . . + . . . + . . . + . . .
           + . . . + . . . 2 . 3 . 4 . 6 .
   :e2     2 . 3 . 4 . 6 . + . . . + . . .
@@ -54,7 +65,7 @@
   )
 
 (defpatch :break1
-  :kick-drop    5 . . .  +  . 5 . + .  .  . 5 .  .  .
+  :kick-drop    6 . . .  +  . 6 . + .  .  . 6 .  .  .
   :snare-drop   + . . . 4.6 . . . + . 4.6 . + .  .  .
                 + . . . 4.6 . . . + . 4.6 . + .  .  .
                 + . . . 4.6 . . . + . 4.6 . + . 4.6 .
@@ -66,7 +77,9 @@
 
 (defpatch :hats2
   :chat-drop    + 3 . 3 + . 3 . 3 . . . 3 . 3 .
-  :chat2        + . 3 . 3 . 3 . 3 . . . + 3 . 3
+                + 3 . 3 + . 3 . 3 . 4 . 3 . 3 .
+  :chat2        + . 3 . 3 . 3 . 3 . 4 . + 3 . 3
+                + . 3 . 3 . 3 . 3 . . . + 3 . 3
   )
 
 (defpatch :snares1
@@ -81,7 +94,7 @@
   ;; :snare6       . . . . . 4
   :snare5       . . 4 . . .
   :snare1       + . . . + 4 . . + 4 . . + . . .
-                + . . . + . . + 5 . . . + . . .
+                + . . . + . . 2 + . . . + . . .
   )
 
 (defpatch :kicks1
