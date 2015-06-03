@@ -4,12 +4,14 @@
             [jumski.breakage.state :refer [defpatch reset-state!]]
             [jumski.breakage.helpers :refer [player-fn]]))
 
+; requires akai floppy "DROP OUT"
+
 (reset-state!)
 (def sink (midi-out "USB"))
 (def midimap {})
 
 (comment
-  (start-sequencing 175 #(player-fn sink midimap %))
+  (start-sequencing 172 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
@@ -25,6 +27,7 @@
 (def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast  })
 (def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast2 })
 (def midimap { 1 :break1   2 :hats2   3 :snares1   4 :hard-snare   7 :snare-pitch-fast2 })
+(def midimap { 1 :break1   2 :hats2                                7 :snare-pitch-fast2 })
 
 (def midimap { 1 :kicks1   2 :hats1   3 :snares1                                        })
 (def midimap { 1 :kicks1   2 :hats2   3 :snares2                                        })
@@ -33,6 +36,7 @@
 (def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast  })
 (def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare   7 :snare-pitch-fast2 })
 (def midimap { 1 :kicks1   2 :hats2   3 :snares1   4 :hard-snare   7 :snare-pitch-fast2 })
+(def midimap { 1 :kicks1   2 :hats2                                7 :snare-pitch-fast2 })
 (def midimap { 4 :hard-snare})
 (def midimap {1 :test})
 
@@ -54,15 +58,15 @@
 
 (defpatch :snare-pitch-fast
   :c#3    + . . . + . . . + . . . + . . .
-          + . . . + . . + . . . . + . . .
           + . . . + . . . + . . . + . . .
-          + . . . + . . . 2 . 3 . 4 . 6 .
-  :e2     2 . 3 . 4 . 6 . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . 2 . . . 3 . 6 .
+  :e2     2 . 3 . . . 6 . + . . . + . . .
           + . . . + . . . + . . . + . . .
   )
 (defpatch :snare-pitch-fast2
   :c#3    + . . . + . . . + . . . + . . .
-          + . 4 . + . . + 4 . . . + . . .
+          + . 4 . + . . . 4 . . . + . . .
           + . . . + . . . + . . . + . . .
           + . . . + . . . 2 . 3 . 4 . 6 .
   :e2     2 . 3 . 4 . 6 . + . . . + . . .
@@ -104,7 +108,7 @@
 
 (defpatch :kicks1
   :c0       (repeat 16 nil)
-  :kick2    9 . . . . .
+  :kick2    6 . . . . .
   )
 
 (defpatch :hard-snare

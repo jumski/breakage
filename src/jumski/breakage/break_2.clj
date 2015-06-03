@@ -5,6 +5,8 @@
             [jumski.breakage.state :refer [defpatch reset-state!]]
             [jumski.breakage.helpers :refer [player-fn]]))
 
+; requires akai floppy "AMEN KIT CLOJURE"
+
 (reset-state!)
 (def sink (midi-out "USB"))
 (def midimap {})
