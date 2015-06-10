@@ -9,13 +9,13 @@
   (stop-sequencer)
 
   (defpatch :drums/base
-    :kick1    6 . . . 6 . . .
-    :snare1   . . 4 . . . . 4
+    :ab-kick1    6 . . . 6 . . .
+    :ab-snare1   . . 4 . . . . 4
     )
 
   (defpatch :drums/fast
     {:resolution 1/32}
-    :snare2 1 2 3 . . . 4 5
+    :ab-snare2 1 2 3 . . . 4 5
     )
 
   (defpatch :bass/intro

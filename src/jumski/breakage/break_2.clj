@@ -45,36 +45,36 @@
   )
 
 (defpatch :break:slow
-  ;; :kick2    (reverse (range 10)) . . . . . .
-  ;; :chat1    . . . . . . (range 10)
-  :kick2    8 . . 2 + . . . + . 8 . + . 1 .
-  :snare4   + . 1 . 9 . . . + . . . 9 . . .
-  :snare5   + . . . + . . . + . . . + . . .
+  ;; :ab-kick2    (reverse (range 10)) . . . . . .
+  ;; :ab-chat1    . . . . . . (range 10)
+  :ab-kick2    8 . . 2 + . . . + . 8 . + . 1 .
+  :ab-snare4   + . 1 . 9 . . . + . . . 9 . . .
+  :ab-snare5   + . . . + . . . + . . . + . . .
             + . . . + . . . + . . . + . . .
             + . . . + . . . + . . . + . . .
             + . . . + . . 4 + . . . + . . .
   )
 (defpatch :break:snares-only
-  :snare4   + . 1 . 9 . . . + . . . 9 . . .
-  :snare5   + . . . + 2 . . + 2 . . + . . .
+  :ab-snare4   + . 1 . 9 . . . + . . . 9 . . .
+  :ab-snare5   + . . . + 2 . . + 2 . . + . . .
   )
 (defpatch :break:hard-kick
-  :kick2    8 . . 1 + . . . + . 8 . + . 1 .
-  :snare5   + . 1 . 5 . . . + 3 . . 5 . . .
+  :ab-kick2    8 . . 1 + . . . + . 8 . + . 1 .
+  :ab-snare5   + . 1 . 5 . . . + 3 . . 5 . . .
             2 . 1 . 5 . 3 . + . . . 5 . . .
-  :snare3   + . . . + . . 5 + . . . + . . .
-  :snare1   + . . . + 3 . . + . . . + . . .
+  :ab-snare3   + . . . + . . 5 + . . . + . . .
+  :ab-snare1   + . . . + 3 . . + . . . + . . .
             + . . . + . . . + 1 1 1 + . . .
             + . . . + 3 . . + . . . + . . .
             + . . . + . . . + 1 1 1 + 3 . 3
   )
 
 (defpatch :hats:slow
-  :chat4    2 . 3 .
+  :ab-chat4    2 . 3 .
   )
 (defpatch :hats:fast
-  :chat3    3 . . .
-  :chat5    . . 2 .
+  :ab-chat3    3 . . .
+  :ab-chat5    . . 2 .
   )
 (defpatch :snares:fast
   :c#4   . . . . . . . . . . . . . . 2 .

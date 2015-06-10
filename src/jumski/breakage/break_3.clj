@@ -50,7 +50,7 @@
 (def midimap (assoc midimap 3 :snares2))
 
 (defpatch :test
-  :snare-drop    7 3 2 . 2 . )
+  :do-snare    7 3 2 . 2 . )
 
 
 (defpatch :snare-pitch
@@ -80,44 +80,44 @@
   )
 
 (defpatch :break1
-  :kick-drop    5 . . .  +  . 5 . + .  .  . 5 .  .  .
-  :snare-drop   + . . . 4.6 . . . + . 4.6 . + .  .  .
+  :do-kick      5 . . .  +  . 5 . + .  .  . 5 .  .  .
+  :do-snare     + . . . 4.6 . . . + . 4.6 . + .  .  .
                 + . . . 4.6 . . . + . 4.6 . + .  .  .
                 + . . . 4.6 . . . + . 4.6 . + . 4.6 .
   )
 
 (defpatch :hats1
-  :chat-drop    + . 3 . + . 3 . 3 . . . . . 3 .
+  :do-chat      + . 3 . + . 3 . 3 . . . . . 3 .
   )
 
 (defpatch :hats2
-  :chat-drop    + 3 . 3 + . 3 . 3 . . . 3 . 3 .
+  :do-chat      + 3 . 3 + . 3 . 3 . . . 3 . 3 .
                 + 3 . 3 + . 3 . 3 . 4 . 3 . 3 .
-  :chat2        + . 3 . 3 . 3 . 3 . 4 . + 3 . 3
+  :ab-chat2        + . 3 . 3 . 3 . 3 . 4 . + 3 . 3
                 + . 3 . 3 . 3 . 3 . . . + 3 . 3
   )
 
 (defpatch :snares1
-  :snare6       . .     . . 3.5
-  :snare5       . . 3.5 . .  .
-  :snare1       + .  .  . +  . . . + . . . + . . .
+  :ab-snare6       . .     . . 3.5
+  :ab-snare5       . . 3.5 . .  .
+  :ab-snare1       + .  .  . +  . . . + . . . + . . .
                 + .  .  . +  . . + 5 . . . + . . .
   )
 
 (defpatch :snares2
   :c0           + . . . + . . . + . . . + . . .
-  ;; :snare6       . . . . . 4
-  :snare5       . . 4 . . .
-  :snare1       + . . . + 4 . . + 4 . . + . . .
+  ;; :ab-snare6       . . . . . 4
+  :ab-snare5       . . 4 . . .
+  :ab-snare1       + . . . + 4 . . + 4 . . + . . .
                 + . . . + . . 2 + . . . + . . .
   )
 
 (defpatch :kicks1
   :c0       (repeat 16 nil)
-  :kick2    6 . . . . .
+  :ab-kick2    6 . . . . .
   )
 
 (defpatch :hard-snare
-  :snare8 (repeat 48 nil)      + . . . + . . . . 6 . . + . . .
-  :snare7 (repeat 48 nil)      + . . . + . . . . 6 . . + . . .
+  :ab-snare8 (repeat 48 nil)      + . . . + . . . . 6 . . + . . .
+  :ab-snare7 (repeat 48 nil)      + . . . + . . . . 6 . . + . . .
   )
