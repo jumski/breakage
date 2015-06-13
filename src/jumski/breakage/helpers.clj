@@ -16,5 +16,5 @@
           [anote velo] (notes-for-step (@db patch-name) step)
           :let [anote (akai/tname->note anote)
                 anote (note anote)]]
-    (midi-note sink anote velo 200 (dec midi-ch))))
+    (midi-note sink anote velo 500 (dec midi-ch))))
 
