@@ -10,7 +10,7 @@
 (def sink (midi-out "USB"))
 
 (comment
-  (start-sequencing 155 #(player-fn sink midimap %))
+  (start-sequencing 172 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
