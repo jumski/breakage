@@ -17,15 +17,23 @@
                        _   (.setMessage mm 0x51 bts 3)]
                    mm)
         file     (File. "midifile.mid")
-        note-on  (let [sm (ShortMessage.)
+        note-on1  (let [sm (ShortMessage.)
                        _  (.setMessage sm 0x90 0x3C 0x60)]
                    (MidiEvent. sm 0))
-        note-off (let [sm (ShortMessage.)
+        note-off1 (let [sm (ShortMessage.)
                        _  (.setMessage sm 0x80 0x3C 0x40)]
                    (MidiEvent. sm 120))
+        note-on2  (let [sm (ShortMessage.)
+                       _  (.setMessage sm 0x90 0x3D 0x60)]
+                   (MidiEvent. sm 0))
+        note-off2 (let [sm (ShortMessage.)
+                       _  (.setMessage sm 0x80 0x3D 0x40)]
+                   (MidiEvent. sm 120))
         ]
-    (.add track note-on)
-    (.add track note-off)
+    (.add track note-on1)
+    (.add track note-off1)
+    (.add track note-on2)
+    (.add track note-off2)
     (MidiSystem/write midiseq 1 file)
         )
   ;; ;  note on - middle C  ****
