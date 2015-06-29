@@ -10,13 +10,19 @@
 (def sink (midi-out "USB"))
 
 (comment
-  (start-sequencing 172 #(player-fn sink midimap %))
+  (start-sequencing 175 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
 (def midimap { 1 :kicks1  2 :hats1 3 :snares1                                             })
 (def midimap { 1 :kicks1  2 :hats1 3 :snares1                          7 :psnares1        })
+(def midimap { 1 :kicks1  2 :hats1 3 :snares2                          7 :psnares1        })
+(def midimap { 1 :kicks1  2 :hats1 3 :snares3                          7 :psnares1        })
+(def midimap { 1 :kicks1  2 :hats1 3 :snares3                          7 :psnares1 8 :psnares2 9 :wiert      })
 
+(defpatch :psnares2
+  :g#4    2 . 4 2 4 2 + 4 . . 4 2 . 2 4 2
+  )
 (defpatch :kicks1
   :c0           (repeat 16 nil)
   :ses-kick1    6 . . . . .
@@ -27,9 +33,28 @@
 (defpatch :snares1
   :ses-snare1   + . . . 5 . . . + . . . + . . .
                 + . . . + . 5 . + . . . 3 . . .
-                + . 4 . + . . + 5 . . . + . . .
+                + . 5 . + . . + 5 . . . + . . .
                 + . . . 5 . . . . . 5 . + . . .
-                ;; + . . . + . . . + . . . + . . .
+  )
+(defpatch :snares2
+  :ses-snare1   + . . . 5 . . . + . . . + . . .
+                + . . . + . 5 . + . . . 3 . . .
+                + . 5 . + . . + 5 . . . + . . .
+                + . . . 5 . . . . . 5 . + . . .
+                + . . . + . . . + . . . + . . .
+                + . . . + . . . + . . . + . . .
+                + . . . + . . . + . . . + . . .
+                + . . . + . . . + . . . + . . .
+  )
+(defpatch :snares3
+  :ses-snare1   + . . . 5 . . . + . . . + . . .
+                + . . . + . 5 . + . . . 3 . . .
+                + . . . + . . . + . . . + . . .
+                + . . . + . . . + . . . + . . .
+                + . 5 . + . . + 5 . . . + . . .
+                + . . . 5 . . . . . 5 . + . . .
+                + . . . + . . . + . . . + . . .
+                + . . . + . . . + . . . + . . .
   )
 
 (defpatch :psnares1
@@ -55,6 +80,11 @@
   :c2     + . . . + . . . + . . . + . . .
   )
 
+(defpatch :wiert
+  :c0 (repeat 32 nil)
+  :f1 . . 7 . . .
+  ;; :f0     . . 9 . . . 8 . . . 8 . . . . .
+  )
 (defpatch :hats1
   :ses-chat1    . 4 . . 4 . . .
   :ses-roll1    . . . . . . 3 .
