@@ -5,30 +5,26 @@
 
   (let [midiseq   (Sequence. Sequence/PPQ 24)
         track     (.createTrack midiseq)
-        sysex-msg (let [sm  (SysexMessage.)
-                        bts (byte-array [0xF0 0x7E 0x7F 0x09 0x01 0xF7])
-                        _   (.setMessage sm bts 6)]
-                    sm)
-        ;; midi-evt (let [me (MidiEvent. sysex-msg 0)
-        ;;                 _  (.add track me)]
-        ;;             me)
-        mm-tempo (let [mm  (MetaMessage.)
-                       bts (byte-array [0x02 0x00 0x00])
-                       _   (.setMessage mm 0x51 bts 3)]
-                   mm)
-        file     (File. "midifile.mid")
-        note-on1  (let [sm (ShortMessage.)
-                       _  (.setMessage sm 0x90 0x3C 0x60)]
-                   (MidiEvent. sm 0))
-        note-off1 (let [sm (ShortMessage.)
-                       _  (.setMessage sm 0x80 0x3C 0x40)]
-                   (MidiEvent. sm 120))
-        note-on2  (let [sm (ShortMessage.)
-                       _  (.setMessage sm 0x90 0x3D 0x60)]
-                   (MidiEvent. sm 0))
-        note-off2 (let [sm (ShortMessage.)
-                       _  (.setMessage sm 0x80 0x3D 0x40)]
-                   (MidiEvent. sm 120))
+
+        sysex-msg (let [bts (byte-array [0xF0 0x7E 0x7F 0x09 0x01 0xF7])]
+                    (doto (SysexMessage.) (.setMessage bts 6)))
+
+        mm-tempo  (let [bts (byte-array [0x02 0x00 0x00])]
+                    (doto (MetaMessage.) (.setMessage 0x51 bts 3)))
+
+        file      (File. "midifile.mid")
+
+        note-on1  (let [sm (doto (ShortMessage.) (.setMessage 0x90 0x3C 0x60))]
+                    (MidiEvent. sm 0))
+
+        note-off1 (let [sm (doto (ShortMessage.) (.setMessage 0x80 0x3C 0x40))]
+                    (MidiEvent. sm 120))
+
+        note-on2  (let [sm (doto (ShortMessage.) (.setMessage 0x90 0x3D 0x60))]
+                    (MidiEvent. sm 0))
+
+        note-off2 (let [sm (doto (ShortMessage.) (.setMessage 0x80 0x3D 0x40))]
+                    (MidiEvent. sm 120))
         ]
     (.add track note-on1)
     (.add track note-off1)
