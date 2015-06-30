@@ -107,6 +107,11 @@ You need a player (see below)
 (stop player)
 ```
 
+### Linux software that could be useful later
+
+* [seq24](http://www.filter24.org/seq24/) - jammable midi sequencer with a piano roll
+* [sooperlooper](http://essej.net/sooperlooper/) - jammable sampler with overdub
+
 
 
 ## License
