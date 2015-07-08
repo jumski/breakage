@@ -1,37 +1,45 @@
 (ns jumski.breakage.midifile
   (:import (java.io File)
-           ;(java.util)
-           (javax.sound.midi Sequence SysexMessage MidiEvent MetaMessage MidiSystem ShortMessage)))
+           (javax.sound.midi Sequence
+                             SysexMessage
+                             MidiEvent
+                             MetaMessage
+                             MidiSystem
+                             ShortMessage)))
 
-  (let [midiseq   (Sequence. Sequence/PPQ 24)
-        track     (.createTrack midiseq)
+(defn noteon
+  "Takes note number no and velocity velo
+  and returns a java note on ShortMessage for given note"
+  [no velo]
+  (doto (ShortMessage.) (.setMessage 0x90 no velo)))
 
-        sysex-msg (let [bts (byte-array [0xF0 0x7E 0x7F 0x09 0x01 0xF7])]
-                    (doto (SysexMessage.) (.setMessage bts 6)))
+(defn noteoff
+  "Takes note number no and returns a java note off ShortMessage for given note"
+  [no]
+  (doto (ShortMessage.) (.setMessage 0x80 no 0)))
 
-        mm-tempo  (let [bts (byte-array [0x02 0x00 0x00])]
-                    (doto (MetaMessage.) (.setMessage 0x51 bts 3)))
+(let [midiseq    (Sequence. Sequence/PPQ 24)
+      track      (.createTrack midiseq)
 
-        file      (File. "midifile.mid")
+      sysex-msg  (let [bts (byte-array [0xF0 0x7E 0x7F 0x09 0x01 0xF7])]
+                   (doto (SysexMessage.) (.setMessage bts 6)))
 
-        note-on1  (let [sm (doto (ShortMessage.) (.setMessage 0x90 0x3C 0x60))]
-                    (MidiEvent. sm 0))
+      mm-tempo   (let [bts (byte-array [0x02 0x00 0x00])]
+                   (doto (MetaMessage.) (.setMessage 0x51 bts 3)))
 
-        note-off1 (let [sm (doto (ShortMessage.) (.setMessage 0x80 0x3C 0x40))]
-                    (MidiEvent. sm 120))
+      file       (File. "midifile.mid")
 
-        note-on2  (let [sm (doto (ShortMessage.) (.setMessage 0x90 0x3D 0x60))]
-                    (MidiEvent. sm 0))
+      note-on1   (MidiEvent. (noteon 60 120) 0)
+      note-off1  (MidiEvent. (noteoff 60) 120)
 
-        note-off2 (let [sm (doto (ShortMessage.) (.setMessage 0x80 0x3D 0x40))]
-                    (MidiEvent. sm 120))
-        ]
-    (.add track note-on1)
-    (.add track note-off1)
-    (.add track note-on2)
-    (.add track note-off2)
-    (MidiSystem/write midiseq 1 file)
-        )
+      note-on2   (MidiEvent. (noteon 72 60) 120)
+      note-off2  (MidiEvent. (noteoff 72) 360)
+      ]
+  (.add track note-on1)
+  (.add track note-off1)
+  (.add track note-on2)
+  (.add track note-off2)
+  (MidiSystem/write midiseq 1 file))
   ;; ;  note on - middle C  ****
   ;; mm = new ShortMessage();
   ;; mm.setMessage(0x90,0x3C,0x60);
