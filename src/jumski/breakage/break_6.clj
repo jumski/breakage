@@ -10,7 +10,7 @@
 (def sink (midi-out "USB"))
 
 (comment
-  (start-sequencing 175 #(player-fn sink midimap %))
+  (start-sequencing 173 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 
@@ -19,6 +19,7 @@
 (def midimap { 1 :kicks1  2 :hats1 3 :snares2                          7 :psnares1        })
 (def midimap { 1 :kicks1  2 :hats1 3 :snares3                          7 :psnares1        })
 (def midimap { 1 :kicks1  2 :hats1 3 :snares3                          7 :psnares1 8 :psnares2 9 :wiert      })
+(def midimap { 1 :kicks1  2 :hats1 3 :snares3                          7 :psnares1 8 :psnares2 9 :wiert2      })
 
 (defpatch :psnares2
   :g#4    2 . 4 2 4 2 + 4 . . 4 2 . 2 4 2
@@ -81,6 +82,11 @@
   )
 
 (defpatch :wiert
+  :c0 (repeat 32 nil)
+  :f1 . . 7 . . .
+  ;; :f0     . . 9 . . . 8 . . . 8 . . . . .
+  )
+(defpatch :wiert2
   :c0 (repeat 32 nil)
   :f1 . . 7 . . .
   ;; :f0     . . 9 . . . 8 . . . 8 . . . . .

@@ -11,7 +11,7 @@
 (def midimap {})
 
 (comment
-  (start-sequencing 155 #(player-fn sink midimap %))
+  (start-sequencing 154 #(player-fn sink midimap %))
   (stop-sequencing)
 )
 

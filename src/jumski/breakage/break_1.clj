@@ -8,7 +8,7 @@
 ; requires akai floppy "AMEN KIT CLOJURE"
 
 (comment
-  (start-sequencing 154 #(player-fn sink midimap %))
+  (start-sequencing 83.5 #(player-fn sink midimap %))
   (stop-sequencing)
   )
 
