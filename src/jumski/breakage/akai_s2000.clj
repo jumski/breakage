@@ -18,7 +18,7 @@
    :ab-chat4 :g#3
    :ab-chat5 :a#3
 
-   :ab-kick1 :e2     :do-kick  :d3     :ses-kick1 :f#2
+   :ab-kick1 :e2     :do-kick  :d3     :ses-kick1 :f#2      :dm-kick1 :a#2
    :ab-kick2 :f2                       :ses-kick2 :g#2
    :ab-kick3 :g2
    :ab-kick4 :a2
