@@ -36,10 +36,23 @@
   "Resets patches atom." []
   (reset! db {}))
 
+(defn- ensure-pattern-fn
+  "If first item is a function, returns body as is.
+   If first item is not a function, returns sequence
+   of make-pattern prepended to body"
+  [body]
+  (let [[maybe-fn & body] body
+        maybe-fn (if (and (ifn? maybe-fn)
+                          (not (keyword? maybe-fn)))
+                   maybe-fn
+                   make-pattern)]
+    (cons maybe-fn body)))
+
 (defmacro defpatch
   "Parses steps into a pattern and stores in db atom"
   [pname & body]
-  (let [body  (map #(if  (list? %)  (eval %) %) body)
+  (let [[pattern-fn & body-tail] (ensure-pattern-fn body)
+        body  (map #(if  (list? %)  (eval %) %) body-tail)
         body (flatten body)
         body (map normalize-step body)
         patt (make-pattern body)]
