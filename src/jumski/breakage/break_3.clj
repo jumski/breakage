@@ -19,20 +19,45 @@
 (def midimap {7 :snare-pitch-fast})
 (def midimap {7 :snare-pitch-fast2})
 
+(defpatch :bass1
+  :c1     + . . . 7 . . 7 + . 7 . + 7 . .
+          7 . . . + . . . + . . . + . . .
+          + . . . + . . . + . 7 . 7 . . .
+          + . . . + . . . + . . . + . . .
+  :b0     + . . . + . . . + . . . + . . .
+          + . . 8 + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . +
+          8 . . . + . . . + . . . + . . .
+  )
+(defpatch :bass1
+  :g0     + 7 . . 7 . . 7 + . 7 . + 7 . .
+          7 . . 7 + . 7 . + 7 . . + . . .
+  :g1     + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . . + . . .
+          + . . . + . . . + . . 5.5 + . 5.5 .
+  )
+
 
 (def midimap { 1 :break1                                                                                                      })
+(def midimap {1 :break1 9 :bass1})
 (def midimap { 1 :break1   2 :hats1                                                                                           })
-(def midimap {             2 :hats1   3 :snares2                                                                              })
+(def midimap { 1 :break1   2 :hats1   9 :bass1 })
+(def midimap {                        3 :snares2                                                                              })
 
 (def midimap { 1 :break1   2 :hats1   3 :snares1                                                                              })
 (def midimap { 1 :break1   2 :hats1   3 :snares2                                                                              })
 (def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                                                              })
-(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                   7  :snare-pitch                            })
+(def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                   7  :snare-pitch                           9 :bass1 })
 (def midimap {1 :test                                                                                                         })
 (def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                   7  :snare-pitch-fast                       })
 (def midimap { 1 :break1   2 :hats2   3 :snares2   4 :hard-snare                   7  :snare-pitch-fast2                      })
 (def midimap { 1 :break1   2 :hats2   3 :snares1   4 :hard-snare                   7  :snare-pitch-fast2                      })
-(def midimap { 1 :break1   2 :hats2   3 :snares1   4 :hard-snare   5 :ses-snare1   7  :snare-pitch-fast2                      })
+(def midimap { 1 :break1   2 :hats2   3 :snares1   4 :hard-snare   5 :ses-snare1   7  :snare-pitch-fast2                     9 :bass1 })
 (def midimap { 1 :break1   2 :hats2                                                7  :snare-pitch-fast2                      })
 (def midimap { 1 :break1   2 :hats2                                5 :ses-snare2   7  :snare-pitch-fast2                      })
 (def midimap {1 :test                                                                                                         })
@@ -65,6 +90,7 @@
 (def midimap { 1 :kicks1   2 :hats2   3 :snares2   4 :hard-snare2  5 :ses-snare2   7  :snare-pitch-fast2  8 :snare-pitch-slow 9 :bass1 })
 (def midimap { 4 :hard-snare})
 (def midimap {1 :test})
+(def midimap {9 :bass1})
 
 (def midimap (assoc midimap 3 :snares1))
 (def midimap (assoc midimap 3 :snares2))
