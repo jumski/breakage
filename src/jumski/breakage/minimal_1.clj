@@ -7,7 +7,7 @@
 ; requires akai floppy "DROP OUT"
 
 (reset-state!)
-(def sink (midi-out "USB"))
+(def sink (midi-out "MS-20 mini"))
 
 (comment
   (start-sequencing 174 #(player-fn sink midimap %))

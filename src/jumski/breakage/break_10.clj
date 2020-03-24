@@ -7,7 +7,7 @@
 ; requires akai floppy "DROP OUT"
 
 (reset-state!)
-(def sink (midi-out "USB"))
+(def sink (midi-out "MS-20 mini"))
 
 (comment
   (start-sequencing 154 #(player-fn sink midimap %))
@@ -19,8 +19,14 @@
 (def midimap { 1 :kick1 2 :hats1 3 :hits1 })
 (def midimap { 1 :kick1 2 :hats1 3 :hits1 4 :snares1 })
 (def midimap { 1 :kick2 })
-(def midimap { 9 :bass1 })
+(def midimap { 1 :bass1 })
 (def midimap { 1 :kick1 2 :hats1 3 :hits1 4 :snares1 9 :bass1 })
+(def midimap { 1 :bass-exp } )
+
+(defpatch :bass-exp
+  :c2 6 . . . . . . .
+  :e2 . . . . 6 . . .
+  )
 
 (defpatch :bass1
   :c0 (repeat 8 nil)
